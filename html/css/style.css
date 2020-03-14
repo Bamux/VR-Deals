@@ -1,0 +1,28 @@
+/* style.css */
+.navbarcontainer {
+    max-width: 960px
+}
+
+
+.content {
+    padding-top: 45px;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 960px
+}
+
+.card-img{
+    width: 157px!important;
+    height: 117px!important;
+    object-fit: cover;
+}
+
+.card{
+    max-width: 960px
+}
+
+@media (min-width: 992px) {
+    .navbar {
+        height:50px;
+    }
+}
