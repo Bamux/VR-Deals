@@ -1,8 +1,4 @@
 /* style.css */
-.navbarcontainer {
-    max-width: 960px
-}
-
 
 .content {
     padding-top: 45px;
@@ -25,4 +21,13 @@
     .navbar {
         height:50px;
     }
+}
+
+.nav {
+  text-align: center;
+}
+
+.navbar-nav .nav-item {
+  float: inherit;
+  display: inline-block;
 }
