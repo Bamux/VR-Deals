@@ -1,2 +1,2 @@
-# VR deals
+# VR Deals
 This project finds the best VR deals on the Internet.
