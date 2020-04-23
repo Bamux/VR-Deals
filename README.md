@@ -1,2 +1,2 @@
 # VR Schnäppchen
-Dies Project findet die besten VR Schnäppchen im Internet.
+Dieses Project findet die besten VR Schnäppchen im Internet.
