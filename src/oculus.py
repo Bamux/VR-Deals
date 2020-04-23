@@ -33,7 +33,7 @@ def oculus_store(headset):
     for game_id, game_title, sale_price, regular_price in zip(
             game_ids, game_titles, sale_prices, regular_prices):
         game_id = game_id.get_attribute("href").rpartition("/")[2]
-        games.append((game_id, game_title.text, sale_price.text, regular_price.text))
+        games.append((headset, game_id, game_title.text, sale_price.text, regular_price.text))
         print(game_title.text, ":", sale_price.text)
     driver.close()
     driver.quit()
