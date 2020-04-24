@@ -5,20 +5,21 @@ from selenium.webdriver.chrome.options import Options
 
 def oculus_store(headset):
     """
-    Finds the current offers in the oculus store for the specified headset.
+    Gets the data via web scraping with the selenium library.
 
-    :param headset: Name of the Headset
+    :param headset: Name of the headset
     :type headset: str
     :returns: [(headset, store_id, game_title, sale_price, regular_price)]
     """
     games = []
-
+    element = 'section__items'
     if headset == "Quest":
         url = 'https://www.oculus.com/experiences/quest/'
         element = 'store-section-items'
     elif headset == "Rift":
         url = 'https://www.oculus.com/experiences/rift/section/1578364258944223/'
-        element = 'section__items'
+    elif headset == "Go":
+        url = 'https://www.oculus.com/experiences/go/section/1500175860035862/'
     else:
         return games
 
@@ -27,7 +28,7 @@ def oculus_store(headset):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
     driver = webdriver.Chrome(options=chrome_options,
-                              executable_path='../chromedriver_win32/chromedriver.exe')
+                              executable_path='../../chromedriver_win32/chromedriver.exe')
     driver.implicitly_wait(10)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
@@ -52,7 +53,7 @@ def main():
 
     :returns: [(headset, store_id, game_title, sale_price, regular_price)]
     """
-    headsets = ('Quest', 'Rift')
+    headsets = ('Quest', 'Rift', 'Go')
     games = []
     for headset in headsets:
         games.extend(oculus_store(headset))
