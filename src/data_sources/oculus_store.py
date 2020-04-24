@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 
 def oculus_store(headset):
     """
-    Gets the data via web scraping with the selenium library.
+    Gets the data from the oculus store via web scraping with the selenium library.
 
     :param headset: Name of the headset
     :type headset: str
