@@ -6,7 +6,7 @@ def main():
     """
     Get the offers from different date sources.
 
-    :returns: [(headset, store_id, game_title, sale_price, regular_price)]
+    :returns: [(store_id, game_title, sale_price, regular_price, headset)]
     """
     games = oculus_store.main()
     # games.expand(steam_store.main())

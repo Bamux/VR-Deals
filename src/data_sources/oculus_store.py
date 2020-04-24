@@ -9,7 +9,7 @@ def oculus_store(headset):
 
     :param headset: Name of the headset
     :type headset: str
-    :returns: [(headset, store_id, game_title, sale_price, regular_price)]
+    :returns: [(store_id, game_title, sale_price, regular_price, headset)]
     """
     games = []
     element = 'section__items'
@@ -40,7 +40,7 @@ def oculus_store(headset):
     for store_id, game_title, sale_price, regular_price in zip(
             store_ids, game_titles, sale_prices, regular_prices):
         store_id = store_id.get_attribute("href").rpartition("/")[2]
-        games.append((headset, store_id, game_title.text, sale_price.text, regular_price.text))
+        games.append((store_id, game_title.text, sale_price.text, regular_price.text, headset))
         print(game_title.text, ":", sale_price.text)
     driver.close()
     driver.quit()
@@ -51,7 +51,7 @@ def main():
     """
     Returns the oculus store offers for Quest, Rift and Go.
 
-    :returns: [(headset, store_id, game_title, sale_price, regular_price)]
+    :returns: [(store_id, game_title, sale_price, regular_price, headset)]
     """
     headsets = ('Quest', 'Rift', 'Go')
     games = []

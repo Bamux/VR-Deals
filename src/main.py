@@ -1,4 +1,4 @@
-import get_offers
+# import get_offers
 import sql
 
 
