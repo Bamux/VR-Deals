@@ -1,6 +1,7 @@
 """Requires the external library selenium."""
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from pathlib import Path
 
 
 def oculus_store(headset):
@@ -11,7 +12,7 @@ def oculus_store(headset):
     :type headset: str
     :returns: [(store_id, game_title, sale_price, regular_price, headset)]
     """
-    games = []
+    offers = []
     element = 'section__items'
     if headset == "Quest":
         url = 'https://www.oculus.com/experiences/quest/'
@@ -21,14 +22,15 @@ def oculus_store(headset):
     elif headset == "Go":
         url = 'https://www.oculus.com/experiences/go/section/1500175860035862/'
     else:
-        return games
+        return offers
 
     print(f'The script searches for current offers in the Oculus {headset} Store.\n{url}')
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
-    driver = webdriver.Chrome(options=chrome_options,
-                              executable_path='../chromedriver_win32/chromedriver.exe')
+    # insert the path where the chromedriver.exe is located
+    chromedriver_executable_path = f'{Path(__file__).parent.parent.parent}/chromedriver/chromedriver.exe'
+    driver = webdriver.Chrome(options=chrome_options, executable_path=chromedriver_executable_path)
     driver.implicitly_wait(10)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
@@ -40,11 +42,11 @@ def oculus_store(headset):
     for store_id, game_title, sale_price, regular_price in zip(
             store_ids, game_titles, sale_prices, regular_prices):
         store_id = store_id.get_attribute("href").rpartition("/")[2]
-        games.append((store_id, game_title.text, sale_price.text, regular_price.text, headset))
+        offers.append((store_id, game_title.text, sale_price.text, regular_price.text, headset))
         print(game_title.text, ":", sale_price.text)
     driver.close()
     driver.quit()
-    return games
+    return offers
 
 
 def main():
@@ -54,10 +56,10 @@ def main():
     :returns: [(store_id, game_title, sale_price, regular_price, headset)]
     """
     headsets = ('Quest', 'Rift', 'Go')
-    games = []
+    offers = []
     for headset in headsets:
-        games.extend(oculus_store(headset))
-    return games
+        offers.extend(oculus_store(headset))
+    return offers
 
 
 if __name__ == "__main__":

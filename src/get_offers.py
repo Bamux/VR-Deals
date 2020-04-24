@@ -1,16 +1,28 @@
-"""The current data sources are the Oculus and Steam Store"""
-from data_sources import oculus_store
+"""The data sources that are used to obtain the current offers."""
+import data_sources  # import alternate, amazon, oculus_store, steam_store
+
+
+def expand_offers(offers, new_offers):
+    if offers and new_offers:
+        offers.expand(new_offers)
+    elif new_offers:
+        offers = new_offers
+    return offers
 
 
 def main():
     """
     Get the offers from different date sources.
 
-    :returns: [(store_id, game_title, sale_price, regular_price, headset)]
+    :returns: [(store_id, title, sale_price, regular_price, headset)]
     """
-    games = oculus_store.main()
-    # games.expand(steam_store.main())
-    return games
+
+    offers = data_sources.alternate.main()
+    offers = expand_offers(offers, data_sources.amazon.main())
+    offers = expand_offers(offers, data_sources.oculus_store.main())
+    offers = expand_offers(offers, data_sources.steam_store.main())
+    print(offers)
+    return offers
 
 
 if __name__ == "__main__":
