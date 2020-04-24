@@ -17,6 +17,7 @@ def main():
 
     :returns: [(store_id, title, sale_price, regular_price, headset)]
     """
+
     offers = ds.alternate.main()
     offers = expand_offers(offers, ds.amazon.main())
     offers = expand_offers(offers, ds.oculus_store.main())
