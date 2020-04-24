@@ -28,7 +28,7 @@ def oculus_store(headset):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
     driver = webdriver.Chrome(options=chrome_options,
-                              executable_path='../../chromedriver_win32/chromedriver.exe')
+                              executable_path='../chromedriver_win32/chromedriver.exe')
     driver.implicitly_wait(10)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
