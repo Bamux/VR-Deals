@@ -1,4 +1,3 @@
-# import get_offers
 import sql
 import get_offers
 
