@@ -49,7 +49,7 @@ def oculus_store(headset):
 
 def main():
     """
-    Returns the oculus store offers.
+    Returns the oculus store offers for Quest, Rift and Go.
 
     :returns: [(headset, store_id, game_title, sale_price, regular_price)]
     """
