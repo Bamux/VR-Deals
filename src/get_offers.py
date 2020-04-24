@@ -5,7 +5,6 @@ from data_sources import oculus_store
 def main():
     """
     Get the offers from different date sources.
-    Returns them as a list with tuples.
 
     :returns: [(headset, store_id, game_title, sale_price, regular_price)]
     """
