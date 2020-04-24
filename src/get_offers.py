@@ -1,5 +1,5 @@
 """The data sources that are used to obtain the current offers."""
-import data_sources  # import alternate, amazon, oculus_store, steam_store
+import data_sources
 
 
 def expand_offers(offers, new_offers):
@@ -21,7 +21,6 @@ def main():
     offers = expand_offers(offers, data_sources.amazon.main())
     offers = expand_offers(offers, data_sources.oculus_store.main())
     offers = expand_offers(offers, data_sources.steam_store.main())
-    print(offers)
     return offers
 
 

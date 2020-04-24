@@ -6,7 +6,6 @@ def main():
     """
     offers = []
     # work in progress
-    print("test")
     return offers
 
 
