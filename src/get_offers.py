@@ -1,8 +1,9 @@
 """The data sources that are used to obtain the current offers."""
-import data_sources
+import data_sources as ds
 
 
 def expand_offers(offers, new_offers):
+    """Expands the list when new offers are available."""
     if offers and new_offers:
         offers.expand(new_offers)
     elif new_offers:
@@ -16,11 +17,10 @@ def main():
 
     :returns: [(store_id, title, sale_price, regular_price, headset)]
     """
-
-    offers = data_sources.alternate.main()
-    offers = expand_offers(offers, data_sources.amazon.main())
-    offers = expand_offers(offers, data_sources.oculus_store.main())
-    offers = expand_offers(offers, data_sources.steam_store.main())
+    offers = ds.alternate.main()
+    offers = expand_offers(offers, ds.amazon.main())
+    offers = expand_offers(offers, ds.oculus_store.main())
+    offers = expand_offers(offers, ds.steam_store.main())
     return offers
 
 
