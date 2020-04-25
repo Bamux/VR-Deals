@@ -4,7 +4,9 @@ import get_offers
 
 def main():
     sql.create_database()
-    get_offers.main()
+    offers = get_offers.main()
+    sql.reset_current_offers()
+    sql.add_current_offers(offers)
 
 
 if __name__ == "__main__":
