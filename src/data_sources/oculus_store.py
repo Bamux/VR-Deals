@@ -1,7 +1,7 @@
 """Requires the external library selenium."""
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from pathlib import Path
 
 
 def oculus_store(headset):
@@ -29,7 +29,8 @@ def oculus_store(headset):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
     # insert the path where the chromedriver.exe is located
-    chromedriver_executable_path = f'{Path(__file__).parent.parent.parent}/chromedriver/chromedriver.exe'
+    chromedriver_executable_path = f'{Path(__file__).parent.parent.parent}' \
+                                   f'/chromedriver/chromedriver.exe'
     driver = webdriver.Chrome(options=chrome_options, executable_path=chromedriver_executable_path)
     driver.implicitly_wait(10)
     driver.get(url)
@@ -44,7 +45,7 @@ def oculus_store(headset):
         store_id = store_id.get_attribute("href").rpartition("/")[2]
         offers.append((store_id, game_title.text, sale_price.text, regular_price.text, headset))
         print(game_title.text, ":", sale_price.text)
-    driver.close()
+    # driver.close()
     driver.quit()
     return offers
 
