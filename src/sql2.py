@@ -12,10 +12,6 @@ def create_database():
          (store_id INT NOT NULL, title TEXT NOT NULL, sale_price REAL NOT NULL,
           regular_price REAL NOT NULL, headset TEXT NOT NULL)''')
 
-        c.execute('''CREATE TABLE IF NOT EXISTS current_offers
-         (store_id INT NOT NULL, title TEXT NOT NULL, sale_price REAL NOT NULL,
-          regular_price REAL NOT NULL, headset TEXT NOT NULL)''')
-
 
 def get_current_offers():
     """Returns all VR Games as a list"""
