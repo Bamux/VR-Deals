@@ -1,5 +1,5 @@
-import get_offers
 from pathlib import Path
+import get_offers
 import sql
 
 
