@@ -25,6 +25,7 @@
 *.log
 *.sql
 *.sqlite
+test.py
 
 # OS generated files #
 ######################
