@@ -3,10 +3,11 @@ import get_offers
 
 
 def main():
-    sql.create_database()
     offers = get_offers.main()
-    sql.reset_current_offers()
     sql.add_current_offers(offers)
+    sql.cursor.close()
+    sql.mydb.close()
+    print(testerg)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 """Requires the external library selenium."""
 from pathlib import Path
+from decimal import Decimal
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -43,8 +44,10 @@ def oculus_store(headset):
     for store_id, game_title, sale_price, regular_price in zip(
             store_ids, game_titles, sale_prices, regular_prices):
         store_id = store_id.get_attribute("href").rpartition("/")[2]
-        offers.append((store_id, game_title.text, sale_price.text, regular_price.text, headset))
-        print(game_title.text, ":", sale_price.text)
+        sale_price = Decimal(sale_price.text.split(" ")[0].replace(',', '.'))
+        regular_price = Decimal(regular_price.text.split(" ")[0].replace(',', '.'))
+        offers.append((int(store_id), game_title.text, sale_price, regular_price, headset))
+        print(game_title.text, ":", sale_price, "€")
     # driver.close()
     driver.quit()
     return offers
@@ -60,6 +63,7 @@ def main():
     offers = []
     for headset in headsets:
         offers.extend(oculus_store(headset))
+        break
     return offers
 
 
