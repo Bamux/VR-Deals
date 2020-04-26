@@ -3,29 +3,25 @@ from pathlib import Path
 from decimal import Decimal
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from src import sql
 
 
-def oculus_store(headset):
+def oculus_store(headset_id, store, url):
     """
     Gets the data from the oculus store via web scraping with the selenium library.
 
-    :param headset: Name of the headset
-    :type headset: str
+    :param headset_id: database id of the headset
+    :param store: name of the store
+    :param url: url to the store
     :returns: [(store_id, game_title, sale_price, regular_price, headset)]
     """
     offers = []
-    element = 'section__items'
-    if headset == "Quest":
-        url = 'https://www.oculus.com/experiences/quest/'
+    if store == "Oculus Quest Store":
         element = 'store-section-items'
-    elif headset == "Rift":
-        url = 'https://www.oculus.com/experiences/rift/section/1578364258944223/'
-    elif headset == "Go":
-        url = 'https://www.oculus.com/experiences/go/section/1500175860035862/'
     else:
-        return offers
+        element = 'section__items'
 
-    print(f'The script searches for current offers in the Oculus {headset} Store.\n{url}')
+    print(f'The script searches for current offers in the {store}.\n{url}')
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
@@ -46,7 +42,7 @@ def oculus_store(headset):
         store_id = store_id.get_attribute("href").rpartition("/")[2]
         sale_price = Decimal(sale_price.text.split(" ")[0].replace(',', '.'))
         regular_price = Decimal(regular_price.text.split(" ")[0].replace(',', '.'))
-        offers.append((int(store_id), game_title.text, sale_price, regular_price, headset))
+        offers.append((int(store_id), game_title.text, sale_price, regular_price, headset_id))
         print(game_title.text, ":", sale_price, "€")
     # driver.close()
     driver.quit()
@@ -59,10 +55,10 @@ def main():
 
     :returns: [(store_id, game_title, sale_price, regular_price, headset)]
     """
-    headsets = ('Quest', 'Rift', 'Go')
+    stores = sql.get_oculus_stores()
     offers = []
-    for headset in headsets:
-        offers.extend(oculus_store(headset))
+    for headset_id, store, url in stores:
+        offers.extend(oculus_store(headset_id, store, url))
         break
     return offers
 
