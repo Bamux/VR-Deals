@@ -6,7 +6,7 @@ print(config.host)
 mydb = mysql.connector.connect(
     host=config.host,
     user=config.root,
-    passwd=config.passwd,  # enter your password to your mysql database here
+    passwd=config.passwd,
     database=config.database)
 cursor = mydb.cursor()
 
