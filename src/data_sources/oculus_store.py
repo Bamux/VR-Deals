@@ -63,7 +63,6 @@ def main():
     offers = []
     for headset in headsets:
         offers.extend(oculus_store(headset))
-        break
     return offers
 
 
