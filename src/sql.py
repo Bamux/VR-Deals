@@ -1,11 +1,13 @@
 import mysql.connector
+import config
 
+print(config.host)
 
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="dublin12",  # enter your password to your mysql database here
-    database="vr_dealz")
+    host=config.host,
+    user=config.root,
+    passwd=config.passwd,  # enter your password to your mysql database here
+    database=config.database)
 cursor = mydb.cursor()
 
 
