@@ -7,6 +7,7 @@ def main():
     sql.add_current_offers(offers)
     sql.cursor.close()
     sql.mydb.close()
+    print("test")
 
 
 if __name__ == "__main__":
