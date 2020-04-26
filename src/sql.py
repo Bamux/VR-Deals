@@ -1,13 +1,13 @@
 import mysql.connector
-import config
+import database_config
 
-print(config.host)
+print(database_config.host)
 
 mydb = mysql.connector.connect(
-    host=config.host,
-    user=config.root,
-    passwd=config.passwd,
-    database=config.database)
+    host=database_config.host,
+    user=database_config.root,
+    passwd=database_config.passwd,
+    database=database_config.database)
 cursor = mydb.cursor()
 
 
