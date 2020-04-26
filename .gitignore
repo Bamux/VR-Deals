@@ -27,6 +27,12 @@
 *.sqlite
 database_config.py
 
+
+# Config and Setup files #
+######################
+settings.py
+
+
 # OS generated files #
 ######################
 .DS_Store
