@@ -4,6 +4,7 @@ from decimal import Decimal
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from src import sql
+import settings
 
 
 def oculus_store(headset_id, store, url):
@@ -25,10 +26,7 @@ def oculus_store(headset_id, store, url):
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
-    # insert the path where the chromedriver.exe is located
-    chromedriver_executable_path = f'{Path(__file__).parent.parent.parent}' \
-                                   f'/chromedriver/chromedriver.exe'
-    driver = webdriver.Chrome(options=chrome_options, executable_path=chromedriver_executable_path)
+    driver = webdriver.Chrome(options=chrome_options, executable_path=settings.chromedriver_executable_path)
     driver.implicitly_wait(10)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
@@ -44,7 +42,7 @@ def oculus_store(headset_id, store, url):
         regular_price = Decimal(regular_price.text.split(" ")[0].replace(',', '.'))
         offers.append((int(store_id), game_title.text, sale_price, regular_price, headset_id))
         print(game_title.text, ":", sale_price, "€")
-    # driver.close()
+    driver.close()
     driver.quit()
     return offers
 
