@@ -1,4 +1,5 @@
 import mysql.connector
+from mysql.connector.errors import Error
 import settings
 import traceback
 
@@ -28,7 +29,7 @@ def add_current_offers(offers):
         VALUES(%s,%s,%s,%s,%s)'''
         cursor.executemany(sql, offers)
         conn.commit()
-    except Exception as e:
+    except Error as e:
         error_message(e)
     finally:
         conn_close()
@@ -36,9 +37,9 @@ def add_current_offers(offers):
 
 def get_oculus_stores():
     try:
-        cursor.execute("SELECT * FROM stores where name like 'Oculus%'")
+        cursor.execute("SELECT * FROM stores WHERE name LIKE 'Oculus%'")
         return cursor.fetchall()
-    except Exception as e:
+    except Error as e:
         error_message(e)
     finally:
         conn_close()
