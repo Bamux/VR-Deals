@@ -13,12 +13,12 @@ cursor = conn.cursor()
 def add_current_offers(offers):
     sql = '''INSERT INTO current_offers(store_id,title,sale_price,regular_price,headset_id) VALUES(%s,%s,%s,%s,%s)'''
     cursor.executemany(sql, offers)
+    conn.commit()
 
 
 def add_articles(new_articles):
     sql = '''INSERT INTO articles(store_id, website_article_id, article_name, regular_price) VALUES(%s,%s,%s,%s)'''
     cursor.execute(sql, new_articles)
-    conn.commit()
 
 
 def get_oculus_stores():
