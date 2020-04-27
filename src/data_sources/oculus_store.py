@@ -1,21 +1,13 @@
-"""Requires the external library selenium."""
-from pathlib import Path
+"""Returns the oculus store offers for Quest, Rift and Go."""
 from decimal import Decimal
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from src import settings
 from src import sql
-import settings
 
 
-def oculus_store(headset_id, store, url):
-    """
-    Gets the data from the oculus store via web scraping with the selenium library.
-
-    :param headset_id: database id of the headset
-    :param store: name of the store
-    :param url: url to the store
-    :returns: [(store_id, game_title, sale_price, regular_price, headset)]
-    """
+def oculus_store(store_id, store, url):
+    """Gets the data from the oculus store via web scraping with the selenium library."""
     offers = []
     if store == "Oculus Quest Store":
         element = 'store-section-items'
@@ -35,29 +27,24 @@ def oculus_store(headset_id, store, url):
     sale_prices = sales.find_elements_by_class_name('store-section-item-price-label__sale-price')
     regular_prices = sales.find_elements_by_class_name(
         'store-section-item-price-label__strikethrough-price')
-    for store_id, game_title, sale_price, regular_price in zip(
+    for website_store_id, article_name, sale_price, regular_price in zip(
             store_ids, game_titles, sale_prices, regular_prices):
-        store_id = store_id.get_attribute("href").rpartition("/")[2]
+        website_store_id = website_store_id.get_attribute("href").rpartition("/")[2]
         sale_price = Decimal(sale_price.text.split(" ")[0].replace(',', '.'))
         regular_price = Decimal(regular_price.text.split(" ")[0].replace(',', '.'))
-        offers.append((int(store_id), game_title.text, sale_price, regular_price, headset_id))
-        print(game_title.text, ":", sale_price, "€")
+        offers.append((store_id, int(website_store_id), article_name.text, regular_price, sale_price))
+        print(article_name.text, ":", sale_price, "€")
     driver.close()
     driver.quit()
     return offers
 
 
 def main():
-    """
-    Returns the oculus store offers for Quest, Rift and Go.
-
-    :returns: [(store_id, game_title, sale_price, regular_price, headset)]
-    """
     stores = sql.get_oculus_stores()
+    sql.conn_close()
     offers = []
-    for headset_id, store, url in stores:
-        offers.extend(oculus_store(headset_id, store, url))
-        break
+    for store_id, store, url in stores:
+        offers.extend(oculus_store(store_id, store, url))
     return offers
 
 

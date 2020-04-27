@@ -1,7 +1,5 @@
 import mysql.connector
-from mysql.connector.errors import Error
 import settings
-import traceback
 
 
 conn = mysql.connector.connect(
@@ -12,34 +10,27 @@ conn = mysql.connector.connect(
 cursor = conn.cursor()
 
 
-def conn_close():
-    cursor.close()
-    conn.close()
-
-
-def error_message(e):
-    print(e)
-    traceback.print_exc()
-
-
 def add_current_offers(offers):
-    try:
-        sql = '''
-        INSERT INTO current_offers(store_id,title,sale_price,regular_price,headset_id) 
-        VALUES(%s,%s,%s,%s,%s)'''
-        cursor.executemany(sql, offers)
-        conn.commit()
-    except Error as e:
-        error_message(e)
-    finally:
-        conn_close()
+    sql = '''INSERT INTO current_offers(store_id,title,sale_price,regular_price,headset_id) VALUES(%s,%s,%s,%s,%s)'''
+    cursor.executemany(sql, offers)
+
+
+def add_articles(new_articles):
+    sql = '''INSERT INTO articles(store_id, website_article_id, article_name, regular_price) VALUES(%s,%s,%s,%s)'''
+    cursor.execute(sql, new_articles)
+    conn.commit()
 
 
 def get_oculus_stores():
-    try:
-        cursor.execute("SELECT * FROM stores WHERE name LIKE 'Oculus%'")
-        return cursor.fetchall()
-    except Error as e:
-        error_message(e)
-    finally:
-        conn_close()
+    cursor.execute("SELECT * FROM stores WHERE name LIKE 'Oculus%'")
+    return cursor.fetchall()
+
+
+def check_article(website_article_id, store_id):
+    cursor.execute(f"SELECT id FROM articles WHERE website_article_id = {website_article_id} and store_id= {store_id}")
+    return cursor.fetchone()
+
+
+def conn_close():
+    cursor.close()
+    conn.close()

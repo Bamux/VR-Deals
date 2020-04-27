@@ -1,12 +1,10 @@
 from pathlib import Path
-import get_offers
-import sql
+import data_management
 
 
 def main():
     if Path("settings.py"):
-        offers = get_offers.main()
-        sql.add_current_offers(offers)
+        data_management.main()
     else:
         print("Please fill out the settings.example.py and rename it to settings.py")
 

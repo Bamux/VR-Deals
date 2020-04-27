@@ -1,4 +1,4 @@
-"""The data sources that are used to obtain the current offers."""
+"""Get the offers from different date sources."""
 import data_sources as ds
 
 
@@ -12,16 +12,11 @@ def expand_offers(offers, new_offers):
 
 
 def main():
-    """
-    Get the offers from different date sources.
-
-    :returns: [(store_id, title, sale_price, regular_price, headset)]
-    """
-
     offers = ds.alternate.main()
     offers = expand_offers(offers, ds.amazon.main())
     offers = expand_offers(offers, ds.oculus_store.main())
     offers = expand_offers(offers, ds.steam_store.main())
+
     return offers
 
 
