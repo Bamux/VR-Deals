@@ -1,8 +1,13 @@
+import datetime
 import sql
 import oculus_store
 
 
-def check_articles(offers):
+def check_articles(offers, date_time):
+    """
+    Checks if the article already exists in the database.
+    Returns a list of articles that do not yet exist and a list of current offers.
+    """
     new_articles = []
     current_offers = []
     for offer in offers:
@@ -11,21 +16,26 @@ def check_articles(offers):
         if article_id is None:
             new_articles.append(offer)
         else:
-            current_offers.append((article_id[0], sale_price))
+            current_offers.append((article_id[0], sale_price, date_time))
     return new_articles, current_offers
 
 
-def add_articles(new_articles):
+def add_articles(new_articles, date_time):
     current_offers = []
     if new_articles:
-        for store_id, website_article_id, article_name, regular_price, sale_price in new_articles:
+        for new_article in new_articles:
+            store_id, website_article_id, article_name, regular_price, sale_price = new_article
             sql.add_articles((store_id, website_article_id, article_name, regular_price))
-            current_offers.append((sql.cursor.lastrowid, sale_price))
+            current_offers.append((sql.cursor.lastrowid, sale_price, date_time))
         sql.conn.commit()
     return current_offers
 
 
 def check_current_offers(current_offers):
+    """
+    Compares the current offers with the previous offers.
+    Returns a list for the new offers and the expired offers.
+    """
     new_offers = []
     expired_offers = []
     previous_offers = sql.check_current_offers()
@@ -46,8 +56,9 @@ def delete_expired_offers(expired_offers):
 
 def main():
     offers = oculus_store.main()
-    new_articles, current_offers = check_articles(offers)
-    added_articles = add_articles(new_articles)
+    date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    new_articles, current_offers = check_articles(offers, date_time)
+    added_articles = add_articles(new_articles, date_time)
     if added_articles:
         current_offers.extend(added_articles)
     new_offers, expired_offers = check_current_offers(current_offers)
