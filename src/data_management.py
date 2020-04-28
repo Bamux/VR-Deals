@@ -1,5 +1,5 @@
 import sql
-import get_offers
+import oculus_store
 
 
 def check_articles(offers):
@@ -25,15 +25,35 @@ def add_articles(new_articles):
     return current_offers
 
 
+def check_current_offers(current_offers):
+    new_offers = []
+    expired_offers = []
+    previous_offers = sql.check_current_offers()
+    for current_offer in current_offers:
+        if current_offer not in previous_offers:
+            new_offers.append(current_offer)
+    for previous_offer in previous_offers:
+        if previous_offer not in current_offers:
+            article_id, _ = previous_offer
+            expired_offers.append((article_id,))
+    return new_offers, expired_offers
+
+
+def delete_expired_offers(expired_offers):
+    if expired_offers:
+        sql.delete_expired_offers(expired_offers)
+
+
 def main():
-    offers = get_offers.main()
-    # offers = [(1, 2434361173248640, 'End Space', Decimal('14.99'), Decimal('9.99')),
-    #           (1, 642553419857058, 'Challenge Yourself From Home', Decimal('39.98'), Decimal('29.99')),
-    #           (1, 234177034655085, 'Discover a New World From Home', Decimal('34.98'), Decimal('23.99'))]
+    offers = oculus_store.main()
     new_articles, current_offers = check_articles(offers)
     added_articles = add_articles(new_articles)
     if added_articles:
         current_offers.extend(added_articles)
+    new_offers, expired_offers = check_current_offers(current_offers)
+    delete_expired_offers(expired_offers)
+    if new_offers:
+        sql.add_current_offers(new_offers)
     sql.conn_close()
 
 

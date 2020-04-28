@@ -2,8 +2,8 @@
 from decimal import Decimal
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from src import settings
-from src import sql
+import settings
+import sql
 
 
 def oculus_store(store_id, store, url):
@@ -41,7 +41,6 @@ def oculus_store(store_id, store, url):
 
 def main():
     stores = sql.get_oculus_stores()
-    sql.conn_close()
     offers = []
     for store_id, store, url in stores:
         offers.extend(oculus_store(store_id, store, url))
@@ -50,3 +49,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    sql.conn_close()
