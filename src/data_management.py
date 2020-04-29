@@ -34,7 +34,7 @@ def add_articles(new_articles):
     if new_articles:
         for new_article in new_articles:
             store_id, website_article_id, article_name, regular_price, sale_price = new_article
-            sql.add_articles((store_id, website_article_id, article_name, regular_price))
+            sql.add_article((store_id, website_article_id, article_name, regular_price))
             new_offers.append((sql.cursor.lastrowid, sale_price))
         sql.conn.commit()
     return new_offers

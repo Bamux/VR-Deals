@@ -1,6 +1,7 @@
 import mysql.connector
 import settings
 
+
 conn = None
 try:
     conn = mysql.connector.connect(
@@ -19,9 +20,9 @@ def add_current_offers(offers):
     conn.commit()
 
 
-def add_articles(new_articles):
+def add_article(new_article):
     sql = '''INSERT INTO articles(store_id, website_article_id, article_name, regular_price) VALUES(%s,%s,%s,%s)'''
-    cursor.execute(sql, new_articles)
+    cursor.execute(sql, new_article)
 
 
 def delete_expired_offers(expired_offers):
