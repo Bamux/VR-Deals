@@ -1,13 +1,16 @@
 import mysql.connector
 import settings
 
-
-conn = mysql.connector.connect(
-    host=settings.host,
-    user=settings.user,
-    passwd=settings.passwd,
-    database=settings.database)
-cursor = conn.cursor()
+try:
+    conn = mysql.connector.connect(
+        host=settings.host,
+        user=settings.user,
+        passwd=settings.passwd,
+        database=settings.database)
+    cursor = conn.cursor()
+except mysql.connector.Error as error:
+    mysql_error = error
+    conn = False
 
 
 def add_current_offers(offers):
@@ -22,6 +25,10 @@ def add_articles(new_articles):
 
 
 def delete_expired_offers(expired_offers):
+    sql = '''
+    INSERT INTO expired_offers  (article_id, sale_price, date_time) 
+    SELECT article_id, sale_price, date_time FROM current_offers where article_id = %s'''
+    cursor.executemany(sql, expired_offers)
     sql = "DELETE from current_offers WHERE article_id = %s"
     cursor.executemany(sql, expired_offers)
     conn.commit()
@@ -33,9 +40,8 @@ def get_oculus_stores():
 
 
 def check_article(website_article_id, store_id):
-    sql = f"SELECT id, regular_price FROM articles " \
-          f"WHERE website_article_id = {website_article_id} and store_id= {store_id}"
-    cursor.execute(sql)
+    sql = "SELECT id, regular_price FROM articles WHERE website_article_id = %s and store_id= %s"
+    cursor.execute(sql, (website_article_id, store_id))
     return cursor.fetchone()
 
 
@@ -46,7 +52,7 @@ def update_article(regular_price, article_id):
 
 
 def check_current_offers():
-    cursor.execute(f"SELECT article_id, sale_price FROM current_offers")
+    cursor.execute("SELECT article_id, sale_price FROM current_offers")
     return cursor.fetchall()
 
 
@@ -59,3 +65,19 @@ def check_current_offers():
 def conn_close():
     cursor.close()
     conn.close()
+
+
+def main():
+    if conn:
+        conn_close()
+        print("Database connection successfully tested.")
+        connection = True
+    else:
+        print("Could not establish a database connection check your settings in the settings.py file:")
+        print(mysql_error, "\n")
+        connection = False
+    return connection
+
+
+if __name__ == "__main__":
+    main()

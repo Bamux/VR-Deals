@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `current_offers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(11) NOT NULL,
   `sale_price` decimal(10,2) NOT NULL,
+  `date_time` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
@@ -43,6 +44,20 @@ CREATE TABLE IF NOT EXISTS `current_offers` (
 DELETE FROM `current_offers`;
 /*!40000 ALTER TABLE `current_offers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `current_offers` ENABLE KEYS */;
+
+-- Exportiere Struktur von Tabelle vr_dealz.expired_offers
+CREATE TABLE IF NOT EXISTS `expired_offers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `article_id` int(11) NOT NULL,
+  `sale_price` decimal(10,2) NOT NULL,
+  `date_time` mediumblob NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+
+-- Exportiere Daten aus Tabelle vr_dealz.expired_offers: ~0 rows (ungefähr)
+DELETE FROM `expired_offers`;
+/*!40000 ALTER TABLE `expired_offers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `expired_offers` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_dealz.headsets
 CREATE TABLE IF NOT EXISTS `headsets` (
