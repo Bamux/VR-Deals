@@ -33,9 +33,16 @@ def get_oculus_stores():
 
 
 def check_article(website_article_id, store_id):
-    sql = f"SELECT id FROM articles WHERE website_article_id = {website_article_id} and store_id= {store_id}"
+    sql = f"SELECT id, regular_price FROM articles " \
+          f"WHERE website_article_id = {website_article_id} and store_id= {store_id}"
     cursor.execute(sql)
     return cursor.fetchone()
+
+
+def update_article(regular_price, article_id):
+    sql = "UPDATE articles SET regular_price = %s WHERE id = %s"
+    cursor.execute(sql, (regular_price, article_id))
+    conn.commit()
 
 
 def check_current_offers():
