@@ -1,7 +1,9 @@
 """Returns the oculus store offers for Quest, Rift and Go."""
 from decimal import Decimal
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+
 import settings
 import sql
 

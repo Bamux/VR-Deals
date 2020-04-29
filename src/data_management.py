@@ -1,6 +1,7 @@
 import datetime
-import sql
+
 import oculus_store
+import sql
 
 
 def check_update_articles(offers):

@@ -1,6 +1,6 @@
 import mysql.connector
-import settings
 
+import settings
 
 conn = None
 try:
