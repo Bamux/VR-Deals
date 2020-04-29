@@ -1,6 +1,7 @@
 import mysql.connector
 import settings
 
+conn = None
 try:
     conn = mysql.connector.connect(
         host=settings.host,
@@ -9,8 +10,7 @@ try:
         database=settings.database)
     cursor = conn.cursor()
 except mysql.connector.Error as error:
-    mysql_error = error
-    conn = False
+    print(error)
 
 
 def add_current_offers(offers):
@@ -68,15 +68,11 @@ def conn_close():
 
 
 def main():
-    if conn:
+    if conn is not None:
         conn_close()
         print("Database connection successfully tested.")
-        connection = True
     else:
         print("Could not establish a database connection check your settings in the settings.py file:")
-        print(mysql_error, "\n")
-        connection = False
-    return connection
 
 
 if __name__ == "__main__":

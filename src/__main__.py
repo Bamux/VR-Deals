@@ -2,8 +2,8 @@ from pathlib import Path
 
 
 def main():
-    settings_file = Path("settings.py").is_file()
-    if settings_file:
+    settings = Path("settings.py").is_file()
+    if settings:
         import data_management
         data_management.main()
     else:
