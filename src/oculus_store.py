@@ -1,5 +1,6 @@
 """Returns the oculus store offers for Quest, Rift and Go."""
 from decimal import Decimal
+from pathlib import Path
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -8,9 +9,10 @@ import settings
 import sql
 
 
-def oculus_store(store_id, store, url):
+def oculus_store(store):
     """Gets the data from the oculus store via web scraping with the selenium library."""
     offers = []
+    store_id, store, url = store
     if store == "Oculus Quest Store":
         element = 'store-section-items'
     else:
@@ -20,7 +22,8 @@ def oculus_store(store_id, store, url):
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
-    driver = webdriver.Chrome(options=chrome_options, executable_path=settings.chromedriver_executable_path)
+    driver = webdriver.Chrome(options=chrome_options,
+                              executable_path=settings.chromedriver_executable_path)
     driver.implicitly_wait(10)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
@@ -34,7 +37,8 @@ def oculus_store(store_id, store, url):
         website_store_id = website_store_id.get_attribute("href").rpartition("/")[2]
         sale_price = Decimal(sale_price.text.split(" ")[0].replace(',', '.'))
         regular_price = Decimal(regular_price.text.split(" ")[0].replace(',', '.'))
-        offers.append((store_id, int(website_store_id), article_name.text, regular_price, sale_price))
+        offers.append((store_id, int(website_store_id), article_name.text, regular_price,
+                       sale_price))
         print(article_name.text, ":", sale_price, "€")
     driver.close()
     driver.quit()
@@ -42,10 +46,17 @@ def oculus_store(store_id, store, url):
 
 
 def main():
-    stores = sql.get_oculus_stores()
+    """Checks if the chromedriver is present, collects the offers from oculus and returns them."""
     offers = []
-    for store_id, store, url in stores:
-        offers.extend(oculus_store(store_id, store, url))
+    chromedriver = Path(settings.chromedriver_executable_path).is_file()
+    if chromedriver:
+        stores = sql.get_oculus_stores()
+        offers = []
+        for store in stores:
+            offers.extend(oculus_store(store))
+    else:
+        print("Could not find the chromdriver.exe please check your "
+              "chromedriver_executable_path in the setttings.py")
     return offers
 
 

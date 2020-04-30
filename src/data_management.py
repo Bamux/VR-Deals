@@ -77,6 +77,8 @@ def new_offers_datetime(new_offers):
 
 def main():
     offers = oculus_store.main()
+    if not offers:
+        return
     new_articles, new_offers = check_update_articles(offers)
     added_articles = add_articles(new_articles)
     if added_articles:
