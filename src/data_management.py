@@ -54,9 +54,9 @@ def check_previous_offers(previous_offers, new_offers):
     return expired_offers
 
 
-def check_current_offers(previous_offers, new_offers):
+def check_new_offers(previous_offers, new_offers):
     """
-    Compares the current offers with the previous offers.
+    Compares the new offers with the previous offers.
     Returns a list of offers that do not yet exist in the list of previous offers.
     """
     completely_new_offers = []
@@ -85,7 +85,7 @@ def main():
     expired_offers = check_previous_offers(previous_offers, new_offers)
     if expired_offers:
         sql.delete_expired_offers(expired_offers)
-    new_offers = check_current_offers(previous_offers, new_offers)
+    new_offers = check_new_offers(previous_offers, new_offers)
     if new_offers:
         sql.add_current_offers(new_offers_datetime(new_offers))
     sql.conn_close()

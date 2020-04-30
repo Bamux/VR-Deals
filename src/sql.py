@@ -36,7 +36,7 @@ def delete_expired_offers(expired_offers):
 
 
 def get_oculus_stores():
-    cursor.execute("SELECT * FROM stores WHERE name LIKE 'Oculus%'")
+    cursor.execute("SELECT id, name, url FROM stores WHERE name LIKE 'Oculus%'")
     return cursor.fetchall()
 
 
