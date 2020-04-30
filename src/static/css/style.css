@@ -1,5 +1,6 @@
 /* style.css */
 
+
 .content {
     padding-top: 45px;
     padding-left: 10px;
@@ -14,7 +15,7 @@
 }
 
 .card{
-    max-width: 960px
+    max-width: 960px;
 }
 
 @media (min-width: 992px) {
@@ -31,3 +32,5 @@
   float: inherit;
   display: inline-block;
 }
+
+.strike {text-decoration:line-through;}

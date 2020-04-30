@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-{% for i in range(6) %}
+{% for article_name, sale_price, regular_price in articles %}
 <div class="card mb-3">
   <div class="row no-gutters">
     <div class="col-md-2">
@@ -10,8 +10,8 @@
     </div>
     <div class="col-md-10">
       <div class="card-body">
-        <h5 class="card-title">{{ card_title }}</h5>
-        <p class="card-text">{{ card }}</p>
+        <h5 class="card-title">{{ article_name }}</h5>
+        <p class="card-text">{{ sale_price }} <strike>{{ regular_price }}</strike> {{ ((sale_price-regular_price)/regular_price*100)|round|int }}%</p>
       </div>
     </div>
   </div>
