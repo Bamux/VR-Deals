@@ -57,12 +57,6 @@ def check_current_offers():
     return cursor.fetchall()
 
 
-# def check_expired_offers():
-#     cursor.execute("SELECT current_offers.id, website_article_id FROM current_offers "
-#                    "INNER JOIN articles ON articles.id = current_offers.article_id")
-#     return cursor.fetchall()
-
-
 def conn_close():
     cursor.close()
     conn.close()
