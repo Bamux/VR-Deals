@@ -19,7 +19,6 @@ def home():
     cursor.execute('''
     SELECT article_name, sale_price, regular_price FROM current_offers 
     INNER JOIN articles ON articles.id = current_offers.article_id''')
-    # return render_template('layout.html')
     return render_template('home.html', articles=cursor.fetchall())
 
 
