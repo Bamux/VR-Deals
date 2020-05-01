@@ -25,6 +25,10 @@ body { background: #e7e8e8 !important;}
     }
 }
 
+.strike {
+    text-decoration:line-through;
+}
+
 .nav {
   text-align: center;
 }
