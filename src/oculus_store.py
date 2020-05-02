@@ -6,7 +6,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 import settings
-import sql
 
 
 def oculus_store(store):
@@ -47,21 +46,13 @@ def oculus_store(store):
     return offers
 
 
-def main():
+def main(store):
     """Checks if the chromedriver is present, collects the offers from oculus and returns them."""
     offers = []
     chromedriver = Path(settings.chromedriver_executable_path).is_file()
     if chromedriver:
-        stores = sql.get_oculus_stores()
-        offers = []
-        for store in stores:
-            offers.extend(oculus_store(store))
+        offers = oculus_store(store)
     else:
         print("Could not find the chromedriver.exe please check your "
               "chromedriver_executable_path in the settings.py")
     return offers
-
-
-if __name__ == "__main__":
-    main()
-    sql.conn_close()

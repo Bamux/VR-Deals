@@ -22,7 +22,10 @@ def check_update_articles(offers):
             if offer["regular_price"] != previous_regular_price:
                 sql.update_regular_price(offer["regular_price"], article_id)
             if offer["img_url"] != previous_img_url:
-                sql.update_img_url(offer["img_url"], article_id)
+                pass
+                # print(offer["img_url"])
+                # print(previous_img_url)
+                # sql.update_img_url(offer["img_url"], article_id)
             new_offers.append({"article_id": article_id, "sale_price": offer["sale_price"]})
     return new_articles, new_offers
 
@@ -50,6 +53,8 @@ def check_previous_offers(previous_offers, new_offers):
     Returns a list for the expired offers.
     """
     expired_offers = []
+    if not previous_offers:
+        return expired_offers
     for previous_offer in previous_offers:
         article_id, sale_price = previous_offer
         for new_offer in new_offers:
@@ -85,21 +90,30 @@ def new_offers_datetime(new_offers):
     return offers_datetime
 
 
-def main():
-    offers = oculus_store.main()
-    if not offers:
-        return
+def database_interaction(offers, store_id):
+    """Checks if offers already exist, adds new offers and moves expired offers"""
     new_articles, new_offers = check_update_articles(offers)
     added_articles = add_articles(new_articles)
     if added_articles:
         new_offers.extend(added_articles)
-    previous_offers = sql.check_current_offers()
+    previous_offers = sql.check_current_offers(store_id)
     expired_offers = check_previous_offers(previous_offers, new_offers)
     if expired_offers:
         sql.delete_expired_offers(expired_offers)
     new_offers = check_new_offers(previous_offers, new_offers)
     if new_offers:
         sql.add_current_offers(new_offers_datetime(new_offers))
+
+
+def main():
+    offers = []
+    stores = sql.get_oculus_stores()
+    for store in stores:
+        store_id, store_name, store_url = store
+        if "Oculus" in store_name:
+            offers = oculus_store.main(store)
+        if offers:
+            database_interaction(offers, store_id)
     sql.conn_close()
 
 
