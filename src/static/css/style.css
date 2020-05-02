@@ -1,6 +1,6 @@
 /* style.css */
 
-body { background: #e7e8e8 !important;}
+/*body { background: #e7e8e8 !important;}*/
 
 .content {
     padding-top: 90px;
@@ -10,7 +10,7 @@ body { background: #e7e8e8 !important;}
 }
 
 .card-img{
-    width: 157px!important;
+    width: 95% !important;
     height: 117px!important;
     object-fit: cover;
 }
@@ -19,14 +19,19 @@ body { background: #e7e8e8 !important;}
     max-width: 960px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
     .navbar {
         height:50px;
     }
 }
 
-.strike {
-    text-decoration:line-through;
+
+@media screen and (max-width: 767px) {
+    .navbar-nav {
+        float: center !important;
+        /*text-align: left !important;
+        padding-left: 20px;*/
+    }
 }
 
 .nav {
@@ -37,6 +42,12 @@ body { background: #e7e8e8 !important;}
   float: inherit;
   display: inline-block;
 }
+
+
+.strike {
+    text-decoration:line-through;
+}
+
 
 /* import after the changes */
 @import "bootstrap/functions";

@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-{% for article_name, sale_price, regular_price in articles %}
+{% for article_name, regular_price, sale_price, img_url in articles %}
 <div class="card mb-3">
   <div class="row no-gutters">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="mx-auto" style="width: 250px;">
-        <img src="{{ url_for('static', filename='images/quest.png') }}" class="card-img" alt="...">
+        <img src="{{ img_url }}" class="card-img" alt="...">
       </div>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-9">
       <div class="card-body">
         <h5 class="card-title">{{ article_name }}</h5>
         <p class="card-text">{{ sale_price }} <strike>{{ regular_price }}</strike> {{ ((sale_price-regular_price)/regular_price*100)|round|int }}%</p>

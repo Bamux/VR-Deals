@@ -7,22 +7,23 @@ import sql
 def check_update_articles(offers):
     """
     Checks if the article already exists in the database articles table.
-    Update the regular price if it has changed.
+    Update the regular price and image url if it has changed.
     Returns a list of articles that do not yet exist and a list of the new offers
     with the corresponding id from the articles table.
     """
     new_articles = []
     new_offers = []
     for offer in offers:
-        store_id, website_article_id, _, regular_price, sale_price = offer
-        sql_query_result = sql.check_article(website_article_id, store_id)
+        sql_query_result = sql.check_article(offer["website_article_id"], offer["store_id"])
         if sql_query_result is None:
             new_articles.append(offer)
         else:
-            article_id, previous_regular_price = sql_query_result
-            if regular_price != previous_regular_price:
-                sql.update_article(regular_price, article_id)
-            new_offers.append((article_id, sale_price))
+            article_id, previous_regular_price, previous_img_url = sql_query_result
+            if offer["regular_price"] != previous_regular_price:
+                sql.update_regular_price(offer["regular_price"], article_id)
+            if offer["img_url"] != previous_img_url:
+                sql.update_img_url(offer["img_url"], article_id)
+            new_offers.append({"article_id": article_id, "sale_price": offer["sale_price"]})
     return new_articles, new_offers
 
 
@@ -34,9 +35,11 @@ def add_articles(new_articles):
     new_offers = []
     if new_articles:
         for new_article in new_articles:
-            store_id, website_article_id, article_name, regular_price, sale_price = new_article
-            sql.add_article((store_id, website_article_id, article_name, regular_price))
-            new_offers.append((sql.cursor.lastrowid, sale_price))
+            sql.add_article((new_article["store_id"], new_article["website_article_id"],
+                             new_article["article_name"], new_article["regular_price"],
+                             new_article["img_url"]))
+            new_offers.append({"article_id": sql.cursor.lastrowid,
+                               "sale_price": new_article["sale_price"]})
         sql.conn.commit()
     return new_offers
 
@@ -48,8 +51,11 @@ def check_previous_offers(previous_offers, new_offers):
     """
     expired_offers = []
     for previous_offer in previous_offers:
-        if previous_offer not in new_offers:
-            article_id, _ = previous_offer
+        article_id, sale_price = previous_offer
+        for new_offer in new_offers:
+            if article_id == new_offer["article_id"] and sale_price == new_offer["sale_price"]:
+                break
+        else:
             expired_offers.append((article_id,))
     return expired_offers
 
@@ -61,7 +67,11 @@ def check_new_offers(previous_offers, new_offers):
     """
     completely_new_offers = []
     for new_offer in new_offers:
-        if new_offer not in previous_offers:
+        for previous_offer in previous_offers:
+            article_id, sale_price = previous_offer
+            if new_offer["article_id"] == article_id and sale_price == new_offer["sale_price"]:
+                break
+        else:
             completely_new_offers.append(new_offer)
     return completely_new_offers
 
@@ -70,8 +80,8 @@ def new_offers_datetime(new_offers):
     """Adds the datetime to each new offer"""
     offers_datetime = []
     date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    for article_id, sale_price in new_offers:
-        offers_datetime.append((article_id, sale_price, date_time))
+    for new_offer in new_offers:
+        offers_datetime.append((new_offer["article_id"], new_offer["sale_price"], date_time))
     return offers_datetime
 
 

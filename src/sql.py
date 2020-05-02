@@ -21,7 +21,9 @@ def add_current_offers(offers):
 
 
 def add_article(new_article):
-    sql = '''INSERT INTO articles(store_id, website_article_id, article_name, regular_price) VALUES(%s,%s,%s,%s)'''
+    sql = '''
+    INSERT INTO articles(store_id, website_article_id, article_name, regular_price, img_url) 
+    VALUES(%s,%s,%s,%s,%s)'''
     cursor.execute(sql, new_article)
 
 
@@ -41,14 +43,20 @@ def get_oculus_stores():
 
 
 def check_article(website_article_id, store_id):
-    sql = "SELECT id, regular_price FROM articles WHERE website_article_id = %s and store_id= %s"
+    sql = "SELECT id, regular_price, img_url FROM articles WHERE website_article_id = %s and store_id= %s"
     cursor.execute(sql, (website_article_id, store_id))
     return cursor.fetchone()
 
 
-def update_article(regular_price, article_id):
+def update_regular_price(regular_price, article_id):
     sql = "UPDATE articles SET regular_price = %s WHERE id = %s"
     cursor.execute(sql, (regular_price, article_id))
+    conn.commit()
+
+
+def update_img_url(img_url, article_id):
+    sql = "UPDATE articles SET img_url = %s WHERE id = %s"
+    cursor.execute(sql, (img_url, article_id))
     conn.commit()
 
 

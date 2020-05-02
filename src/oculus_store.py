@@ -27,18 +27,20 @@ def oculus_store(store):
     driver.implicitly_wait(10)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
-    store_ids = sales.find_elements_by_class_name('store-section-item-tile')
+    urls = sales.find_elements_by_class_name('store-section-item-tile')
     game_titles = sales.find_elements_by_class_name('store-section-item__meta-name')
     sale_prices = sales.find_elements_by_class_name('store-section-item-price-label__sale-price')
     regular_prices = sales.find_elements_by_class_name(
         'store-section-item-price-label__strikethrough-price')
-    for website_store_id, article_name, sale_price, regular_price in zip(
-            store_ids, game_titles, sale_prices, regular_prices):
-        website_store_id = website_store_id.get_attribute("href").rpartition("/")[2]
+    for url, article_name, sale_price, regular_price in zip(
+            urls, game_titles, sale_prices, regular_prices):
+        website_article_id = url.get_attribute("href").rpartition("/")[2]
         sale_price = Decimal(sale_price.text.split(" ")[0].replace(',', '.'))
         regular_price = Decimal(regular_price.text.split(" ")[0].replace(',', '.'))
-        offers.append((store_id, int(website_store_id), article_name.text, regular_price,
-                       sale_price))
+        img_url = url.get_attribute("style").split('"')[1]
+        offers.append({"store_id": store_id, "website_article_id": int(website_article_id),
+                       "article_name": article_name.text, "regular_price": regular_price,
+                       "sale_price": sale_price, "img_url": img_url})
         print(article_name.text, ":", sale_price, "€")
     driver.close()
     driver.quit()
@@ -55,8 +57,8 @@ def main():
         for store in stores:
             offers.extend(oculus_store(store))
     else:
-        print("Could not find the chromdriver.exe please check your "
-              "chromedriver_executable_path in the setttings.py")
+        print("Could not find the chromedriver.exe please check your "
+              "chromedriver_executable_path in the settings.py")
     return offers
 
 
