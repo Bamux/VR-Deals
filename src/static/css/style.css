@@ -1,22 +1,25 @@
 /* style.css */
 
-/*body { background: #e7e8e8 !important;}*/
+body { background: #e7e8e8 !important;}
 
-.content {
+.container{
+    max-width: 767px;
     padding-top: 90px;
-    padding-left: 10px;
-    padding-right: 10px;
-    max-width: 960px;
 }
 
+.card{
+    max-width: 767px;
+}
+
+
 .card-img{
-    width: 95% !important;
+    width: 100% !important;
     height: 117px!important;
     object-fit: cover;
 }
 
 .card{
-    max-width: 960px;
+    max-width: 767px;
 }
 
 @media (min-width: 767px) {
@@ -29,8 +32,8 @@
 @media screen and (max-width: 767px) {
     .navbar-nav {
         float: center !important;
-        /*text-align: left !important;
-        padding-left: 20px;*/
+        padding-left: 20px;
+        text-align: left !important
     }
 }
 
