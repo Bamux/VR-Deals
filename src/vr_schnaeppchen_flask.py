@@ -19,7 +19,8 @@ def home():
     cursor.execute('''
     SELECT article_name, regular_price, sale_price, img_url FROM current_offers 
     INNER JOIN articles ON articles.id = current_offers.article_id
-    LIMIT 34''')
+    Order by date_time DESC
+    ''')
     return render_template('home.html', articles=cursor.fetchall())
 
 
@@ -30,7 +31,6 @@ def oculus():
     INNER JOIN articles ON articles.id = current_offers.article_id
     INNER JOIN stores ON stores.id = articles.store_id
     WHERE name="Oculus Quest"
-    LIMIT 34
     ''')
     return render_template('quest.html', articles=cursor.fetchall())
 
@@ -42,7 +42,6 @@ def rift():
     INNER JOIN articles ON articles.id = current_offers.article_id
     INNER JOIN stores ON stores.id = articles.store_id
     WHERE name="Oculus Rift"
-    LIMIT 34
     ''')
     return render_template('rift.html', articles=cursor.fetchall())
 
@@ -54,7 +53,6 @@ def go():
     INNER JOIN articles ON articles.id = current_offers.article_id
     INNER JOIN stores ON stores.id = articles.store_id
     WHERE name="Oculus Go"
-    LIMIT 34
     ''')
     return render_template('go.html', articles=cursor.fetchall())
 
