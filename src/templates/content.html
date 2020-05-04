@@ -5,6 +5,8 @@
 {% set savings_percent = ((offer['sale_price']-offer['regular_price'])/offer['regular_price']*100)|round|int %}
 {% if offer["store_name"] == "Oculus Quest Store" %}
 {% set store_image = "quest.png" %}
+{% elif offer["store_name"] == "Oculus Go Store" %}
+{% set store_image = "go.png" %}
 {% else %}
 {% set store_image = "rifts.png" %}
 {% endif %}
