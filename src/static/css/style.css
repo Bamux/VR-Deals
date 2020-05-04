@@ -28,7 +28,7 @@ body { background: #e7e8e8 !important;}
 }
 
 .sale_price{
-    padding-right: 30px;
+    padding-right: 5px;
 }
 
 
@@ -57,13 +57,13 @@ body { background: #e7e8e8 !important;}
 }
 
 .cardbord_text {
-  padding-right: 10px
+  padding-right: 5px
 }
 
 
 .strike {
     text-decoration:line-through;
-    padding-right: 10px
+    padding-right: 5px
 }
 
 

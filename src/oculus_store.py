@@ -12,7 +12,7 @@ def oculus_store(store):
     """Gets the data from the oculus store via web scraping with the selenium library."""
     offers = []
     store_id, store, url = store
-    if store == "Oculus Quest":
+    if store == "Quest":
         element = 'store-section-items'
     else:
         element = 'section__items'

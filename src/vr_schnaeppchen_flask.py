@@ -18,10 +18,11 @@ def sql_store(store=""):
     if store:
         store = f'''WHERE name="{store}" '''
     sql = f'''
-    SELECT stores.name, article_name, regular_price, sale_price, img_url FROM current_offers 
-    INNER JOIN articles ON articles.id = current_offers.article_id 
+    SELECT stores.name, article_name, regular_price, sale_price, img_url FROM current_offers
+    INNER JOIN articles ON articles.id = current_offers.article_id
     INNER JOIN stores ON stores.id = articles.store_id {store}
-    Order by date_time DESC'''
+    Order by date_time DESC
+    '''
     cursor.execute(sql)
     for offer in cursor.fetchall():
         store_name, article_name, regular_price, sale_price, img_url = offer
@@ -39,19 +40,19 @@ def home():
 
 @app.route("/quest")
 def oculus():
-    offers = sql_store("Oculus Quest Store")
+    offers = sql_store("Quest")
     return render_template('content.html', page="Oculus Quest", offers=offers)
 
 
 @app.route("/rift")
 def rift():
-    offers = sql_store("Oculus Rift Store")
+    offers = sql_store("Rift")
     return render_template('content.html', page="Oculus Rift", offers=offers)
 
 
 @app.route("/go")
 def go():
-    offers = sql_store("Oculus Go Store")
+    offers = sql_store("Go")
     return render_template('content.html', page="Oculus Go", offers=offers)
 
 
