@@ -27,7 +27,6 @@ def sql_store(store=""):
         store_name, article_name, regular_price, sale_price, img_url = offer
         offers.append({"store_name": store_name, "article_name": article_name, "regular_price": regular_price,
                        "sale_price": sale_price, "img_url": img_url})
-    print(offers)
     return offers
 
 
