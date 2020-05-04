@@ -1,5 +1,4 @@
 import datetime
-from decimal import Decimal
 import oculus_store
 import sql
 
@@ -21,8 +20,7 @@ def check_update_articles(offers):
             article_id, previous_regular_price, previous_img_url = sql_query_result
             if offer["regular_price"] != previous_regular_price:
                 sql.update_regular_price(offer["regular_price"], article_id)
-            if offer["img_url"] != previous_img_url:
-                pass
+            # if offer["img_url"] != previous_img_url:
                 # print(offer["img_url"])
                 # print(previous_img_url)
                 # sql.update_img_url(offer["img_url"], article_id)
