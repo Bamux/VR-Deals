@@ -15,7 +15,6 @@ except mysql.connector.Error as error:
 
 
 def add_current_offers(offers):
-    print("add")
     sql = '''INSERT INTO current_offers(article_id,sale_price,date_time) VALUES(%s,%s,%s)'''
     cursor.executemany(sql, offers)
     conn.commit()

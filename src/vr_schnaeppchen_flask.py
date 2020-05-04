@@ -13,60 +13,67 @@ conn = mysql.connect()
 cursor = conn.cursor()
 
 
-def sql_headset(headset=""):
-    if headset:
-        headset = f'''WHERE name="{headset}" '''
+def sql_store(store=""):
+    offers = []
+    if store:
+        store = f'''WHERE name="{store}" '''
     sql = f'''
-    SELECT article_name, regular_price, sale_price, img_url FROM current_offers 
+    SELECT stores.name, article_name, regular_price, sale_price, img_url FROM current_offers 
     INNER JOIN articles ON articles.id = current_offers.article_id 
-    INNER JOIN stores ON stores.id = articles.store_id {headset}
+    INNER JOIN stores ON stores.id = articles.store_id {store}
     Order by date_time DESC'''
-    return sql
+    cursor.execute(sql)
+    for offer in cursor.fetchall():
+        store_name, article_name, regular_price, sale_price, img_url = offer
+        offers.append({"store_name": store_name, "article_name": article_name, "regular_price": regular_price,
+                       "sale_price": sale_price, "img_url": img_url})
+    print(offers)
+    return offers
 
 
 @app.route("/")
 @app.route("/home")
 def home():
-    cursor.execute(sql_headset())
-    return render_template('home.html', articles=cursor.fetchall())
+    offers = sql_store()
+    return render_template('content.html', page="home", offers=offers)
 
 
 @app.route("/quest")
 def oculus():
-    cursor.execute(sql_headset("Oculus Quest"))
-    return render_template('quest.html', articles=cursor.fetchall())
+    offers = sql_store("Oculus Quest Store")
+    return render_template('content.html', page="Oculus Quest", offers=offers)
 
 
 @app.route("/rift")
 def rift():
-    cursor.execute(sql_headset("Oculus Rift"))
-    return render_template('rift.html', articles=cursor.fetchall())
+    offers = sql_store("Oculus Rift Store")
+    return render_template('content.html', page="Oculus Rift", offers=offers)
 
 
 @app.route("/go")
 def go():
-    cursor.execute(sql_headset("Oculus Go"))
-    return render_template('go.html', articles=cursor.fetchall())
+    offers = sql_store("Oculus Go Store")
+    return render_template('content.html', page="Oculus Go", offers=offers)
 
 
-@app.route("/valve")
+@app.route("/steam")
 def valve():
-    return render_template('valve.html')
+    return render_template('content.html', page="Steam")
 
 
 @app.route("/htc")
 def htc():
-    return render_template('htc.html')
+    return render_template('content.html', page="HTC")
 
 
 @app.route("/wmr")
 def wmr():
-    return render_template('wmr.html')
+    return render_template('content.html', page="WMR")
 
 
 @app.route("/psvr")
 def psvr():
-    return render_template('psvr.html')
+    return render_template('content.html', page="PSVR")
 
 
 if __name__ == '__main__':

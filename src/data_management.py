@@ -1,5 +1,5 @@
 import datetime
-
+from decimal import Decimal
 import oculus_store
 import sql
 
@@ -47,7 +47,7 @@ def add_articles(new_articles):
     return new_offers
 
 
-def check_previous_offers(previous_offers, new_offers):
+def check_expired_offers(previous_offers, new_offers):
     """
     Compares the current offers with the previous offers.
     Returns a list for the expired offers.
@@ -97,8 +97,9 @@ def database_interaction(offers, store_id):
     if added_articles:
         new_offers.extend(added_articles)
     previous_offers = sql.check_current_offers(store_id)
-    expired_offers = check_previous_offers(previous_offers, new_offers)
+    expired_offers = check_expired_offers(previous_offers, new_offers)
     if expired_offers:
+        print(expired_offers)
         sql.delete_expired_offers(expired_offers)
     new_offers = check_new_offers(previous_offers, new_offers)
     if new_offers:

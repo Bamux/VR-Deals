@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% set active_page = page %}
+{% block content %}
+{% for offer in offers %}
+{% set savings_percent = ((offer['sale_price']-offer['regular_price'])/offer['regular_price']*100)|round|int %}
+{% if offer["store_name"] == "Oculus Quest Store" %}
+{% set store_image = "quest.png" %}
+{% else %}
+{% set store_image = "rifts.png" %}
+{% endif %}
+<div class="card mb-2">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="{{ offer['img_url'] }}" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ offer['article_name'] }}</h5>
+        <p class="card-text">
+          <img src="{{ url_for('static', filename='images/'+store_image) }}" class="store_images" width="auto"
+               height="60">
+          <span class="cardbord_text">{{ offer['store_name'] }}:</span>
+          <span class="cardbord_text">{{ offer['sale_price'] }}€</span>
+          <strike class="strike">{{ offer['regular_price'] }}€</strike>
+          {{ savings_percent }}%
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}
