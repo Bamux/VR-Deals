@@ -1,2 +1,2 @@
 # VR Deals
-Dieses Project findet die besten Angebote im Internet rund um das Thema VR. Die benötigten Daten werden mit Hilfe von Web Scraping (lxml, Beautiful Soup, Selenium oder Scrapy) gesammelt, in einer MySql Datenbank gespeichert und mit dem Webframework Flask präsentiert. Aktuell befindet sich das Projekt noch in der Entwicklungsphase.
+This project finds the best offers on the internet around the topic VR. The required data is collected with the help of web scraping (lxml, Beautiful Soup, Selenium or Scrapy), stored in a MySql database and presented with the web framework Flask. Currently the project is still in the development phase. In the initial phase, only German stores will be used in the automatic search for offers.
