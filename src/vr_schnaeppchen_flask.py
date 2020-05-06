@@ -34,15 +34,19 @@ def sql_store(store=""):
     if store:
         store = f'''WHERE name="{store}" '''
     sql = f'''
-    SELECT stores.name, article_name, regular_price, sale_price, img_url FROM current_offers
+    SELECT stores.name, article_name, regular_price, sale_price, img_url, website_article_id, url
+    FROM current_offers
     INNER JOIN articles ON articles.id = current_offers.article_id
     INNER JOIN stores ON stores.id = articles.store_id {store}
     Order by date_time DESC
     '''
     for offer in sql_query(sql):
-        store_name, article_name, regular_price, sale_price, img_url = offer
+        store_name, article_name, regular_price, sale_price, img_url, website_article_id, url = offer
+        if "section" in url:
+            url = url.split("section")[0]
+        url += str(website_article_id)
         offers.append({"store_name": store_name, "article_name": article_name, "regular_price": regular_price,
-                       "sale_price": sale_price, "img_url": img_url})
+                       "sale_price": sale_price, "img_url": img_url, "url": url})
     return offers
 
 
