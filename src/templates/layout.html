@@ -34,6 +34,7 @@
       <li class="nav-item {{ 'active' if active_page == 'home' else '' }}">
         <a class="nav-link" href="home">Home</a>
       </li>
+      <div class="dropdown-divider"></div>
       <li class="nav-item dropdown {{ 'active' if active_page == 'Oculus Quest' or active_page == 'Oculus Rift' or active_page == 'Oculus Go' else '' }}">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
@@ -47,6 +48,7 @@
           <a class="dropdown-item {{ 'active' if active_page == 'Oculus Go' else '' }}" href="go">Go</a>
         </div>
       </li>
+      <div class="dropdown-divider"></div>
       <li class="nav-item {{ 'active' if active_page == 'Steam' else '' }}">
         <a class="nav-link" href="steam">Steam</a>
       </li>
@@ -55,7 +57,7 @@
   <div class="mx-auto my-2 order-0 order-md-1 position-relative">
     <a class="mx-auto" href="#">
       <div class="navbar-collapse collapse w-100 dual-collapse2 order-2 order-md-2">
-        <img src="{{ url_for('static', filename='images/logo.png') }}" class="rounded-circle">
+        <img src="{{ url_for('static', filename='images/smiley.png') }}" class="rounded-circle">
       </div>
     </a>
     <div class="row justify-content-center">
@@ -66,12 +68,15 @@
   </div>
   <div class="navbar-collapse collapse w-100 dual-collapse2 order-2 order-md-2">
     <ul class="navbar-nav mr-auto text-center">
+      <div class="dropdown-divider"></div>
       <li class="nav-item">
         <a class="nav-link {{ 'active' if active_page == 'HTC' else '' }}" href="htc">HTC</a>
       </li>
+      <div class="dropdown-divider"></div>
       <li class="nav-item">
         <a class="nav-link {{ 'active' if active_page == 'WMR' else '' }}" href="wmr">WMR</a>
       </li>
+      <div class="dropdown-divider"></div>
       <li class="nav-item">
         <a class="nav-link {{ 'active' if active_page == 'PSVR' else '' }}" href="psvr">PSVR</a>
       </li>

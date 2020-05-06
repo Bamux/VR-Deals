@@ -13,6 +13,22 @@ conn = mysql.connect()
 cursor = conn.cursor()
 
 
+def sql_query(sql):
+    """
+    pythonanywhere.com will disconnect the mysql connection after 5 minutes
+    so the connection will be restored here
+    """
+    global conn, cursor
+    try:
+        cursor.execute(sql)
+    except Exception as e:
+        print(e)
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+    return cursor.fetchall()
+
+
 def sql_store(store=""):
     offers = []
     if store:
@@ -23,8 +39,7 @@ def sql_store(store=""):
     INNER JOIN stores ON stores.id = articles.store_id {store}
     Order by date_time DESC
     '''
-    cursor.execute(sql)
-    for offer in cursor.fetchall():
+    for offer in sql_query(sql):
         store_name, article_name, regular_price, sale_price, img_url = offer
         offers.append({"store_name": store_name, "article_name": article_name, "regular_price": regular_price,
                        "sale_price": sale_price, "img_url": img_url})

@@ -42,7 +42,6 @@ body { background: #e7e8e8 !important;}
 @media screen and (max-width: 767px) {
     .navbar-nav {
         float: center !important;
-        padding-left: 20px;
         text-align: left !important
     }
 }
