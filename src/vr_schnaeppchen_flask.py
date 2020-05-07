@@ -1,6 +1,7 @@
 from flask import Flask, render_template
-from flaskext.mysql import MySQL
 from flask_paginate import Pagination, get_page_args
+from flaskext.mysql import MySQL
+
 import settings
 
 app = Flask(__name__)
