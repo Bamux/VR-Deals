@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set active_page = page %}
+{% set active_page = page_navigation %}
 {% block content %}
 {% for offer in offers %}
 {% set savings_percent = ((offer['sale_price']-offer['regular_price'])/offer['regular_price']*100)|round|int %}

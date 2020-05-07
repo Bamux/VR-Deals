@@ -90,6 +90,7 @@
   <h5>{{ 'Die besten Schnäppchen rund um das Thema VR' if active_page == 'home' else active_page }}</h5>
   <div class="row justify-content-center">
     {% block content %}{% endblock %}
+    {{ pagination.links }}
   </div>
 </div>
 

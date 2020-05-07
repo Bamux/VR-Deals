@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flaskext.mysql import MySQL
+from flask_paginate import Pagination, get_page_args
 import settings
 
 app = Flask(__name__)
@@ -8,6 +9,7 @@ app.config['MYSQL_DATABASE_HOST'] = settings.host
 app.config['MYSQL_DATABASE_USER'] = settings.user
 app.config['MYSQL_DATABASE_PASSWORD'] = settings.passwd
 app.config['MYSQL_DATABASE_DB'] = settings.database
+app.config['PER_PAGE'] = 20
 mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
@@ -29,7 +31,21 @@ def sql_query(sql):
     return cursor.fetchall()
 
 
-def sql_store(store=""):
+def number_of_offers(store=""):
+    if store:
+        sql = f'''
+        Select COUNT(*) FROM current_offers
+        INNER JOIN articles ON articles.id = current_offers.article_id
+        INNER JOIN stores ON stores.id = articles.store_id
+        WHERE name="{store}" 
+        '''
+    else:
+        sql = f'''Select COUNT(*) FROM current_offers'''
+    total = sql_query(sql)[0][0]
+    return total
+
+
+def offers_from_store(per_page, offset, store=""):
     offers = []
     if store:
         store = f'''WHERE name="{store}" '''
@@ -39,60 +55,76 @@ def sql_store(store=""):
     INNER JOIN articles ON articles.id = current_offers.article_id
     INNER JOIN stores ON stores.id = articles.store_id {store}
     Order by date_time DESC
+    LIMIT {per_page} OFFSET {offset}
     '''
     for offer in sql_query(sql):
         store_name, article_name, regular_price, sale_price, img_url, website_article_id, url = offer
         if "section" in url:
             url = url.split("section")[0]
         url += str(website_article_id)
-        offers.append({"store_name": store_name, "article_name": article_name, "regular_price": regular_price,
-                       "sale_price": sale_price, "img_url": img_url, "url": url})
+        offers.append({"store_name": store_name, "article_name": article_name,
+                       "regular_price": regular_price, "sale_price": sale_price,
+                       "img_url": img_url, "url": url})
     return offers
+
+
+def content(store=""):
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    offers = offers_from_store(per_page, offset, store)
+    total = number_of_offers(store)
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='bootstrap4')
+    return offers, pagination
 
 
 @app.route("/")
 @app.route("/home")
 def home():
-    offers = sql_store()
-    return render_template('content.html', page="home", offers=offers)
+    offers, pagination = content()
+    return render_template('content.html', page_navigation="home", offers=offers, pagination=pagination)
 
 
 @app.route("/quest")
 def oculus():
-    offers = sql_store("Quest")
-    return render_template('content.html', page="Oculus Quest", offers=offers)
+    offers, pagination = content("Quest")
+    return render_template('content.html', page_navigation="Oculus Quest", offers=offers, pagination=pagination)
 
 
 @app.route("/rift")
 def rift():
-    offers = sql_store("Rift")
-    return render_template('content.html', page="Oculus Rift", offers=offers)
+    offers, pagination = content("Rift")
+    return render_template('content.html', page_navigation="Oculus Rift", offers=offers, pagination=pagination)
 
 
 @app.route("/go")
 def go():
-    offers = sql_store("Go")
-    return render_template('content.html', page="Oculus Go", offers=offers)
+    offers, pagination = content("Go")
+    return render_template('content.html', page_navigation="Oculus Go", offers=offers, pagination=pagination)
 
 
 @app.route("/steam")
 def valve():
-    return render_template('content.html', page="Steam")
+    offers, pagination = content("Steam")
+    return render_template('content.html', page_navigation="Steam", offers=offers, pagination=pagination)
 
 
 @app.route("/htc")
 def htc():
-    return render_template('content.html', page="HTC")
+    offers, pagination = content("HTC")
+    return render_template('content.html', page_navigation="HTC", offers=offers, pagination=pagination)
 
 
 @app.route("/wmr")
 def wmr():
-    return render_template('content.html', page="WMR")
+    offers, pagination = content("WMR")
+    return render_template('content.html', page_navigation="WMR", offers=offers, pagination=pagination)
 
 
 @app.route("/psvr")
 def psvr():
-    return render_template('content.html', page="PSVR")
+    offers, pagination = content("PSVR")
+    return render_template('content.html', page_navigation="PSVR", offers=offers, pagination=pagination)
 
 
 if __name__ == '__main__':

@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `regular_price` decimal(10,2) NOT NULL,
   `img_url` text COLLATE utf8_german2_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 -- Exportiere Daten aus Tabelle vr_deals.articles: ~52 rows (ungefähr)
 DELETE FROM `articles`;
@@ -81,8 +81,9 @@ INSERT INTO `articles` (`id`, `store_id`, `website_article_id`, `article_name`, 
 	(48, 2, 1600776106603508, 'KryptCrawler', 9.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/11162698_285368838604495_2088071949509984256_n.jpg?_nc_cat=103&_nc_sid=79b88e&_nc_ohc=Sdn6jJavRgMAX-yn1Ep&_nc_ht=scontent.oculuscdn.com&oh=a22a6f11b5568da2f3c7919e6af3273a&oe=5ED85EBC'),
 	(49, 3, 1611681078875316, 'Ballista', 14.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/43931334_848261419005837_3524074916099915776_n.jpg?_nc_cat=103&_nc_sid=79b88e&_nc_oc=AQkKNO1RZWDZuq6lBMijIPmUNavnRfaBN1O536y3VQ2sL8S-RBfjjMt9WQ0X610YfnHnhOzkCZ_KzP6Om5YfF4ug&_nc_ht=scontent.oculuscdn.com&oh=36bbc88d1a5024a1bdf66cba75155a8b&oe=5ED66779'),
 	(50, 3, 559809134739485, 'Exercise Your Brain From Home', 39.98, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/39031408_542259036491154_7247332020043382784_n.jpg?_nc_cat=111&_nc_sid=79b88e&_nc_oc=AQnjMKa1vh6pjvFPx0P-VTkeU8sh3lZ-8Vc8pVlDDHC6gjELJ_nnWh-glFm_knLDu2syNinG541ctLDnmdLTrLqI&_nc_ht=scontent.oculuscdn.com&oh=3f6e6d252e3879655f2d621541bf0f57&oe=5ED52683'),
-	(51, 3, 606478123270498, 'Brave Adventures From Home', 39.98, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38982708_579507596022658_4049990246996115456_n.jpg?_nc_cat=111&_nc_sid=79b88e&_nc_oc=AQn7Qph6zNghuEzKSsmB2a7vhm2W4AJ7ADCPMF6Rua8ZtRtSwb0BB9JSS5nHybrKj9zPMRErPQcyqJOLGHqnu5pB&_nc_ht=scontent.oculuscdn.com&oh=f1fd762c60827d4e0f4386dc1b94d57f&oe=5ED65F2E'),
-	(52, 3, 2215140511885250, 'Fruit Ninja', 14.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974450_475444409850979_6523234498539159552_n.jpg?_nc_cat=100&_nc_sid=79b88e&_nc_ohc=UBKAwLBsrtcAX_RN5D2&_nc_ht=scontent.oculuscdn.com&oh=c9c30dc2ec3e80378fa342cacd256187&oe=5ED72E7B');
+	(51, 3, 606478123270498, 'Brave Adventures From Home', 36.98, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38982708_579507596022658_4049990246996115456_n.jpg?_nc_cat=111&_nc_sid=79b88e&_nc_oc=AQn7Qph6zNghuEzKSsmB2a7vhm2W4AJ7ADCPMF6Rua8ZtRtSwb0BB9JSS5nHybrKj9zPMRErPQcyqJOLGHqnu5pB&_nc_ht=scontent.oculuscdn.com&oh=f1fd762c60827d4e0f4386dc1b94d57f&oe=5ED65F2E'),
+	(52, 3, 2215140511885250, 'Fruit Ninja', 14.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974450_475444409850979_6523234498539159552_n.jpg?_nc_cat=100&_nc_sid=79b88e&_nc_ohc=UBKAwLBsrtcAX_RN5D2&_nc_ht=scontent.oculuscdn.com&oh=c9c30dc2ec3e80378fa342cacd256187&oe=5ED72E7B'),
+	(53, 3, 3064046640291676, 'SWORDS of GARGANTUA', 19.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/75195906_242590903606641_6947990434647900160_n.jpg?_nc_cat=102&_nc_sid=79b88e&_nc_ohc=IeuqunXfg8oAX_7-lSP&_nc_ht=scontent.oculuscdn.com&oh=39348bb43dc58fa5c72ade5ad20a7b0f&oe=5ED82AC0');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.current_offers
@@ -92,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `current_offers` (
   `sale_price` decimal(10,2) NOT NULL,
   `date_time` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 -- Exportiere Daten aus Tabelle vr_deals.current_offers: ~51 rows (ungefähr)
 DELETE FROM `current_offers`;
@@ -148,7 +149,7 @@ INSERT INTO `current_offers` (`id`, `article_id`, `sale_price`, `date_time`) VAL
 	(48, 48, 2.99, _binary 0x323032302D30352D30352031363A33343A3438),
 	(50, 50, 25.99, _binary 0x323032302D30352D30352031363A33343A3536),
 	(51, 51, 25.99, _binary 0x323032302D30352D30352031363A33343A3536),
-	(52, 52, 9.99, _binary 0x323032302D30352D30362030393A32343A3535);
+	(53, 53, 16.99, _binary 0x323032302D30352D30372030393A31363A3536);
 /*!40000 ALTER TABLE `current_offers` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.expired_offers
@@ -158,13 +159,14 @@ CREATE TABLE IF NOT EXISTS `expired_offers` (
   `sale_price` decimal(10,2) NOT NULL,
   `date_time` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 -- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~1 rows (ungefähr)
 DELETE FROM `expired_offers`;
 /*!40000 ALTER TABLE `expired_offers` DISABLE KEYS */;
 INSERT INTO `expired_offers` (`id`, `article_id`, `sale_price`, `date_time`) VALUES
-	(1, 49, 9.69, _binary 0x323032302D30352D30352031363A33343A3536);
+	(1, 49, 9.69, _binary 0x323032302D30352D30352031363A33343A3536),
+	(2, 52, 9.99, _binary 0x323032302D30352D30362030393A32343A3535);
 /*!40000 ALTER TABLE `expired_offers` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.headsets
@@ -193,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `stores` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.stores: ~2 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.stores: ~3 rows (ungefähr)
 DELETE FROM `stores`;
 /*!40000 ALTER TABLE `stores` DISABLE KEYS */;
 INSERT INTO `stores` (`id`, `name`, `url`) VALUES
