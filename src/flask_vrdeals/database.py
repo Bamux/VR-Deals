@@ -1,18 +1,7 @@
-"""Starts a Flask web server which shows the content from the database"""
-from flask import Flask, render_template
 from flask_paginate import Pagination, get_page_args
-from flaskext.mysql import MySQL
 
-import settings
+from flask_vrdeals.create_app import mysql
 
-app = Flask(__name__)
-mysql = MySQL()
-app.config['MYSQL_DATABASE_HOST'] = settings.host
-app.config['MYSQL_DATABASE_USER'] = settings.user
-app.config['MYSQL_DATABASE_PASSWORD'] = settings.passwd
-app.config['MYSQL_DATABASE_DB'] = settings.database
-app.config['PER_PAGE'] = 20
-mysql.init_app(app)
 conn = mysql.connect()
 cursor = conn.cursor()
 
@@ -58,7 +47,6 @@ def offers_from_store(per_page, offset, store=""):
     Order by date_time DESC
     LIMIT {per_page} OFFSET {offset}
     '''
-    print(sql)
     for offer in sql_query(sql):
         store_name, article_name, regular_price, sale_price, img_url, website_article_id, url = offer
         if "section" in url:
@@ -70,7 +58,7 @@ def offers_from_store(per_page, offset, store=""):
     return offers
 
 
-def offers_and_pagination(store=""):
+def offers_pagination(store=""):
     if store:
         if store == "Oculus":
             store = f'''WHERE name LIKE "{store}%" '''
@@ -83,20 +71,3 @@ def offers_and_pagination(store=""):
     pagination = Pagination(page=page, per_page=per_page, total=total,
                             css_framework='bootstrap4')
     return offers, pagination
-
-
-@app.route("/")
-@app.route("/home")
-def home():
-    offers, pagination = offers_and_pagination()
-    return render_template('content.html', page_navigation="home", offers=offers, pagination=pagination)
-
-
-@app.route("/oculus")
-def oculus():
-    offers, pagination = offers_and_pagination("Oculus")
-    return render_template('content.html', page_navigation="Oculus Quest", offers=offers, pagination=pagination)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
