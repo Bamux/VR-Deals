@@ -1,3 +1,4 @@
+"""Starts a Flask web server which shows the content from the database"""
 from flask import Flask, render_template
 from flask_paginate import Pagination, get_page_args
 from flaskext.mysql import MySQL
@@ -33,6 +34,7 @@ def sql_query(sql):
 
 
 def number_of_offers(store=""):
+    """returns the number of available offers which is needed for the pagination"""
     if store:
         sql = f'''
         Select COUNT(*) FROM current_offers
@@ -46,6 +48,7 @@ def number_of_offers(store=""):
 
 
 def offers_from_store(per_page, offset, store=""):
+    """returns all offers for the corresponding store"""
     offers = []
     sql = f'''
     SELECT stores.name, article_name, regular_price, sale_price, img_url, website_article_id, url

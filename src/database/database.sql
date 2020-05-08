@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.articles: ~52 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.articles: ~54 rows (ungefähr)
 DELETE FROM `articles`;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
 INSERT INTO `articles` (`id`, `store_id`, `website_article_id`, `article_name`, `regular_price`, `img_url`) VALUES
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `expired_offers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~1 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~3 rows (ungefähr)
 DELETE FROM `expired_offers`;
 /*!40000 ALTER TABLE `expired_offers` DISABLE KEYS */;
 INSERT INTO `expired_offers` (`id`, `article_id`, `sale_price`, `date_time`) VALUES
@@ -201,9 +201,9 @@ CREATE TABLE IF NOT EXISTS `stores` (
 DELETE FROM `stores`;
 /*!40000 ALTER TABLE `stores` DISABLE KEYS */;
 INSERT INTO `stores` (`id`, `name`, `url`) VALUES
-	(1, 'Go', 'https://www.oculus.com/experiences/go/section/1500175860035862/'),
-	(2, 'Rift', 'https://www.oculus.com/experiences/rift/section/1578364258944223/'),
-	(3, 'Quest', 'https://www.oculus.com/experiences/quest/');
+	(1, 'Oculus Go', 'https://www.oculus.com/experiences/go/section/1500175860035862/'),
+	(2, 'Oculus Rift', 'https://www.oculus.com/experiences/rift/section/1578364258944223/'),
+	(3, 'Oculus Quest', 'https://www.oculus.com/experiences/quest/');
 /*!40000 ALTER TABLE `stores` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
