@@ -37,8 +37,7 @@ def number_of_offers(store=""):
         sql = f'''
         Select COUNT(*) FROM current_offers
         INNER JOIN articles ON articles.id = current_offers.article_id
-        INNER JOIN stores ON stores.id = articles.store_id
-        WHERE name="{store}" 
+        INNER JOIN stores ON stores.id = articles.store_id {store}
         '''
     else:
         sql = f'''Select COUNT(*) FROM current_offers'''
@@ -48,8 +47,6 @@ def number_of_offers(store=""):
 
 def offers_from_store(per_page, offset, store=""):
     offers = []
-    if store:
-        store = f'''WHERE name="{store}" '''
     sql = f'''
     SELECT stores.name, article_name, regular_price, sale_price, img_url, website_article_id, url
     FROM current_offers
@@ -58,6 +55,7 @@ def offers_from_store(per_page, offset, store=""):
     Order by date_time DESC
     LIMIT {per_page} OFFSET {offset}
     '''
+    print(sql)
     for offer in sql_query(sql):
         store_name, article_name, regular_price, sale_price, img_url, website_article_id, url = offer
         if "section" in url:
@@ -69,7 +67,12 @@ def offers_from_store(per_page, offset, store=""):
     return offers
 
 
-def content(store=""):
+def offers_and_pagination(store=""):
+    if store:
+        if store == "Oculus":
+            store = f'''WHERE name LIKE "{store}%" '''
+        else:
+            store = f'''WHERE name="{store}" '''
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
     offers = offers_from_store(per_page, offset, store)
@@ -82,50 +85,14 @@ def content(store=""):
 @app.route("/")
 @app.route("/home")
 def home():
-    offers, pagination = content()
+    offers, pagination = offers_and_pagination()
     return render_template('content.html', page_navigation="home", offers=offers, pagination=pagination)
 
 
-@app.route("/quest")
+@app.route("/oculus")
 def oculus():
-    offers, pagination = content("Quest")
+    offers, pagination = offers_and_pagination("Oculus")
     return render_template('content.html', page_navigation="Oculus Quest", offers=offers, pagination=pagination)
-
-
-@app.route("/rift")
-def rift():
-    offers, pagination = content("Rift")
-    return render_template('content.html', page_navigation="Oculus Rift", offers=offers, pagination=pagination)
-
-
-@app.route("/go")
-def go():
-    offers, pagination = content("Go")
-    return render_template('content.html', page_navigation="Oculus Go", offers=offers, pagination=pagination)
-
-
-@app.route("/steam")
-def valve():
-    offers, pagination = content("Steam")
-    return render_template('content.html', page_navigation="Steam", offers=offers, pagination=pagination)
-
-
-@app.route("/htc")
-def htc():
-    offers, pagination = content("HTC")
-    return render_template('content.html', page_navigation="HTC", offers=offers, pagination=pagination)
-
-
-@app.route("/wmr")
-def wmr():
-    offers, pagination = content("WMR")
-    return render_template('content.html', page_navigation="WMR", offers=offers, pagination=pagination)
-
-
-@app.route("/psvr")
-def psvr():
-    offers, pagination = content("PSVR")
-    return render_template('content.html', page_navigation="PSVR", offers=offers, pagination=pagination)
 
 
 if __name__ == '__main__':

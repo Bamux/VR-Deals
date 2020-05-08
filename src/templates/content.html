@@ -1,9 +1,13 @@
 {% extends "layout.html" %}
 {% set active_page = page_navigation %}
+{% set store = [] %}
 {% block content %}
 {% for offer in offers %}
 {% set savings_percent = ((offer['sale_price']-offer['regular_price'])/offer['regular_price']*100)|round|int %}
-<div class="card mb-2">
+{% if offer['store_name'] not in store %}
+<h5>{{ store.append(offer['store_name']) or offer['store_name'] }}</h5>
+{% endif %}
+<div class="card mb-2 row">
   <div class="row no-gutters">
     <div class="col-md-4">
       <a href="{{ offer['url'] }}" target="_blank">
@@ -12,12 +16,13 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title"><a href="{{ offer['url'] }}" target="_blank" class = "card-link">{{ offer['article_name'] }}</a></h5>
+        <h5 class="card-title"><a href="{{ offer['url'] }}" target="_blank" class="card-link">{{ offer['article_name']
+          }}</a></h5>
         <p class="card-text">
-          <img src="{{ url_for('static', filename='images/'+offer['store_name']+'.png') }}" class="store_images"
+          <img src="{{ url_for('static', filename='images/'+offer['store_name']|replace(' ', '_')+'.png') }}"
+               class="store_images"
                width="auto"
                height="60">
-          <span class="cardbord_text">{{ offer['store_name'] }}:</span>
           <span class="cardbord_text">{{ offer['sale_price'] }}€</span>
           <strike class="strike">{{ offer['regular_price'] }}€</strike>
           {{ savings_percent }}%
@@ -27,4 +32,7 @@
   </div>
 </div>
 {% endfor %}
+<div class="row justify-content-center">
+  {{ pagination.links }}
+</div>
 {% endblock content %}

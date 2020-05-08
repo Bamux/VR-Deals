@@ -106,11 +106,11 @@ def database_interaction(offers, store_id):
 
 def main():
     offers = []
-    stores = sql.get_oculus_stores()
-    oculus_stores = ("Go", "Quest", "Rift")
+    stores = sql.get_stores()
     for store in stores:
         store_id, store_name, store_url = store
-        if store_name in oculus_stores:
+        print(store_name)
+        if "Oculus" in store_name:
             offers = oculus_store.main(store)
         if offers:
             database_interaction(offers, store_id)
