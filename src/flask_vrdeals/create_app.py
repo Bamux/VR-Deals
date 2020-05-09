@@ -11,3 +11,6 @@ app.config['MYSQL_DATABASE_PASSWORD'] = settings.passwd
 app.config['MYSQL_DATABASE_DB'] = settings.database
 app.config['PER_PAGE'] = 20
 mysql.init_app(app)
+
+if __name__ == '__main__':
+    app.run(debug=True)

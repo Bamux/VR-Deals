@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `regular_price` decimal(10,2) NOT NULL,
   `img_url` text COLLATE utf8_german2_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.articles: ~53 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.articles: ~52 rows (ungefähr)
 DELETE FROM `articles`;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
 INSERT INTO `articles` (`id`, `store_id`, `website_article_id`, `article_name`, `regular_price`, `img_url`) VALUES
@@ -86,7 +86,8 @@ INSERT INTO `articles` (`id`, `store_id`, `website_article_id`, `article_name`, 
 	(53, 3, 3064046640291676, 'SWORDS of GARGANTUA', 19.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/75195906_242590903606641_6947990434647900160_n.jpg?_nc_cat=102&_nc_sid=79b88e&_nc_ohc=IeuqunXfg8oAX_7-lSP&_nc_ht=scontent.oculuscdn.com&oh=39348bb43dc58fa5c72ade5ad20a7b0f&oe=5ED82AC0'),
 	(54, 3, 2592096760842149, '2MD: VR Football Unleashed', 14.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/39035379_656630631552496_2655991734143549440_n.jpg?_nc_cat=102&_nc_sid=79b88e&_nc_ohc=3KneK6gz4SEAX9peLSs&_nc_ht=scontent.oculuscdn.com&oh=fe6a7548628df99d57e0cb80609b8cd2&oe=5EDBF551'),
 	(55, 3, 289522525371123, 'Play with Robots From Home', 24.98, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/75294239_2918313711549461_5648382735887106048_n.jpg?_nc_cat=1&_nc_sid=79b88e&_nc_oc=AQmzvEN88AYwgZMRjTV4iW6r0VwlLYpX---65yMblVK_AkyaSYol7J31xe1VVpLgHp4JY8ImDv6kplL6657SiYlH&_nc_ht=scontent.oculuscdn.com&oh=91e248a970329a883bf81eec3a283736&oe=5ED99ED7'),
-	(56, 3, 255975505778019, 'Share Missions with Friends From Home', 34.98, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/75222939_574820706481531_6638998500119937024_n.jpg?_nc_cat=1&_nc_sid=79b88e&_nc_oc=AQmIhJieedPxviUH1GUUJCJl1azJJXLBtPexE0LX5BPNew4A-FjxqTmnWFvSCi8fJqIEX89ZXlq3Gt19Q7_EwGx9&_nc_ht=scontent.oculuscdn.com&oh=a893ad079385493c7d790d06b654caff&oe=5ED984C8');
+	(56, 3, 255975505778019, 'Share Missions with Friends From Home', 34.98, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/75222939_574820706481531_6638998500119937024_n.jpg?_nc_cat=1&_nc_sid=79b88e&_nc_oc=AQmIhJieedPxviUH1GUUJCJl1azJJXLBtPexE0LX5BPNew4A-FjxqTmnWFvSCi8fJqIEX89ZXlq3Gt19Q7_EwGx9&_nc_ht=scontent.oculuscdn.com&oh=a893ad079385493c7d790d06b654caff&oe=5ED984C8'),
+	(57, 3, 2366245336750543, 'Creed: Rise to Glory', 29.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/39036641_922778044814166_2919564075983699968_n.jpg?_nc_cat=107&_nc_sid=79b88e&_nc_ohc=dzaFLK7KPu0AX-9_afp&_nc_ht=scontent.oculuscdn.com&oh=fd7ef54bf25f50722a1249a30f352e69&oe=5EDA3489');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.current_offers
@@ -96,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `current_offers` (
   `sale_price` decimal(10,2) NOT NULL,
   `date_time` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 -- Exportiere Daten aus Tabelle vr_deals.current_offers: ~51 rows (ungefähr)
 DELETE FROM `current_offers`;
@@ -150,9 +151,9 @@ INSERT INTO `current_offers` (`id`, `article_id`, `sale_price`, `date_time`) VAL
 	(46, 46, 4.99, _binary 0x323032302D30352D30352031363A33343A3438),
 	(47, 47, 3.99, _binary 0x323032302D30352D30352031363A33343A3438),
 	(48, 48, 2.99, _binary 0x323032302D30352D30352031363A33343A3438),
-	(54, 54, 9.99, _binary 0x323032302D30352D30382030393A33393A3331),
 	(55, 55, 16.99, _binary 0x323032302D30352D30382032333A31303A3435),
-	(56, 56, 22.99, _binary 0x323032302D30352D30382032333A31303A3435);
+	(56, 56, 22.99, _binary 0x323032302D30352D30382032333A31303A3435),
+	(57, 57, 22.99, _binary 0x323032302D30352D30392030393A31363A3432);
 /*!40000 ALTER TABLE `current_offers` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.expired_offers
@@ -162,9 +163,9 @@ CREATE TABLE IF NOT EXISTS `expired_offers` (
   `sale_price` decimal(10,2) NOT NULL,
   `date_time` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~5 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~6 rows (ungefähr)
 DELETE FROM `expired_offers`;
 /*!40000 ALTER TABLE `expired_offers` DISABLE KEYS */;
 INSERT INTO `expired_offers` (`id`, `article_id`, `sale_price`, `date_time`) VALUES
@@ -172,7 +173,8 @@ INSERT INTO `expired_offers` (`id`, `article_id`, `sale_price`, `date_time`) VAL
 	(2, 52, 9.99, _binary 0x323032302D30352D30362030393A32343A3535),
 	(3, 53, 16.99, _binary 0x323032302D30352D30372030393A31363A3536),
 	(4, 50, 25.99, _binary 0x323032302D30352D30352031363A33343A3536),
-	(5, 51, 25.99, _binary 0x323032302D30352D30352031363A33343A3536);
+	(5, 51, 25.99, _binary 0x323032302D30352D30352031363A33343A3536),
+	(6, 54, 9.99, _binary 0x323032302D30352D30382030393A33393A3331);
 /*!40000 ALTER TABLE `expired_offers` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.headsets
