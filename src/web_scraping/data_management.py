@@ -104,16 +104,20 @@ def database_interaction(offers, store_id):
         sql.add_current_offers(new_offers_datetime(new_offers))
 
 
-def main():
+def get_offers(store):
     offers = []
+    store_id, store_name, _ = store
+    if "Oculus" in store_name:
+        offers = data_sources.oculus.main(store)
+    return offers
+
+
+def main():
     stores = sql.get_stores()
     for store in stores:
-        store_id, store_name, store_url = store
-        print(store_name)
-        if "Oculus" in store_name:
-            offers = data_sources.oculus_store.main(store)
+        offers = get_offers(store)
         if offers:
-            database_interaction(offers, store_id)
+            database_interaction(offers, store_id=store[0])
     sql.conn_close()
 
 
