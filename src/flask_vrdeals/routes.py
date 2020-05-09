@@ -1,7 +1,6 @@
 from flask import render_template
 
-from flask_vrdeals import database
-from flask_vrdeals.create_app import app
+from flask_vrdeals import app, database
 
 
 @app.route("/")

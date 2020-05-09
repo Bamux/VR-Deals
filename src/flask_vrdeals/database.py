@@ -1,6 +1,6 @@
 from flask_paginate import Pagination, get_page_args
 
-from flask_vrdeals.create_app import mysql
+from flask_vrdeals import mysql
 
 conn = mysql.connect()
 cursor = conn.cursor()

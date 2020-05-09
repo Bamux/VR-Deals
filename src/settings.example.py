@@ -1,10 +1,10 @@
 """Please fill out the settings.example.py and rename it to settings.py"""
 
 # Database Connection
-host = "localhost"
-user = "root"
-passwd = ""  # enter your password to your mysql database here
-database = "vr_schnaeppchen"
+host = ""
+user = ""
+passwd = ""
+database = "vr_deals"
 
 # Chromedriver for Selenium
 '''

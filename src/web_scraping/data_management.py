@@ -1,7 +1,6 @@
 import datetime
 
-import sql
-from stores import oculus_store
+from web_scraping import sql, data_sources
 
 
 def check_update_articles(offers):
@@ -112,7 +111,7 @@ def main():
         store_id, store_name, store_url = store
         print(store_name)
         if "Oculus" in store_name:
-            offers = oculus_store.main(store)
+            offers = data_sources.oculus_store.main(store)
         if offers:
             database_interaction(offers, store_id)
     sql.conn_close()
