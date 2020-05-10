@@ -4,7 +4,11 @@ body { background: #f1f5f8 !important;}
 
 .container{
     max-width: 767px;
-    padding-top: 90px;
+    padding-top: 70px;
+}
+
+.headline{
+    padding-top: 20px;
 }
 
 .card{

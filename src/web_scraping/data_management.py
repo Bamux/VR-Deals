@@ -1,5 +1,4 @@
 import datetime
-
 from web_scraping import sql, data_sources
 
 
@@ -90,6 +89,8 @@ def new_offers_datetime(new_offers):
 
 def database_interaction(offers, store_id):
     """Checks if offers already exist, adds new offers and moves expired offers"""
+    if not offers:
+        return
     new_articles, new_offers = check_update_articles(offers)
     added_articles = add_articles(new_articles)
     if added_articles:
@@ -109,6 +110,8 @@ def get_offers(store):
     store_id, store_name, _ = store
     if "Oculus" in store_name:
         offers = data_sources.oculus.main(store)
+    elif store_name == "Steam":
+        offers = data_sources.steam.main(store_id)
     return offers
 
 
@@ -116,8 +119,7 @@ def main():
     stores = sql.get_stores()
     for store in stores:
         offers = get_offers(store)
-        if offers:
-            database_interaction(offers, store_id=store[0])
+        database_interaction(offers, store_id=store[0])
     sql.conn_close()
 
 

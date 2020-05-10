@@ -1,4 +1,4 @@
-"""Returns the oculus store offers for Quest, Rift and Go."""
+"""Gets the data from the oculus store via web scraping with the selenium library."""
 from decimal import Decimal
 from pathlib import Path
 
@@ -9,7 +9,7 @@ import settings
 
 
 def oculus_store(store):
-    """Gets the data from the oculus store via web scraping with the selenium library."""
+    """Returns the oculus store offers for Quest, Rift and Go."""
     offers = []
     store_id, store, url = store
     if "Quest" in store:
