@@ -7,7 +7,7 @@ from flask_vrdeals import app, database
 @app.route("/home")
 def home():
     offers, pagination = database.offers_pagination()
-    return render_template('content.html', page_navigation="home", offers=offers, pagination=pagination)
+    return render_template('content.html', page_navigation="Home", offers=offers, pagination=pagination)
 
 
 @app.route("/oculus")
