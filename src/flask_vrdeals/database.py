@@ -1,5 +1,5 @@
 from flask_paginate import Pagination, get_page_args
-
+import re
 from flask_vrdeals import mysql
 
 conn = mysql.connect()
@@ -37,7 +37,8 @@ def number_of_offers(store=""):
     return total
 
 
-def create_urls(store_name, website_article_id, img_url, url):
+def create_urls(offer):
+    store_name, article_name, _, _, img_url, website_article_id, url = offer
     if "Oculus" in store_name:
         if "section" in url:
             url = url.split("section")[0]
@@ -45,6 +46,12 @@ def create_urls(store_name, website_article_id, img_url, url):
     elif store_name == "Steam":
         img_url = f"https://steamcdn-a.akamaihd.net/steam/apps/{website_article_id}/header.jpg"
         url = f"https://store.steampowered.com/app/{website_article_id}/"
+    elif store_name == "Humble Bundle":
+        article_name = re.sub('[^a-zA-Z0-9 ]', '', article_name)
+        article_name = article_name.lower().replace("  ", "-")
+        article_name = article_name.lower().replace(" ", "-")
+        url = f"https://www.humblebundle.com/store/{article_name}"
+
     return img_url, url
 
 
@@ -62,7 +69,7 @@ def offers_from_store(per_page, offset, store=""):
     '''
     for offer in sql_query(sql):
         store_name, article_name, regular_price, sale_price, img_url, website_article_id, url = offer
-        img_url, url = create_urls(store_name, website_article_id, img_url, url)
+        img_url, url = create_urls(offer)
         offers.append({"store_name": store_name, "article_name": article_name,
                        "regular_price": regular_price, "sale_price": sale_price,
                        "img_url": img_url, "url": url})

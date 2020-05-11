@@ -1,5 +1,7 @@
-mysql-connector-python
-selenium
-flask
+mysql-connector-python~=8.0.20
+selenium~=3.141.0
+flask~=1.1.2
 flask-mysql
 flask-paginate
+requests~=2.23.0
+lxml~=4.5.0

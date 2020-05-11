@@ -112,6 +112,8 @@ def get_offers(store):
         offers = data_sources.oculus.main(store)
     elif store_name == "Steam":
         offers = data_sources.steam.main(store_id)
+    elif store_name == "Humble Bundle":
+        offers = data_sources.humble_bundle.main(store_id)
     return offers
 
 

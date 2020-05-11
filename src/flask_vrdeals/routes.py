@@ -10,6 +10,12 @@ def home():
     return render_template('content.html', page_navigation="Home", offers=offers, pagination=pagination)
 
 
+@app.route("/humble")
+def humble():
+    offers, pagination = database.offers_pagination("Humble Bundle")
+    return render_template('content.html', page_navigation="Humble Bundle", offers=offers, pagination=pagination)
+
+
 @app.route("/oculus")
 def oculus():
     offers, pagination = database.offers_pagination("Oculus")

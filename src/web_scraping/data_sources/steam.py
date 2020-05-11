@@ -38,14 +38,14 @@ def get_steam_offers(store_id):
         for app_url, article_name, regular_price, sale_price in \
                 zip(app_urls, article_names, regular_prices, sale_prices):
             app = app_url.split('/')
-            app_id = int(app[4])
-            if app_id not in blacklist and "bundle" not in app_url:
+            website_article_id = int(app[4])
+            if website_article_id not in blacklist and "bundle" not in app_url:
                 sale_price = decimal_price(sale_price)
                 regular_price = decimal_price(regular_price)
-                offers.append({"store_id": int(store_id), "website_article_id": int(app_id),
+                offers.append({"store_id": int(store_id), "website_article_id": int(website_article_id),
                                "article_name": str(article_name), "regular_price": regular_price,
                                "sale_price": sale_price, "img_url": ""})
-                print(article_name, ":", sale_price, "€", app_url)
+                print(article_name, ":", sale_price, "€")
         infinite_scrolling += 50
     return offers
 

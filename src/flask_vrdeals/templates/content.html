@@ -18,15 +18,22 @@
       <div class="card-body">
         <h5 class="card-title"><a href="{{ offer['url'] }}" target="_blank" class="card-link">{{ offer['article_name']
           }}</a></h5>
-        <p class="card-text">
-          <img src="{{ url_for('static', filename='images/'+offer['store_name']|replace(' ', '_')+'.png') }}"
-               class="store_images"
-               width="auto"
-               height="60">
-          <span class="cardbord_text">{{ offer['sale_price'] }}€</span>
-          <strike class="strike">{{ offer['regular_price'] }}€</strike>
-          {{ savings_percent }}%
-        </p>
+        <div class="card-text">
+          <div class="row">
+            <div class="col-5 row justify-content-center my-auto">
+              <img src="{{ url_for('static', filename='images/'+offer['store_name']|replace(' ', '_')+'.png') }}"
+                   width="auto"
+                   height="60">
+            </div>
+            <div class="col-7 my-auto">
+              <h5>
+                <a href="{{ offer['url'] }}" target="_blank" class="badge badge-success">{{ offer['sale_price'] }}€</a>
+                <a href="{{ offer['url'] }}" target="_blank" class="strike badge badge-dark">{{ offer['regular_price'] }}€</a>
+                <a href="{{ offer['url'] }}" target="_blank" class="badge badge-danger">{{ savings_percent }}%</a>
+              </h5>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

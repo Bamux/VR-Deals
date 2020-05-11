@@ -34,13 +34,7 @@ body { background: #f1f5f8 !important;}
     text-decoration: underline;
 }
 
-.store_images{
-    padding-right: 30px;
-}
 
-.sale_price{
-    padding-right: 5px;
-}
 
 
 @media (min-width: 767px) {
@@ -66,14 +60,9 @@ body { background: #f1f5f8 !important;}
   display: inline-block;
 }
 
-.cardbord_text {
-  padding-right: 5px
-}
-
 
 .strike {
     text-decoration:line-through;
-    padding-right: 5px
 }
 
 
