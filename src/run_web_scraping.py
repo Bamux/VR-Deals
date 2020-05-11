@@ -1,4 +1,4 @@
-from web_scraping import data_management
+from web_scraping import webscraping
 
 if __name__ == "__main__":
-    data_management.main()
+    webscraping.main()
