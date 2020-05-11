@@ -5,7 +5,7 @@ from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-import settings
+from settings import chromedriver_executable_path
 
 
 def oculus_store(store):
@@ -22,7 +22,7 @@ def oculus_store(store):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
     driver = webdriver.Chrome(options=chrome_options,
-                              executable_path=settings.chromedriver_executable_path)
+                              executable_path=chromedriver_executable_path)
     driver.implicitly_wait(10)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
@@ -49,7 +49,7 @@ def oculus_store(store):
 def main(store):
     """Checks if the chromedriver is present, collects the offers from oculus and returns them."""
     offers = []
-    chromedriver = Path(settings.chromedriver_executable_path).is_file()
+    chromedriver = Path(chromedriver_executable_path).is_file()
     if chromedriver:
         offers = oculus_store(store)
     else:
