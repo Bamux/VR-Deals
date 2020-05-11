@@ -1,5 +1,4 @@
 from flask_paginate import Pagination, get_page_args
-import re
 from flask_vrdeals import mysql
 
 conn = mysql.connect()
@@ -47,10 +46,7 @@ def create_urls(offer):
         img_url = f"https://steamcdn-a.akamaihd.net/steam/apps/{website_article_id}/header.jpg"
         url = f"https://store.steampowered.com/app/{website_article_id}/"
     elif store_name == "Humble Bundle":
-        article_name = re.sub('[^a-zA-Z0-9 ]', '', article_name)
-        article_name = article_name.lower().replace("  ", "-")
-        article_name = article_name.lower().replace(" ", "-")
-        url = f"https://www.humblebundle.com/store/{article_name}"
+        url = f"https://www.humblebundle.com/store/{website_article_id}"
 
     return img_url, url
 

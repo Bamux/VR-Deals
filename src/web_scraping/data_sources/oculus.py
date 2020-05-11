@@ -37,7 +37,7 @@ def oculus_store(store):
         sale_price = Decimal(sale_price.text.split(" ")[0].replace(',', '.'))
         regular_price = Decimal(regular_price.text.split(" ")[0].replace(',', '.'))
         img_url = url.get_attribute("style").split('"')[1]
-        offers.append({"store_id": store_id, "website_article_id": int(website_article_id),
+        offers.append({"store_id": store_id, "website_article_id": website_article_id,
                        "article_name": article_name.text, "regular_price": regular_price,
                        "sale_price": sale_price, "img_url": img_url})
         print(article_name.text, ":", sale_price, "€")

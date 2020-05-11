@@ -42,7 +42,7 @@ def get_steam_offers(store_id):
             if website_article_id not in blacklist and "bundle" not in app_url:
                 sale_price = decimal_price(sale_price)
                 regular_price = decimal_price(regular_price)
-                offers.append({"store_id": int(store_id), "website_article_id": int(website_article_id),
+                offers.append({"store_id": int(store_id), "website_article_id": website_article_id,
                                "article_name": str(article_name), "regular_price": regular_price,
                                "sale_price": sale_price, "img_url": ""})
                 print(article_name, ":", sale_price, "€")

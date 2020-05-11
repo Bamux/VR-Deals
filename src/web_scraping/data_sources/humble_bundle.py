@@ -13,17 +13,13 @@ def get_json_data(page):
 
 
 def evaluate_json_data(store_id, article):
-    article_name = article['human_name']
-    sale_price = article['current_price']['amount']
-    regular_price = article['full_price']['amount']
-    img_url = article['large_capsule']
     offer = {"store_id": int(store_id),
-             "website_article_id": None,
-             "article_name": str(article_name),
-             "regular_price": Decimal(regular_price),
-             "sale_price": Decimal(sale_price),
-             "img_url": img_url}
-    print(article_name, ":", sale_price, "€")
+             "website_article_id": article['human_url'],
+             "article_name": str(article['human_name']),
+             "regular_price": Decimal(article['full_price']['amount']),
+             "sale_price": Decimal(article['current_price']['amount']),
+             "img_url": article['large_capsule']}
+    print(article['human_name'], ":", article['current_price']['amount'], "€")
     return offer
 
 
