@@ -3,11 +3,22 @@ import datetime
 from web_scraping import sql, data_sources
 
 
+def add_article(offer):
+    """
+    Adds new articles to the database articles table.
+    Returns a list of the new offers with the corresponding id from the articles table.
+    """
+    sql.add_article((offer.store_id, offer.website_article_id,
+                     offer.article_name, offer.regular_price,
+                     offer.img_url))
+    article_id = sql.cursor.lastrowid
+    return article_id
+
+
 def check_update_articles(offers):
     """
     Checks if the article already exists in the database articles table.
     Update the regular price and image url if it has changed.
-    Adds new articles to the database and returns the corresponding article id.
     """
     for offer in offers:
         sql_query_result = sql.check_article(offer.website_article_id, offer.store_id)
@@ -23,18 +34,6 @@ def check_update_articles(offers):
                 # print(previous_img_url)
                 # sql.update_img_url(offer.img_url, article_id)
             offer.article_id = article_id
-
-
-def add_article(offer):
-    """
-    Adds new articles to the database articles table.
-    Returns a list of the new offers with the corresponding id from the articles table.
-    """
-    sql.add_article((offer.store_id, offer.website_article_id,
-                     offer.article_name, offer.regular_price,
-                     offer.img_url))
-    article_id = sql.cursor.lastrowid
-    return article_id
 
 
 def check_expired_offers(previous_offers, offers):

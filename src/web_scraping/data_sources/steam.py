@@ -39,9 +39,10 @@ def get_steam_offers(store_id):
             price = price.split("€")
             regular_price = price[0]
             sale_price = price[1]
-            app = app_url['src'].split("/")[5]
-            website_article_id = app
-            if website_article_id not in blacklist and "bundle" not in app_url:
+            app = app_url['src'].split("/")
+            bundle_app = app[4]
+            website_article_id = app[5]
+            if website_article_id not in blacklist and "bundle" not in bundle_app:
                 sale_price = decimal_price(sale_price)
                 regular_price = decimal_price(regular_price)
                 article_id = 0
