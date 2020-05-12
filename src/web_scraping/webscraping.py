@@ -85,11 +85,11 @@ def database_interaction(offers, store_id):
 def get_offers(store):
     offers = []
     store_id, store_name, _ = store
-    if "Oculus1" in store_name:
+    if "Oculus" in store_name:
         offers = data_sources.oculus.main(store)
     elif store_name == "Steam":
         offers = data_sources.steam.main(store_id)
-    elif store_name == "Humble Bundle1":
+    elif store_name == "Humble Bundle":
         offers = data_sources.humble_bundle.main(store_id)
     return offers
 
