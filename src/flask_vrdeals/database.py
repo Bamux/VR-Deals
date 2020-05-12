@@ -36,8 +36,8 @@ def number_of_offers(store=""):
     return total
 
 
-def create_urls(offer):
-    store_name, article_name, _, _, img_url, website_article_id, url = offer
+def create_urls(article):
+    store_name, article_name, _, _, img_url, website_article_id, url = article
     if "Oculus" in store_name:
         if "section" in url:
             url = url.split("section")[0]

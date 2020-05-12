@@ -1,6 +1,6 @@
 """Gets the offers from the humble bundle store"""
 import json
-from decimal import Decimal
+from web_scraping.article import Article
 
 import requests
 
@@ -13,13 +13,17 @@ def get_json_data(page):
 
 
 def evaluate_json_data(store_id, article):
-    offer = {"store_id": int(store_id),
-             "website_article_id": article['human_url'],
-             "article_name": str(article['human_name']),
-             "regular_price": Decimal(article['full_price']['amount']),
-             "sale_price": Decimal(article['current_price']['amount']),
-             "img_url": article['large_capsule']}
-    print(article['human_name'], ":", article['current_price']['amount'], "€")
+    article_id = 0
+    offer = Article(
+        article_id,
+        store_id,
+        article['human_url'],
+        article['human_name'],
+        article['full_price']['amount'],
+        article['current_price']['amount'],
+        article['large_capsule'],
+    )
+    offer.print_offer()
     return offer
 
 

@@ -5,6 +5,8 @@ from decimal import Decimal
 import requests
 from lxml import html
 
+from web_scraping.article import Article
+
 
 def decimal_price(price):
     price = price.strip().split("€")[0]
@@ -42,10 +44,18 @@ def get_steam_offers(store_id):
             if website_article_id not in blacklist and "bundle" not in app_url:
                 sale_price = decimal_price(sale_price)
                 regular_price = decimal_price(regular_price)
-                offers.append({"store_id": int(store_id), "website_article_id": website_article_id,
-                               "article_name": str(article_name), "regular_price": regular_price,
-                               "sale_price": sale_price, "img_url": ""})
-                print(article_name, ":", sale_price, "€")
+                article_id = 0
+                offer = Article(
+                    article_id,
+                    store_id,
+                    website_article_id,
+                    article_name,
+                    regular_price,
+                    sale_price,
+                    img_url="",
+                )
+                offers.append(offer)
+                offer.print_offer()
         infinite_scrolling += 50
     return offers
 
