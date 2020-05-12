@@ -50,9 +50,6 @@ def oculus_store(store):
         )
         offers.append(offer)
         offer.print_offer()
-        # offers.append({"store_id": store_id, "website_article_id": website_article_id,
-        #                "article_name": article_name.text, "regular_price": regular_price,
-        #                "sale_price": sale_price, "img_url": img_url})
     driver.close()
     driver.quit()
     return offers

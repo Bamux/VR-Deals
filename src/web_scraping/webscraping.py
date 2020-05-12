@@ -7,8 +7,7 @@ def check_update_articles(offers):
     """
     Checks if the article already exists in the database articles table.
     Update the regular price and image url if it has changed.
-    Returns a list of articles that do not yet exist and a list of the new offers
-    with the corresponding id from the articles table.
+    Adds new articles to the database and returns the corresponding article id.
     """
     for offer in offers:
         sql_query_result = sql.check_article(offer.website_article_id, offer.store_id)
@@ -86,11 +85,11 @@ def database_interaction(offers, store_id):
 def get_offers(store):
     offers = []
     store_id, store_name, _ = store
-    if "Oculus" in store_name:
+    if "Oculus1" in store_name:
         offers = data_sources.oculus.main(store)
     elif store_name == "Steam":
         offers = data_sources.steam.main(store_id)
-    elif store_name == "Humble Bundle":
+    elif store_name == "Humble Bundle1":
         offers = data_sources.humble_bundle.main(store_id)
     return offers
 

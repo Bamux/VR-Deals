@@ -4,4 +4,4 @@ flask~=1.1.2
 flask-mysql
 flask-paginate
 requests~=2.23.0
-lxml~=4.5.0
+beautifulsoup4~=4.9.0

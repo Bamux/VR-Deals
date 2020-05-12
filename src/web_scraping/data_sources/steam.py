@@ -3,7 +3,7 @@ import json
 from decimal import Decimal
 
 import requests
-from lxml import html
+from bs4 import BeautifulSoup
 
 from web_scraping.article import Article
 
@@ -23,24 +23,24 @@ def get_steam_offers(store_id):
     offers = []
     blacklist = [14973]  # apps that steam mistakenly displays as VR apps
     while True:
-        sale_prices = []
         url = f'https://store.steampowered.com/search/results/?query&start={infinite_scrolling}' \
               f'&count=50&dynamic_data=&sort_by=_ASC&vrsupport=402&snr=1_7_7_2300_7&specials=1&infinite=1'
         json_data = json.loads(requests.get(url).text)
         if json_data["results_html"] == "\r\n<!-- List Items -->\r\n<!-- End List Items -->\r\n":
             break
-        tree = html.fromstring(json_data["results_html"])
-        app_urls = tree.xpath(".//a/@href")
-        article_names = tree.xpath('//span[@class="title"]/text()')
-        regular_prices = tree.xpath('//strike/text()')
-        sale_prices_html = tree.xpath('//div[@class="col search_price discounted responsive_secondrow"]/text()')
-        for sale_price in sale_prices_html:
-            if "€" in sale_price:
-                sale_prices.append(sale_price)
-        for app_url, article_name, regular_price, sale_price in \
-                zip(app_urls, article_names, regular_prices, sale_prices):
-            app = app_url.split('/')
-            website_article_id = int(app[4])
+        soup = BeautifulSoup(json_data["results_html"], 'lxml')
+        article_names = soup.find_all('span', class_='title')
+        app_urls = soup.find_all('img')
+        prices = soup.find_all('div', class_='col search_price discounted responsive_secondrow')
+        print(len(article_names), len(prices))
+        for app_url, article_name, price in \
+                zip(app_urls, article_names, prices):
+            price = price.text.strip()
+            price = price.split("€")
+            regular_price = price[0]
+            sale_price = price[1]
+            app = app_url['src'].split("/")[5]
+            website_article_id = app
             if website_article_id not in blacklist and "bundle" not in app_url:
                 sale_price = decimal_price(sale_price)
                 regular_price = decimal_price(regular_price)
@@ -49,7 +49,7 @@ def get_steam_offers(store_id):
                     article_id,
                     store_id,
                     website_article_id,
-                    article_name,
+                    article_name.text,
                     regular_price,
                     sale_price,
                     img_url="",
