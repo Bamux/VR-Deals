@@ -66,9 +66,14 @@ def offers_from_store(per_page, offset, store=""):
     for offer in sql_query(sql):
         store_name, article_name, regular_price, sale_price, img_url, website_article_id, url = offer
         img_url, url = create_urls(offer)
-        offers.append({"store_name": store_name, "article_name": article_name,
-                       "regular_price": regular_price, "sale_price": sale_price,
-                       "img_url": img_url, "url": url})
+        offers.append({
+            "store_name": store_name,
+            "article_name": article_name,
+            "regular_price": regular_price,
+            "sale_price": sale_price,
+            "img_url": img_url,
+            "url": url
+        })
     return offers
 
 

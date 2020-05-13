@@ -17,7 +17,6 @@ except mysql.connector.Error as error:
 def add_current_offers(offers):
     sql = '''INSERT INTO current_offers(article_id,sale_price,date_time) VALUES(%s,%s,%s)'''
     cursor.executemany(sql, offers)
-    # conn.commit()
 
 
 def add_article(new_article):
@@ -25,7 +24,6 @@ def add_article(new_article):
     INSERT INTO articles(store_id, website_article_id, article_name, regular_price, img_url) 
     VALUES(%s,%s,%s,%s,%s)'''
     cursor.execute(sql, new_article)
-    # conn.commit()
 
 
 def delete_expired_offers(expired_offers):
@@ -35,7 +33,6 @@ def delete_expired_offers(expired_offers):
     cursor.executemany(sql, expired_offers)
     sql = "DELETE from current_offers WHERE article_id = %s"
     cursor.executemany(sql, expired_offers)
-    # conn.commit()
 
 
 def delete_offers(store_id):
@@ -52,7 +49,9 @@ def get_stores():
 
 
 def check_article(website_article_id, store_id):
-    sql = "SELECT id, regular_price, img_url FROM articles WHERE website_article_id = %s and store_id= %s"
+    sql = '''
+    SELECT id, regular_price, img_url FROM articles 
+    WHERE website_article_id = %s and store_id= %s'''
     cursor.execute(sql, (website_article_id, store_id))
     return cursor.fetchone()
 
@@ -60,13 +59,11 @@ def check_article(website_article_id, store_id):
 def update_regular_price(regular_price, article_id):
     sql = "UPDATE articles SET regular_price = %s WHERE id = %s"
     cursor.execute(sql, (regular_price, article_id))
-    # conn.commit()
 
 
 def update_img_url(img_url, article_id):
     sql = "UPDATE articles SET img_url = %s WHERE id = %s"
     cursor.execute(sql, (img_url, article_id))
-    # conn.commit()
 
 
 def check_current_offers(store_id):
