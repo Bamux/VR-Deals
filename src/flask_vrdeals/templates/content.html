@@ -28,7 +28,7 @@
             <div class="col-7 my-auto">
               <h5>
                 <a href="{{ offer['url'] }}" target="_blank" class="badge badge-success">{{ offer['sale_price'] }}€</a>
-                <a href="{{ offer['url'] }}" target="_blank" class="strike badge badge-dark">{{ offer['regular_price'] }}€</a>
+                <span class="badge badge-dark strike">{{ offer['regular_price'] }}€</span >
                 <a href="{{ offer['url'] }}" target="_blank" class="badge badge-secondary">{{ savings_percent }}%</a>
               </h5>
             </div>
