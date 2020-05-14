@@ -36,11 +36,11 @@ def delete_expired_offers(expired_offers):
 
 
 def delete_offers(store_id):
-    sql = f'''
+    sql = '''
     DELETE current_offers from current_offers 
     INNER JOIN articles ON articles.id = current_offers.article_id
-    WHERE store_id = {store_id}'''
-    cursor.execute(sql)
+    WHERE store_id = %s'''
+    cursor.execute(sql, store_id)
 
 
 def get_stores():
@@ -70,9 +70,8 @@ def check_current_offers(store_id):
     sql = f'''
     SELECT article_id, sale_price FROM current_offers 
     INNER JOIN articles ON articles.id = current_offers.article_id
-    WHERE store_id = {store_id}
-    '''
-    cursor.execute(sql)
+    WHERE store_id = %s'''
+    cursor.execute(sql, store_id)
     return cursor.fetchall()
 
 

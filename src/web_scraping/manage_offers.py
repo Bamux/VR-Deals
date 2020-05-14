@@ -68,14 +68,14 @@ def database_interaction(offers, store_id):
     if not offers:
         return
     check_update_articles(offers)
-    previous_offers = sql.check_current_offers(store_id)
+    previous_offers = sql.check_current_offers((store_id,))
     expired_offers = check_expired_offers(previous_offers, offers)
     if expired_offers:
         print(expired_offers)
         sql.delete_expired_offers(expired_offers)
     if expired_offers or len(previous_offers) != len(offers):
         offers_datetime = add_offers_datetime(offers)
-        sql.delete_offers(store_id)
+        sql.delete_offers((store_id,))
         sql.add_current_offers(offers_datetime)
     sql.conn.commit()
 

@@ -18,7 +18,7 @@ def oculus_store(store):
     else:
         element = 'section__items'
 
-    print(f'The script searches for current offers in the {store}.\n{url}')
+    print(f'\n{store}:\n')
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")

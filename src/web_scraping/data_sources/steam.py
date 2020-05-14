@@ -16,41 +16,50 @@ def decimal_price(price):
     return price
 
 
+def price_evaluation(app, price):
+    if price is not None:
+        price = price.text.split("€")
+        regular_price = price[0].strip()
+        sale_price = price[1].strip()
+    else:
+        price = app.find('div', class_='col search_price responsive_secondrow').text
+        regular_price = price.strip()
+        sale_price = regular_price
+    sale_price = decimal_price(sale_price)
+    regular_price = decimal_price(regular_price)
+    return sale_price, regular_price
+
+
 def get_steam_offers(store_id):
     """Returns the offers from the steam store."""
-    print("Steam VR offers:")
+    print("\nSteam VR:\n")
     infinite_scrolling = 0
     offers = []
     blacklist = [14973]  # apps that steam mistakenly displays as VR apps
     while True:
-        url = f'https://store.steampowered.com/search/results/?query&start={infinite_scrolling}' \
+        url = f'https://store.steampowered.com/search/results/?query&star' \
+              f't={infinite_scrolling}' \
               f'&count=50&dynamic_data=&sort_by=_ASC&vrsupport=402&snr=1_7_7_2300_7&specials=1&infinite=1'
         json_data = json.loads(requests.get(url).text)
         if json_data["results_html"] == "\r\n<!-- List Items -->\r\n<!-- End List Items -->\r\n":
             break
         soup = BeautifulSoup(json_data["results_html"], 'lxml')
-        article_names = soup.find_all('span', class_='title')
         app_urls = soup.find_all('img')
-        prices = soup.find_all('div', class_='col search_price discounted responsive_secondrow')
-        print(len(article_names), len(prices))
-        for app_url, article_name, price in \
-                zip(app_urls, article_names, prices):
-            price = price.text.strip()
-            price = price.split("€")
-            regular_price = price[0]
-            sale_price = price[1]
+        apps = soup.find_all('div', class_='responsive_search_name_combined')
+        for app_url, app in zip(app_urls, apps):
+            article_name = app.find('span', class_='title').text
+            price = app.find('div', class_='col search_price discounted responsive_secondrow')
             app = app_url['src'].split("/")
             bundle_app = app[4]
             website_article_id = app[5]
             if website_article_id not in blacklist and "bundle" not in bundle_app:
-                sale_price = decimal_price(sale_price)
-                regular_price = decimal_price(regular_price)
+                sale_price, regular_price = price_evaluation(app, price)
                 article_id = 0
                 offer = Article(
                     article_id,
                     store_id,
                     website_article_id,
-                    article_name.text,
+                    article_name,
                     regular_price,
                     sale_price,
                     img_url="",

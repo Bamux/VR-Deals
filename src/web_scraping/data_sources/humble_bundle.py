@@ -42,7 +42,7 @@ def get_offers(store_id):
 
 
 def main(store_id):
-    print("Humble Bundle:")
+    print("\nHumble Bundle:\n")
     offers = get_offers(store_id)
     return offers
 
