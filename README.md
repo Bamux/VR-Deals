@@ -3,5 +3,5 @@ This project finds the best offers on the internet around the topic VR. The requ
 
 I have created a simple bootstrap layout for prototyping. The project is still in a very early stage of development, most of the features are not yet implemented.
  
-- https://bamux.pythonanywhere.com/
+- https://vrdeals.github.io/
 
