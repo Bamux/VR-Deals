@@ -9,7 +9,7 @@ from flask_vrdeals import app, database
 #     return render_template('content.html', page_navigation="Home", offers=offers, pagination=pagination)
 
 @app.route("/", defaults={'page': 1})
-@app.route("/<int:page>/")
+@app.route("/page-<int:page>/")
 def index(page):
     if page > 0:
         offers, pages, data_to_show = database.offers_pagination(page)
@@ -20,7 +20,7 @@ def index(page):
 
 
 @app.route("/humble/", defaults={'page': 1})
-@app.route("/humble/<int:page>/")
+@app.route("/humble/page-<int:page>/")
 def humble(page):
     if page > 0:
         offers, pages, data_to_show = database.offers_pagination(page, "Humble Bundle")
@@ -31,7 +31,7 @@ def humble(page):
 
 
 @app.route("/oculus/", defaults={'page': 1})
-@app.route("/oculus/<int:page>/")
+@app.route("/oculus/page-<int:page>/")
 def oculus(page):
     if page > 0:
         offers, pages, data_to_show = database.offers_pagination(page, "Oculus")
@@ -42,7 +42,7 @@ def oculus(page):
 
 
 @app.route("/steam/", defaults={'page': 1})
-@app.route("/steam/<int:page>/")
+@app.route("/steam/page-<int:page>/")
 def steam(page):
     if page > 0:
         offers, pages, data_to_show = database.offers_pagination(page, "Steam")
