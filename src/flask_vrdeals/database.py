@@ -1,5 +1,5 @@
-from flask_paginate import Pagination, get_page_args
-from flask_vrdeals import mysql
+from flask import current_app
+from flask_vrdeals import mysql, Pager
 
 conn = mysql.connect()
 cursor = conn.cursor()
@@ -77,16 +77,19 @@ def offers_from_store(per_page, offset, store=""):
     return offers
 
 
-def offers_pagination(store=""):
+def offers_pagination(page, store=""):
     if store:
         if store == "Oculus":
             store = f'''WHERE name LIKE "{store}%" '''
         else:
             store = f'''WHERE name="{store}" '''
-    page, per_page, offset = get_page_args(page_parameter='page',
-                                           per_page_parameter='per_page')
-    offers = offers_from_store(per_page, offset, store)
-    total = number_of_offers(store)
-    pagination = Pagination(page=page, per_page=per_page, total=total,
-                            css_framework='bootstrap4')
-    return offers, pagination
+    count = number_of_offers(store)
+    data = range(count)
+    pager = Pager(page, count)
+    pages = pager.get_pages()
+    skip = (page - 1) * current_app.config['PAGE_SIZE']
+    limit = current_app.config['VISIBLE_PAGE_COUNT']
+    per_page = current_app.config['PAGE_SIZE']
+    data_to_show = data[skip: skip + limit]
+    offers = offers_from_store(per_page, skip, store)
+    return offers, pages, data_to_show
