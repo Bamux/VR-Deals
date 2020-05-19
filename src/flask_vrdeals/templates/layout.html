@@ -90,10 +90,6 @@
 <div class="container">
   {% block content %}
   {% endblock %}
-  <div class="row justify-content-center">
-    {% import "_macros.html" as macros %}
-    {{ macros.pagination_widget(pages, request.endpoint) }}
-  </div>
 </div>
 
 </body>
