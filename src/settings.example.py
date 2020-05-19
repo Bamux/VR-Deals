@@ -20,3 +20,8 @@ https://chromedriver.chromium.org/downloads
 '''
 #  enter the path where the chromedriver.exe is located as an example "C:/path/to/chromedriver.exe"
 chromedriver_executable_path = ""
+
+
+# if you want to upload the generated html files to github pages enter your access token and repository here
+github_token = ""
+github_repository = ""
