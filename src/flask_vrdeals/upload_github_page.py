@@ -36,6 +36,7 @@ def main():
         file_list = [str(k).replace('\\', '/') for k in Path('build').rglob('*.html')]
         file_names = [file.replace('build/', '') for file in file_list]
         if file_list:
+            print("Uploading html files to GitHub Pages.")
             upload_files_github(file_list, file_names)
 
 
