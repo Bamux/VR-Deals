@@ -4,7 +4,7 @@ from pathlib import Path
 from github import Github
 from github import InputGitTreeElement
 
-
+from flask_vrdeals.create_static_website import freezer
 from settings import github_token, github_repository
 
 
@@ -32,10 +32,11 @@ def upload_files_github(file_list, file_names):
 
 def main():
     if github_token and github_repository:
+        freezer.freeze()
         file_list = [str(k).replace('\\', '/') for k in Path('build').rglob('*.html')]
         file_names = [file.replace('build/', '') for file in file_list]
-        print(file_names)
-        upload_files_github(file_list, file_names)
+        if file_list:
+            upload_files_github(file_list, file_names)
 
 
 if __name__ == '__main__':

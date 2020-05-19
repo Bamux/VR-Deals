@@ -1,6 +1,7 @@
 import datetime
 
 from web_scraping import sql, data_sources
+from flask_vrdeals import upload_github_page
 
 
 def add_article(offer):
@@ -77,7 +78,10 @@ def database_interaction(offers, store_id):
         offers_datetime = add_offers_datetime(offers)
         sql.delete_offers((store_id,))
         sql.add_current_offers(offers_datetime)
-    sql.conn.commit()
+        sql.conn.commit()
+        upload_github_page.main()
+    else:
+        sql.conn.commit()
 
 
 def get_offers(store):
