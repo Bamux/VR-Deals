@@ -1,7 +1,6 @@
 import datetime
 
-from web_scraping import sql, data_sources
-from flask_vrdeals import upload_github_page
+from web_scraping import sql, data_sources, upload_github_page
 
 
 def add_article(offer):
@@ -64,7 +63,7 @@ def add_offers_datetime(offers):
     return offers_datetime
 
 
-def database_interaction(offers, store_id):
+def database_interaction(database_updated, offers, store_id):
     """Checks if offers already exist, adds new offers and moves expired offers"""
     if not offers:
         return
@@ -78,10 +77,9 @@ def database_interaction(offers, store_id):
         offers_datetime = add_offers_datetime(offers)
         sql.delete_offers((store_id,))
         sql.add_current_offers(offers_datetime)
-        sql.conn.commit()
-        upload_github_page.main()
-    else:
-        sql.conn.commit()
+        database_updated = True
+    sql.conn.commit()
+    return database_updated
 
 
 def get_offers(store):
@@ -97,10 +95,13 @@ def get_offers(store):
 
 
 def main():
+    database_updated = False
     stores = sql.get_stores()
     for store in stores:
         offers = get_offers(store)
-        database_interaction(offers, store_id=store[0])
+        database_updated = database_interaction(database_updated, offers, store_id=store[0])
+    if database_updated:
+        upload_github_page.main()
     sql.conn_close()
 
 
