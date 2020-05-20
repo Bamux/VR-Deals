@@ -22,6 +22,7 @@ https://chromedriver.chromium.org/downloads
 chromedriver_executable_path = ""
 
 
+# Optional Settings
 # if you want to upload the generated html files to github pages enter your access token and repository here
 github_token = ""
 github_repository = ""
