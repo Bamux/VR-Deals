@@ -33,9 +33,11 @@ def upload_files_github(file_list, file_names):
 def main():
     if github_token and github_repository:
         freezer.freeze()    # Creates static html files from the the database
-        path = '../flask_vrdeals/build/'
+        path = str(Path.cwd().parent)
+        path = path.replace('\\', '/')
+        path = path + '/flask_vrdeals/build/'
         file_list = [str(k).replace('\\', '/') for k in Path(path).rglob('*.html')]
-        file_names = [file.replace(path, '') for file in file_list]
+        file_names = [file.replace(str(path), '') for file in file_list]
         if file_list:
             print("Uploading html files to GitHub Pages.")
             upload_files_github(file_list, file_names)
