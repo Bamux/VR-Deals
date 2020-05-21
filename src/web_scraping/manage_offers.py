@@ -66,7 +66,7 @@ def add_offers_datetime(offers):
 def database_interaction(database_updated, offers, store_id):
     """Checks if offers already exist, adds new offers and moves expired offers"""
     if not offers:
-        return
+        return database_updated
     check_update_articles(offers)
     previous_offers = sql.check_current_offers((store_id,))
     expired_offers = check_expired_offers(previous_offers, offers)

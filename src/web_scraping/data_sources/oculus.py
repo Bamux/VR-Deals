@@ -18,13 +18,13 @@ def oculus_store(store):
     else:
         element = 'section__items'
 
-    print(f'\n{store}:\n')
+    print(f'\n{store}:\nThe data search may take a few seconds.\n')
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
     driver = webdriver.Chrome(options=chrome_options,
                               executable_path=chromedriver_executable_path)
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(5)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
     urls = sales.find_elements_by_class_name('store-section-item-tile')
