@@ -79,7 +79,6 @@ def database_interaction(database_update, offers, store_id):
         sql.add_current_offers(offers_datetime)
         database_update = True
     sql.conn.commit()
-    print(database_update)
     return database_update
 
 

@@ -30,12 +30,13 @@ def upload_files_github(file_list, file_names):
     master_ref.edit(commit.sha)
 
 
-def main():
+def main(path=""):
     if github_token and github_repository:
         freezer.freeze()    # Creates static html files from the the database
-        path = str(Path.cwd().parent)
+        if not path:
+            path = str(Path.cwd())
+            path = path + '/flask_vrdeals/build/'
         path = path.replace('\\', '/')
-        path = path + '/flask_vrdeals/build/'
         file_list = [str(k).replace('\\', '/') for k in Path(path).rglob('*.html')]
         file_names = [file.replace(str(path), '') for file in file_list]
         if file_list:
@@ -44,4 +45,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    build_path = str(Path.cwd().parent)
+    build_path = build_path + '/flask_vrdeals/build/'
+    main(build_path)
