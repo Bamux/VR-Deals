@@ -21,7 +21,7 @@ def sql_query(sql):
     return cursor.fetchall()
 
 
-def number_of_offers(store=""):
+def number_of_offers(store):
     """returns the number of available offers which is needed for the pagination"""
     if store:
         sql = f'''
@@ -51,7 +51,7 @@ def create_urls(article):
     return img_url, url
 
 
-def offers_from_store(per_page, offset, store=""):
+def offers_from_store(per_page, offset, store):
     """returns all offers for the corresponding store"""
     offers = []
     sql = f'''
@@ -77,7 +77,9 @@ def offers_from_store(per_page, offset, store=""):
     return offers
 
 
-def offers_pagination(page, store=""):
+def offers_pagination(page, store):
+    if store == "Home":
+        store = ""
     if store:
         if store == "Oculus":
             store = f'''WHERE name LIKE "{store}%" '''
