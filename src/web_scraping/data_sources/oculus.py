@@ -1,16 +1,14 @@
 """Gets the data from the oculus store via web scraping with the selenium library."""
 from decimal import Decimal
-from pathlib import Path
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
-from settings import chromedriver_executable_path
 from web_scraping.article import Article
 
 
-def oculus_store(store):
+def main(store):
     """Returns the oculus store offers for Quest, Rift and Go."""
     offers = []
     store_id, store, url = store
@@ -52,16 +50,4 @@ def oculus_store(store):
         offer.print_offer()
     driver.close()
     driver.quit()
-    return offers
-
-
-def main(store):
-    """Checks if the chromedriver is present, collects the offers from oculus and returns them."""
-    offers = []
-    chromedriver = Path(chromedriver_executable_path).is_file()
-    if chromedriver:
-        offers = oculus_store(store)
-    else:
-        print("Could not find the chromedriver.exe please check your "
-              "chromedriver_executable_path in the settings.py")
     return offers
