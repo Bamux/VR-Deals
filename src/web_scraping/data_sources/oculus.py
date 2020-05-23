@@ -4,6 +4,7 @@ from pathlib import Path
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 from settings import chromedriver_executable_path
 from web_scraping.article import Article
@@ -22,8 +23,7 @@ def oculus_store(store):
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
-    driver = webdriver.Chrome(options=chrome_options,
-                              executable_path=chromedriver_executable_path)
+    driver = webdriver.Chrome(ChromeDriverManager(log_level=0).install(), options=chrome_options)
     driver.implicitly_wait(5)
     driver.get(url)
     sales = driver.find_element_by_class_name(element)
