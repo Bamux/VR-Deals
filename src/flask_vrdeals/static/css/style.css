@@ -15,7 +15,6 @@ body { background: #f1f5f8 !important;}
     max-width: 767px;
 }
 
-
 .card-img{
     width: 100% !important;
     height: 136px!important;
@@ -34,15 +33,11 @@ body { background: #f1f5f8 !important;}
     text-decoration: underline;
 }
 
-
-
-
 @media (min-width: 767px) {
     .navbar {
         height:50px;
     }
 }
-
 
 @media screen and (max-width: 767px) {
     .navbar-nav {
@@ -60,11 +55,9 @@ body { background: #f1f5f8 !important;}
   display: inline-block;
 }
 
-
 .strike {
     text-decoration:line-through;
 }
-
 
 /* import after the changes */
 @import "bootstrap/functions";
