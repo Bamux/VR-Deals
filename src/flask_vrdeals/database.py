@@ -68,7 +68,7 @@ def offers_from_store(per_page, offset, store):
         img_url, url = create_urls(offer)
         offers.append({
             "store_name": store_name,
-            "article_name": article_name,
+            "article_name": article_name[0:40],
             "regular_price": regular_price,
             "sale_price": sale_price,
             "img_url": img_url,
