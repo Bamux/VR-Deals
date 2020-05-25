@@ -28,6 +28,8 @@ def number_of_offers(store):
         Select COUNT(*) FROM current_offers
         INNER JOIN articles ON articles.id = current_offers.article_id
         INNER JOIN stores ON stores.id = articles.store_id 
+        INNER JOIN category_name ON category_name.id = articles.category_name_id
+        INNER JOIN categories ON categories.id = category_name.category_id 
         {store}
         '''
     else:
@@ -47,6 +49,8 @@ def create_urls(article):
         url = f"https://store.steampowered.com/app/{website_article_id}/"
     elif store_name == "Humble Bundle":
         url = f"https://www.humblebundle.com/store/{website_article_id}"
+    elif store_name == "Amazon":
+        url = f"https://www.amazon.de{website_article_id}"
 
     return img_url, url
 
@@ -60,6 +64,7 @@ def offers_from_store(per_page, offset, store):
     INNER JOIN articles ON articles.id = current_offers.article_id
     INNER JOIN stores ON stores.id = articles.store_id 
     INNER JOIN category_name ON category_name.id = articles.category_name_id
+    INNER JOIN categories ON categories.id = category_name.category_id 
     {store}
     Order by category_id, stores.id , date_time DESC
     LIMIT {per_page} OFFSET {offset}
@@ -84,6 +89,8 @@ def offers_pagination(page, store):
     if store:
         if store == "Oculus":
             store = f'''WHERE name LIKE "{store}%" '''
+        elif store == "Headsets":
+            store = '''WHERE category = "hardware"'''
         else:
             store = f'''WHERE name="{store}" '''
     count = number_of_offers(store)

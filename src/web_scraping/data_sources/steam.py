@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from web_scraping import sql
-from web_scraping.article import Article
+from web_scraping.data_sources.article import Article
 
 
 def decimal_price(price):
@@ -33,7 +33,6 @@ def price_evaluation(app, price):
 
 def get_steam_offers(store_id, category_id):
     """Returns the offers from the steam store."""
-    print("\nSteam VR:\n")
     infinite_scrolling = 0
     offers = []
     blacklist = [14973]  # apps that steam mistakenly displays as VR apps
@@ -76,6 +75,7 @@ def get_steam_offers(store_id, category_id):
 
 
 def main():
+    print("\nSteam VR:\n")
     store_id = sql.get_store_id("Steam")[0]
     category_id = sql.get_category_id("software")[0]
     offers = get_steam_offers(store_id, category_id)

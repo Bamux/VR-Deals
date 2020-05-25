@@ -4,7 +4,7 @@ import json
 import requests
 
 from web_scraping import sql
-from web_scraping.article import Article
+from web_scraping.data_sources.article import Article
 
 
 def get_json_data(page):

@@ -31,3 +31,9 @@ def oculus(page):
 @app.route("/steam/page-<int:page>/")
 def steam(page):
     return create_website(page, "Steam")
+
+
+@app.route("/headset/", defaults={'page': 1})
+@app.route("/headset/page-<int:page>/")
+def headset(page):
+    return create_website(page, "Headsets")

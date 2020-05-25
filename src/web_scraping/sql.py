@@ -50,6 +50,11 @@ def delete_offers(store_id):
     cursor.execute(sql, store_id)
 
 
+def get_keywords():
+    cursor.execute('''SELECT category_id, keyword, regular_price FROM keywords''')
+    return cursor.fetchall()
+
+
 def get_store_id(name):
     cursor.execute('''SELECT id, name, url FROM stores WHERE name = %s''', (name,))
     return cursor.fetchone()

@@ -1,4 +1,8 @@
 from decimal import Decimal
+from web_scraping import sql
+
+
+key_words = sql.get_keywords()
 
 
 class Article:
@@ -24,3 +28,16 @@ class Article:
 
     def print_offer(self):
         print(self.article_name, "-", self.sale_price, "€")
+
+
+def check_keywords(article_name):
+    keyword = ()
+    article_name = article_name.lower()
+    for category_id, words, regular_price in key_words:
+        words_list = words.split(" ")
+        for word in words_list:
+            if word.lower() not in article_name:
+                break
+        else:
+            keyword = (category_id, words, regular_price)
+    return keyword
