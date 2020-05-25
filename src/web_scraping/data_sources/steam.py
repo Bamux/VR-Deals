@@ -5,6 +5,7 @@ from decimal import Decimal
 import requests
 from bs4 import BeautifulSoup
 
+from web_scraping import sql
 from web_scraping.article import Article
 
 
@@ -30,7 +31,7 @@ def price_evaluation(app, price):
     return sale_price, regular_price
 
 
-def get_steam_offers(store_id):
+def get_steam_offers(store_id, category_id):
     """Returns the offers from the steam store."""
     print("\nSteam VR:\n")
     infinite_scrolling = 0
@@ -46,34 +47,40 @@ def get_steam_offers(store_id):
         soup = BeautifulSoup(json_data["results_html"], 'lxml')
         app_urls = soup.find_all('img')
         apps = soup.find_all('div', class_='responsive_search_name_combined')
-        for app_url, app in zip(app_urls, apps):
-            article_name = app.find('span', class_='title').text
-            price = app.find('div', class_='col search_price discounted responsive_secondrow')
+        for app_url, app_info in zip(app_urls, apps):
+            article_name = app_info.find('span', class_='title').text
             app = app_url['src'].split("/")
             bundle_app = app[4]
             website_article_id = app[5]
             if website_article_id not in blacklist and "bundle" not in bundle_app:
-                sale_price, regular_price = price_evaluation(app, price)
-                article_id = 0
-                offer = Article(
-                    article_id,
-                    store_id,
-                    website_article_id,
-                    article_name,
-                    regular_price,
-                    sale_price,
-                    img_url="",
-                )
-                offers.append(offer)
-                offer.print_offer()
+                try:
+                    price = app_info.find('div', class_='col search_price discounted responsive_secondrow')
+                    sale_price, regular_price = price_evaluation(app, price)
+                    article_id = 0
+                    offer = Article(
+                        article_id,
+                        store_id,
+                        category_id,
+                        website_article_id,
+                        article_name,
+                        regular_price,
+                        sale_price,
+                        img_url="",
+                    )
+                    offers.append(offer)
+                    offer.print_offer()
+                except Exception as e:
+                    print(e)
         infinite_scrolling += 50
     return offers
 
 
-def main(store_id):
-    offers = get_steam_offers(store_id)
+def main():
+    store_id = sql.get_store_id("Steam")[0]
+    category_id = sql.get_category_id("software")[0]
+    offers = get_steam_offers(store_id, category_id)
     return offers
 
 
 if __name__ == "__main__":
-    main(store_id=0)
+    main()

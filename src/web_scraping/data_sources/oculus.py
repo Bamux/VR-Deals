@@ -5,10 +5,11 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
+from web_scraping import sql
 from web_scraping.article import Article
 
 
-def main(store):
+def get_oculus_offers(store, category_id):
     """Returns the oculus store offers for Quest, Rift and Go."""
     offers = []
     store_id, store, url = store
@@ -40,6 +41,7 @@ def main(store):
         offer = Article(
             article_id,
             store_id,
+            category_id,
             website_article_id,
             article_name.text,
             regular_price,
@@ -51,3 +53,17 @@ def main(store):
     driver.close()
     driver.quit()
     return offers
+
+
+def main():
+    offers_oculus_stores = []
+    oculus_stores = ["Oculus Quest", "Oculus Rift", "Oculus Go"]
+    category_id = sql.get_category_id("software")[0]
+    for oculus_store in oculus_stores:
+        store = sql.get_store_id(oculus_store)
+        offers_oculus_stores.append(get_oculus_offers(store, category_id))
+    return offers_oculus_stores
+
+
+if __name__ == "__main__":
+    main()

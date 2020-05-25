@@ -21,8 +21,15 @@ def add_current_offers(offers):
 
 def add_article(new_article):
     sql = '''
-    INSERT INTO articles(store_id, website_article_id, article_name, regular_price, img_url) 
+    INSERT INTO articles(store_id, category_name_id, website_article_id, regular_price, img_url) 
     VALUES(%s,%s,%s,%s,%s)'''
+    cursor.execute(sql, new_article)
+
+
+def add_article_name(new_article):
+    sql = '''
+    INSERT INTO category_name(category_id, article_name) 
+    VALUES(%s,%s)'''
     cursor.execute(sql, new_article)
 
 
@@ -43,9 +50,14 @@ def delete_offers(store_id):
     cursor.execute(sql, store_id)
 
 
-def get_stores():
-    cursor.execute("SELECT id, name, url FROM stores")
-    return cursor.fetchall()
+def get_store_id(name):
+    cursor.execute('''SELECT id, name, url FROM stores WHERE name = %s''', (name,))
+    return cursor.fetchone()
+
+
+def get_category_id(category):
+    cursor.execute('''SELECT id FROM categories WHERE category = %s''', (category,))
+    return cursor.fetchone()
 
 
 def check_article(website_article_id, store_id):
@@ -53,6 +65,14 @@ def check_article(website_article_id, store_id):
     SELECT id, regular_price, img_url FROM articles 
     WHERE website_article_id = %s and store_id= %s'''
     cursor.execute(sql, (website_article_id, store_id))
+    return cursor.fetchone()
+
+
+def check_category_name(article_name):
+    sql = '''
+    SELECT id FROM category_name
+    WHERE article_name = %s'''
+    cursor.execute(sql, article_name)
     return cursor.fetchone()
 
 

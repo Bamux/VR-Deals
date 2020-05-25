@@ -8,9 +8,14 @@ def add_article(offer):
     Adds new articles to the database articles table.
     Returns a list of the new offers with the corresponding id from the articles table.
     """
-    sql.add_article((offer.store_id, offer.website_article_id,
-                     offer.article_name, offer.regular_price,
-                     offer.img_url))
+    sql_query_result = sql.check_category_name((offer.article_name,))
+    if sql_query_result is None:
+        sql.add_article_name((offer.category_id, offer.article_name))
+        category_name_id = sql.cursor.lastrowid
+    else:
+        category_name_id = sql_query_result[0]
+    sql.add_article((offer.store_id, category_name_id, offer.website_article_id,
+                     offer.regular_price, offer.img_url))
     article_id = sql.cursor.lastrowid
     return article_id
 
@@ -63,16 +68,18 @@ def add_offers_datetime(offers):
     return offers_datetime
 
 
-def database_interaction(database_update, offers, store_id):
+def database_interaction(database_update, offers):
     """Checks if offers already exist, adds new offers and moves expired offers"""
     if not offers:
         return database_update
     check_update_articles(offers)
+    store_id = offers[0].store_id
     previous_offers = sql.check_current_offers((store_id,))
     expired_offers = check_expired_offers(previous_offers, offers)
     if expired_offers:
         print(expired_offers)
         sql.delete_expired_offers(expired_offers)
+    print(len(previous_offers), len(offers))
     if expired_offers or len(previous_offers) != len(offers):
         offers_datetime = add_offers_datetime(offers)
         sql.delete_offers((store_id,))
@@ -82,24 +89,11 @@ def database_interaction(database_update, offers, store_id):
     return database_update
 
 
-def get_offers(store):
-    offers = []
-    store_id, store_name, _ = store
-    if "Oculus" in store_name:
-        offers = data_sources.oculus.main(store)
-    elif store_name == "Steam":
-        offers = data_sources.steam.main(store_id)
-    elif store_name == "Humble Bundle":
-        offers = data_sources.humble_bundle.main(store_id)
-    return offers
-
-
 def main():
     database_update = False
-    stores = sql.get_stores()
-    for store in stores:
-        offers = get_offers(store)
-        database_update = database_interaction(database_update, offers, store_id=store[0])
+    sources = data_sources.get_offers()
+    for offers in sources:
+        database_update = database_interaction(database_update, offers)
     if database_update:
         upload_github_page.main()
     sql.conn_close()

@@ -59,8 +59,9 @@ def offers_from_store(per_page, offset, store):
     FROM current_offers
     INNER JOIN articles ON articles.id = current_offers.article_id
     INNER JOIN stores ON stores.id = articles.store_id 
+    INNER JOIN category_name ON category_name.id = articles.category_name_id
     {store}
-    Order by stores.id , date_time DESC
+    Order by category_id, stores.id , date_time DESC
     LIMIT {per_page} OFFSET {offset}
     '''
     for offer in sql_query(sql):

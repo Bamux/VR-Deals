@@ -6,6 +6,7 @@ class Article:
             self,
             article_id,
             store_id,
+            category_id,
             website_article_id,
             article_name,
             regular_price,
@@ -14,6 +15,7 @@ class Article:
     ):
         self.article_id = article_id
         self.store_id = int(store_id)
+        self.category_id = int(category_id)
         self.website_article_id = str(website_article_id)
         self.article_name = str(article_name)
         self.regular_price = Decimal("%.2f" % regular_price)

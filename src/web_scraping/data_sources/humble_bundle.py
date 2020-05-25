@@ -1,8 +1,10 @@
 """Gets the offers from the humble bundle store"""
 import json
-from web_scraping.article import Article
 
 import requests
+
+from web_scraping import sql
+from web_scraping.article import Article
 
 
 def get_json_data(page):
@@ -12,11 +14,12 @@ def get_json_data(page):
     return json_data
 
 
-def evaluate_json_data(store_id, article):
+def evaluate_json_data(store_id, article, category_id):
     article_id = 0
     offer = Article(
         article_id,
         store_id,
+        category_id,
         article['human_url'],
         article['human_name'],
         article['full_price']['amount'],
@@ -27,7 +30,7 @@ def evaluate_json_data(store_id, article):
     return offer
 
 
-def get_offers(store_id):
+def get_offers(store_id, category_id):
     offers = []
     json_data = get_json_data(page=0)
     num_pages = json_data['num_pages']
@@ -36,16 +39,19 @@ def get_offers(store_id):
             json_data = get_json_data(page)
         results = json_data['results']
         for article in results:
-            offer = evaluate_json_data(store_id, article)
+            offer = evaluate_json_data(store_id, article, category_id)
             offers.append(offer)
     return offers
 
 
-def main(store_id):
+def main():
     print("\nHumble Bundle:\n")
-    offers = get_offers(store_id)
+    store_id = sql.get_store_id("Humble Bundle")[0]
+    category_id = sql.get_category_id("software")[0]
+    offers = get_offers(store_id, category_id)
     return offers
 
 
 if __name__ == "__main__":
-    main(store_id=0)
+    main()
+    sql.conn_close()
