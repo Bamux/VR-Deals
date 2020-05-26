@@ -91,8 +91,8 @@ def main():
     sources = data_sources.get_offers()
     for store_id, offers in sources:
         database_update = database_interaction(database_update, store_id, offers)
-    # if database_update:
-    #     upload_github_page.main()
+    if database_update:
+        upload_github_page.main()
     sql.conn_close()
 
 
