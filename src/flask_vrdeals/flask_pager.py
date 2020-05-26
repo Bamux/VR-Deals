@@ -12,14 +12,15 @@ class Pager:
         self.last_page = int(math.ceil(self.count / self.page_size))
 
     def get_pages(self):
-        prev_navigation, next_navigation = self.get_navigation()
-        self.prepare_visible_pages()
-        self.pages = prev_navigation + self.pages + next_navigation
+        if self.last_page > 1:
+            prev_navigation, next_navigation = self.get_navigation()
+            self.prepare_visible_pages()
+            self.pages = prev_navigation + self.pages + next_navigation
         return self.pages
 
     def get_navigation(self):
         prev_naviation = [{'page_label': '&laquo;',
-                           'href': self.page - 1 if self.page < 1 else 1,
+                           'href': self.page - 1 if self.page > 1 else 1,
                            'class': 'disabled' if self.page == 1 else ''}]
         next_navigation = [{'page_label': '&raquo;',
                             'href': self.page + 1 if self.page < self.last_page else 1,

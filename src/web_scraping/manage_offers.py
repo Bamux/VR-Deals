@@ -68,12 +68,9 @@ def add_offers_datetime(offers):
     return offers_datetime
 
 
-def database_interaction(database_update, offers):
+def database_interaction(database_update, store_id, offers):
     """Checks if offers already exist, adds new offers and moves expired offers"""
-    if not offers:
-        return database_update
     check_update_articles(offers)
-    store_id = offers[0].store_id
     previous_offers = sql.check_current_offers((store_id,))
     expired_offers = check_expired_offers(previous_offers, offers)
     if expired_offers:
@@ -92,8 +89,8 @@ def database_interaction(database_update, offers):
 def main():
     database_update = False
     sources = data_sources.get_offers()
-    for offers in sources:
-        database_update = database_interaction(database_update, offers)
+    for store_id, offers in sources:
+        database_update = database_interaction(database_update, store_id, offers)
     if database_update:
         upload_github_page.main()
     sql.conn_close()

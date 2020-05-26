@@ -22,7 +22,8 @@ def get_amazon_offers(store_id):
     html = requests.get(url, headers=headers).text
     soup = BeautifulSoup(html, 'lxml')
     soup = soup.find('div', class_='s-main-slot s-result-list s-search-results sg-row')
-    soup = soup.find_all('div', class_='s-expand-height s-include-content-margin s-border-bottom s-latency-cf-section')
+    soup = soup.find_all('div', class_='s-expand-height s-include-content-margin '
+                                       's-border-bottom s-latency-cf-section')
     for article in soup:
         article_name = article.find('span', class_='a-size-base-plus a-color-base a-text-normal').text
         sale_price = article.find('span', class_='a-price-whole')
@@ -55,7 +56,7 @@ def main():
     print("\nAmazon:\n")
     store_id = sql.get_store_id("Amazon")[0]
     offers = get_amazon_offers(store_id)
-    return offers
+    return store_id, offers
 
 
 if __name__ == "__main__":

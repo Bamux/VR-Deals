@@ -49,7 +49,7 @@ def main():
     store_id = sql.get_store_id("Humble Bundle")[0]
     category_id = sql.get_category_id("software")[0]
     offers = get_offers(store_id, category_id)
-    return offers
+    return store_id, offers
 
 
 if __name__ == "__main__":

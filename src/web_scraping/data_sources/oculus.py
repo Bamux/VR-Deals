@@ -52,7 +52,7 @@ def get_oculus_offers(store, category_id):
         offer.print_offer()
     driver.close()
     driver.quit()
-    return offers
+    return store_id, offers
 
 
 def main():
