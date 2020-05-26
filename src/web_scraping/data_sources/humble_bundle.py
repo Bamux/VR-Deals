@@ -14,7 +14,7 @@ def get_json_data(page):
     return json_data
 
 
-def evaluate_json_data(store_id, article, category_id):
+def add_json_data(store_id, article, category_id):
     article_id = 0
     offer = Article(
         article_id,
@@ -39,7 +39,7 @@ def get_offers(store_id, category_id):
             json_data = get_json_data(page)
         results = json_data['results']
         for article in results:
-            offer = evaluate_json_data(store_id, article, category_id)
+            offer = add_json_data(store_id, article, category_id)
             offers.append(offer)
     return offers
 

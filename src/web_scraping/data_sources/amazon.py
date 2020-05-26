@@ -10,6 +10,7 @@ import time
 
 def get_amazon_offers(store_id):
     offers = []
+    article_name_list = []
     url = "https://www.amazon.de/s?k=virtual+reality+brille"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -40,7 +41,9 @@ def get_amazon_offers(store_id):
             if sale_price and keyword:
                 category_id, article_name, regular_price = keyword
                 sale_price = Decimal(sale_price.text.replace(',', '.'))
-                if regular_price > sale_price > regular_price - regular_price / 3:
+                if regular_price > sale_price > regular_price - regular_price / 3 and \
+                        article_name not in article_name_list:
+                    article_name_list.append(article_name)
                     website_article_id = article.find('a', class_='a-link-normal a-text-normal')
                     website_article_id = website_article_id['href'].split("ref=")[0]
                     img_url = article.find('img')
