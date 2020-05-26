@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 from web_scraping import sql
 from web_scraping.data_sources.article import Article
+import time
 
 
 def decimal_price(price):
@@ -31,16 +32,25 @@ def price_evaluation(app, price):
     return sale_price, regular_price
 
 
-def get_steam_offers(store_id, category_id):
+def get_steam_offers(store_id, category_id, counter=0):
     """Returns the offers from the steam store."""
     infinite_scrolling = 0
     offers = []
     blacklist = [14973]  # apps that steam mistakenly displays as VR apps
+    json_data = {}
     while True:
         url = f'https://store.steampowered.com/search/results/?query&star' \
               f't={infinite_scrolling}' \
               f'&count=50&dynamic_data=&sort_by=_ASC&vrsupport=402&snr=1_7_7_2300_7&specials=1&infinite=1'
-        json_data = json.loads(requests.get(url).text)
+        try:
+            json_data = json.loads(requests.get(url).text)
+        except Exception as e:
+            print(e)
+            if counter == 5:
+                break
+            time.sleep(2)
+            counter += 1
+            get_steam_offers(store_id, category_id, counter)
         if json_data["results_html"] == "\r\n<!-- List Items -->\r\n<!-- End List Items -->\r\n":
             break
         soup = BeautifulSoup(json_data["results_html"], 'lxml')

@@ -51,6 +51,8 @@ def create_urls(article):
         url = f"https://www.humblebundle.com/store/{website_article_id}"
     elif store_name == "Amazon":
         url = f"https://www.amazon.de{website_article_id}"
+    elif store_name == "Mediamarkt":
+        url = f"https://www.mediamarkt.de/{website_article_id}"
 
     return img_url, url
 

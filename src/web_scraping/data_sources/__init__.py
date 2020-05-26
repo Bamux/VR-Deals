@@ -1,8 +1,8 @@
-from web_scraping.data_sources import amazon, humble_bundle, oculus, steam
+from web_scraping.data_sources import amazon, humble_bundle, mediamarkt, oculus, steam
 
 
 def get_offers():
-    offers_list = [amazon.main(), humble_bundle.main(), steam.main()]
+    offers_list = [amazon.main(), mediamarkt.main(), humble_bundle.main(), steam.main()]
     offers_list.extend(oculus.main())
     return offers_list
 
