@@ -2,6 +2,11 @@
 {% set active_page = page_navigation %}
 {% set store = [] %}
 {% block content %}
+{% if not offers %}
+<div class="row justify-content-center">
+  <h5 class="headline">Zurzeit sind keine Angebote vorhanden.</h5>
+</div>
+{% endif %}
 {% for offer in offers %}
 {% set savings_percent = ((offer['sale_price']-offer['regular_price'])/offer['regular_price']*100)|round|int %}
 {% if offer['store_name'] not in store %}

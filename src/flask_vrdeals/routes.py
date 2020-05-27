@@ -37,3 +37,9 @@ def steam(page):
 @app.route("/headset/page-<int:page>/")
 def headset(page):
     return create_website(page, "Headsets")
+
+
+@app.route("/accessories/", defaults={'page': 1})
+@app.route("/accessories/page-<int:page>/")
+def accessories(page):
+    return create_website(page, "Accessories")
