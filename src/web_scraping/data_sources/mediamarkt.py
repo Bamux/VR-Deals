@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from web_scraping import sql
-from web_scraping.data_sources.article import Article, check_keywords
+from web_scraping.data_sources_helper import Article, check_keywords
 
 
 def get_offers(store_id):

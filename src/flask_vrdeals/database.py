@@ -7,8 +7,8 @@ cursor = conn.cursor()
 
 def sql_query(sql):
     """
-    pythonanywhere.com will disconnect the mysql connection after 5 minutes
-    so the connection will be restored here
+    hosts like pythonanywhere.com will disconnect the mysql connection after 5 minutes inactivity
+    so the connection will be restored here when a database query is made
     """
     global conn, cursor
     try:
@@ -21,16 +21,16 @@ def sql_query(sql):
     return cursor.fetchall()
 
 
-def number_of_offers(store):
+def number_of_offers(query):
     """returns the number of available offers which is needed for the pagination"""
-    if store:
+    if query:
         sql = f'''
         Select COUNT(*) FROM current_offers
         INNER JOIN articles ON articles.id = current_offers.article_id
         INNER JOIN stores ON stores.id = articles.store_id 
         INNER JOIN category_name ON category_name.id = articles.category_name_id
         INNER JOIN categories ON categories.id = category_name.category_id 
-        {store}
+        {query}
         '''
     else:
         sql = f'''Select COUNT(*) FROM current_offers'''
@@ -57,7 +57,7 @@ def create_urls(article):
     return img_url, url
 
 
-def offers_from_store(per_page, offset, store):
+def offers_from_store(per_page, offset, query):
     """returns all offers for the corresponding store"""
     offers = []
     sql = f'''
@@ -67,7 +67,7 @@ def offers_from_store(per_page, offset, store):
     INNER JOIN stores ON stores.id = articles.store_id 
     INNER JOIN category_name ON category_name.id = articles.category_name_id
     INNER JOIN categories ON categories.id = category_name.category_id 
-    {store}
+    {query}
     Order by category_id, stores.id , date_time DESC
     LIMIT {per_page} OFFSET {offset}
     '''
@@ -87,15 +87,14 @@ def offers_from_store(per_page, offset, store):
 
 def offers_pagination(page, store):
     if store == "Home":
-        store = ""
-    if store:
-        if store == "Oculus":
-            store = f'''WHERE name LIKE "{store}%" '''
-        elif store == "Headsets":
-            store = '''WHERE category = "hardware"'''
-        else:
-            store = f'''WHERE name="{store}" '''
-    count = number_of_offers(store)
+        query = ""
+    elif store == "Oculus":
+        query = f'''WHERE name LIKE "{store}%" '''
+    elif store == "Headsets":
+        query = '''WHERE category = "hardware"'''
+    else:
+        query = f'''WHERE name="{store}" '''
+    count = number_of_offers(query)
     data = range(count)
     pager = Pager(page, count)
     pages = pager.get_pages()
@@ -103,5 +102,5 @@ def offers_pagination(page, store):
     limit = current_app.config['VISIBLE_PAGE_COUNT']
     per_page = current_app.config['PAGE_SIZE']
     data_to_show = data[skip: skip + limit]
-    offers = offers_from_store(per_page, skip, store)
+    offers = offers_from_store(per_page, skip, query)
     return offers, pages, data_to_show

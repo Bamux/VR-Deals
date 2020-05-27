@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from web_scraping import sql
-from web_scraping.data_sources.article import Article
+from web_scraping.data_sources_helper import Article
 import time
 
 

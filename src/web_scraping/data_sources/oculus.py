@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
 from web_scraping import sql
-from web_scraping.data_sources.article import Article
+from web_scraping.data_sources_helper import Article
 
 
 def get_oculus_offers(store, category_id):

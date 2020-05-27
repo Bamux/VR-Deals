@@ -3,7 +3,7 @@ from decimal import Decimal
 import requests
 from bs4 import BeautifulSoup
 
-from web_scraping.data_sources.article import Article, check_keywords
+from web_scraping.data_sources_helper import Article, check_keywords
 from web_scraping import sql
 import time
 
@@ -43,24 +43,26 @@ def get_amazon_offers(store_id):
                 sale_price = Decimal(sale_price.text.replace(',', '.'))
                 if regular_price > sale_price > regular_price - regular_price / 3 and \
                         article_name not in article_name_list:
-                    article_name_list.append(article_name)
                     website_article_id = article.find('a', class_='a-link-normal a-text-normal')
                     website_article_id = website_article_id['href'].split("ref=")[0]
-                    img_url = article.find('img')
-                    img_url = img_url.get('srcset').split(",")[2].split(" ")[1]
-                    article_id = 0
-                    offer = Article(
-                        article_id,
-                        store_id,
-                        category_id,
-                        website_article_id,
-                        article_name,
-                        regular_price,
-                        sale_price,
-                        img_url,
-                    )
-                    offers.append(offer)
-                    offer.print_offer()
+                    if "picassoRedirect" not in website_article_id:
+                        article_name_list.append(article_name)
+                        img_url = article.find('img')
+                        img_url = img_url.get('srcset').split(",")[2].split(" ")[1]
+                        article_id = 0
+                        offer = Article(
+                            article_id,
+                            store_id,
+                            category_id,
+                            website_article_id,
+                            article_name,
+                            regular_price,
+                            sale_price,
+                            img_url,
+                        )
+                        offers.append(offer)
+                        offer.print_offer()
+        break
     return offers
 
 
