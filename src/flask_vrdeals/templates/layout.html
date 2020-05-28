@@ -78,11 +78,11 @@
       </li>
       <div class="dropdown-divider"></div>
       <li class="nav-item">
-        <a class="nav-link {{ 'active' if active_page == 'WMR' else '' }}" href="#">Hardware</a>
+        <a class="nav-link {{ 'active' if active_page == 'Hardware' else '' }}" href="{{ url_for('hardware') }}">Hardware</a>
       </li>
       <div class="dropdown-divider"></div>
       <li class="nav-item">
-        <a class="nav-link {{ 'active' if active_page == 'PSVR' else '' }}" href="#">Statistics</a>
+        <a class="nav-link {{ 'active' if active_page == 'Statistics' else '' }}" href="{{ url_for('statistics') }}">Statistics</a>
       </li>
     </ul>
   </div>
@@ -90,10 +90,8 @@
 
 
 <!-- Normal Content Zone -->
-<div class="container">
-  {% block content %}
-  {% endblock %}
-</div>
+{% block content %}
+{% endblock %}
 
 </body>
 </html>

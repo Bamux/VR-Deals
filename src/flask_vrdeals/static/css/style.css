@@ -7,6 +7,13 @@ body { background: #f1f5f8 !important;}
     padding-top: 70px;
 }
 
+.container_statistics{
+    background-color: white;
+    width: 900px;
+    padding-top: 50px;
+    padding-left: 30px;
+}
+
 .headline{
     padding-top: 20px;
 }
