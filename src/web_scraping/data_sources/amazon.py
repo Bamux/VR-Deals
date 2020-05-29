@@ -62,7 +62,6 @@ def get_amazon_offers(store_id):
                         )
                         offers.append(offer)
                         offer.print_offer()
-        break
     return offers
 
 

@@ -26,12 +26,12 @@
             }}</a></h5>
           <div class="card-text">
             <div class="row">
-              <div class="col-5 row justify-content-center my-auto">
+              <div class="col-4 row justify-content-center my-auto">
                 <img src="{{ url_for('static', filename='images/'+offer['store_name']|replace(' ', '_')+'.png') }}"
                      width="auto"
                      height="60">
               </div>
-              <div class="col-7 my-auto">
+              <div class="col-8 my-auto">
                 <h5>
                   <a href="{{ offer['url'] }}" target="_blank" class="badge badge-success">{{ offer['sale_price']
                     }}€</a>
