@@ -45,6 +45,7 @@ def get_amazon_offers(store_id):
                         article_name not in article_name_list:
                     website_article_id = article.find('a', class_='a-link-normal a-text-normal')
                     website_article_id = website_article_id['href'].split("ref=")[0]
+                    website_article_id = f"https://www.amazon.de{website_article_id}"
                     if "picassoRedirect" not in website_article_id:
                         article_name_list.append(article_name)
                         img_url = article.find('img')

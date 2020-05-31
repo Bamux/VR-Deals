@@ -35,6 +35,7 @@ def get_offers(store_id):
                     article_name_list.append(article_name)
                     website_article_id = article.find('a')
                     website_article_id = website_article_id['href']
+                    website_article_id = f"https://www.mediamarkt.de{website_article_id}"
                     img_url = article.find('img')
                     img_url = img_url.get('src').split("mobile")[0]
                     img_url += "fee_786_587_png"

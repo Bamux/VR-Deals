@@ -20,7 +20,7 @@ def add_json_data(store_id, article, category_id):
         article_id,
         store_id,
         category_id,
-        article['human_url'],
+        f"https://www.humblebundle.com/store/{article['human_url']}",
         article['human_name'],
         article['full_price']['amount'],
         article['current_price']['amount'],

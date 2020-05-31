@@ -41,25 +41,6 @@ def number_of_offers(query):
     return total
 
 
-def create_urls(article):
-    store_name, article_name, _, _, img_url, website_article_id, url = article
-    if "Oculus" in store_name:
-        if "section" in url:
-            url = url.split("section")[0]
-        url += str(website_article_id)
-    elif store_name == "Steam":
-        img_url = f"https://steamcdn-a.akamaihd.net/steam/apps/{website_article_id}/header.jpg"
-        url = f"https://store.steampowered.com/app/{website_article_id}/"
-    elif store_name == "Humble Bundle":
-        url = f"https://www.humblebundle.com/store/{website_article_id}"
-    elif store_name == "Amazon":
-        url = f"https://www.amazon.de{website_article_id}"
-    elif store_name == "Mediamarkt":
-        url = f"https://www.mediamarkt.de{website_article_id}"
-
-    return img_url, url
-
-
 def offers_from_store(per_page, offset, query):
     """returns all offers for the corresponding store"""
     offers = []
@@ -76,14 +57,13 @@ def offers_from_store(per_page, offset, query):
     '''
     for offer in sql_query(sql):
         store_name, article_name, regular_price, sale_price, img_url, website_article_id, url = offer
-        img_url, url = create_urls(offer)
         offers.append({
             "store_name": store_name,
             "article_name": article_name[0:40],
             "regular_price": regular_price,
             "sale_price": sale_price,
             "img_url": img_url,
-            "url": url
+            "url": website_article_id
         })
     return offers
 

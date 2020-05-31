@@ -33,7 +33,7 @@ def get_oculus_offers(store, category_id):
         'store-section-item-price-label__strikethrough-price')
     for url, article_name, sale_price, regular_price in zip(
             urls, game_titles, sale_prices, regular_prices):
-        website_article_id = url.get_attribute("href").rpartition("/")[2]
+        website_article_id = url.get_attribute("href")
         sale_price = Decimal(sale_price.text.split(" ")[0].replace(',', '.'))
         regular_price = Decimal(regular_price.text.split(" ")[0].replace(',', '.'))
         img_url = url.get_attribute("style").split('"')[1]

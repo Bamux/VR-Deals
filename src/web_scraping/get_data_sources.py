@@ -5,6 +5,7 @@ def get_offers():
     offers_list = [
         amazon.main(),
         mediamarkt.main(),
+        netgames.main(),
         humble_bundle.main(),
         steam.main()
     ]

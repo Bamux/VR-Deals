@@ -61,6 +61,8 @@ def get_steam_offers(store_id, category_id, counter=0):
             app = app_url['src'].split("/")
             bundle_app = app[4]
             website_article_id = app[5]
+            img_url = f"https://steamcdn-a.akamaihd.net/steam/apps/{website_article_id}/header.jpg"
+            website_article_id = f"https://store.steampowered.com/app/{website_article_id}/"
             if website_article_id not in blacklist and "bundle" not in bundle_app:
                 try:
                     price = app_info.find('div', class_='col search_price discounted responsive_secondrow')
@@ -74,7 +76,7 @@ def get_steam_offers(store_id, category_id, counter=0):
                         article_name,
                         regular_price,
                         sale_price,
-                        img_url="",
+                        img_url,
                     )
                     offers.append(offer)
                     offer.print_offer()
