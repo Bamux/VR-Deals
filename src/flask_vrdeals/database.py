@@ -1,23 +1,26 @@
 from flask import current_app
 from flask_vrdeals import mysql, Pager
 
+
 conn = mysql.connect()
 cursor = conn.cursor()
 
 
+def conn_close():
+    cursor.close()
+    conn.close()
+
+
 def sql_query(sql):
-    """
-    hosts like pythonanywhere.com will disconnect the mysql connection after 5 minutes inactivity
-    so the connection will be restored here when a database query is made
-    """
     global conn, cursor
+    if not cursor.connection:
+        conn = mysql.connect()
+        cursor = conn.cursor()
     try:
         cursor.execute(sql)
     except Exception as e:
         print(e)
-        conn = mysql.connect()
-        cursor = conn.cursor()
-        cursor.execute(sql)
+        conn_close()
     return cursor.fetchall()
 
 
@@ -95,6 +98,7 @@ def hardware_recommendations():
             "article_name": article_name,
             "description": description,
         })
+    conn_close()
     return offers
 
 
@@ -118,4 +122,5 @@ def offers_pagination(page, store):
     per_page = current_app.config['PAGE_SIZE']
     data_to_show = data[skip: skip + limit]
     offers = offers_from_store(per_page, skip, query)
+    conn_close()
     return offers, pages, data_to_show
