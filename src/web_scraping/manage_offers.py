@@ -94,7 +94,7 @@ def main():
         database_update = database_interaction(database_update, store_id, offers)
     if database_update:
         print("Database has been updated.")
-        # upload_github_page.main()
+        upload_github_page.main()
     sql.conn_close()
 
 

@@ -85,6 +85,19 @@ def offers_from_store(per_page, offset, query):
     return offers
 
 
+def hardware_recommendations():
+    offers = []
+    sql = "SELECT url, img_url, article_name, description FROM hardware"
+    for url, img_url, article_name, description in sql_query(sql):
+        offers.append({
+            "url": url,
+            "img_url": img_url,
+            "article_name": article_name,
+            "description": description,
+        })
+    return offers
+
+
 def offers_pagination(page, store):
     if store == "Home":
         query = ""

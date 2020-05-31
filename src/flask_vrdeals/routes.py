@@ -45,10 +45,10 @@ def accessories(page):
     return create_website(page, "Accessories")
 
 
-@app.route("/hardware/", defaults={'page': 1})
-@app.route("/hardware/page-<int:page>/")
-def hardware(page):
-    return render_template('hardware.html', page_navigation="Hardware")
+@app.route("/hardware/")
+def hardware():
+    offers = database.hardware_recommendations()
+    return render_template('hardware.html', page_navigation="Hardware", offers=offers)
 
 
 @app.route("/statistics/")
