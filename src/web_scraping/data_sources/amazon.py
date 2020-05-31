@@ -28,7 +28,7 @@ def get_amazon_offers(store_id):
     for page in range(max_page_number):
         if page != 0:
             new_url = f"{url}&page={page + 1}"
-            time.sleep(1)  # waiting time to prevent the ip from being blocked
+            # time.sleep(1)  # waiting time to prevent the ip from being blocked
             html = requests.get(new_url, headers=headers).text
             soup = BeautifulSoup(html, 'lxml')
         soup = soup.find('div', class_='s-main-slot s-result-list s-search-results sg-row')
