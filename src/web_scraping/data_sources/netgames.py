@@ -76,11 +76,9 @@ def get_offers():
     soup = BeautifulSoup(html, 'lxml')
     soup = soup.find_all(offer["soup_find"][0], class_=offer["soup_find"][1])
     for article in soup:
-        if not check_availability or not get_sale_price(article):
+        if not check_availability or not get_sale_price(article) or not get_article_name(article):
             continue
-        get_article_name(article)
-        keyword = check_keywords(offer["article_name"])
-        if keyword:
+        if keyword := check_keywords(offer["article_name"]):
             offer["category_id"], offer["article_name"], offer["regular_price"] = keyword
             if check_sale_price() and get_website_article_id(article) and get_img_url(article):
                 offers.append(add_offer())
@@ -88,10 +86,14 @@ def get_offers():
 
 
 def main():
-    offer["soup_find"] = ("div", "article-list-item clearfix")
-    offer["article_name_find"] = ("a", "product_link")
-    offer["sale_price_find"] = ("span", "gm_price")
-    offer["available_find"] = ("dd", "ai_shipping_time")
+    offer.update(
+        {
+            "soup_find": ("div", "article-list-item clearfix"),
+            "article_name_find": ("a", "product_link"),
+            "sale_price_find": ("span", "gm_price"),
+            "available_find": ("dd", "ai_shipping_time")
+        }
+    )
     offer["store_id"], _, offer["url"] = sql.get_store_id("Netgames")
 
     print("\nNetgames:\n")
