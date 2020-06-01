@@ -7,48 +7,84 @@ from web_scraping import sql
 from web_scraping.data_sources_helper import Article, check_keywords
 
 
-def get_offers(store_id, url):
+def get_sale_price(article):
+    offer["sale_price"] = article.find('span', class_='gm_price').text
+    if offer["sale_price"]:
+        offer["sale_price"] = offer["sale_price"].split("€ ")[1]
+        offer["sale_price"] = Decimal(offer["sale_price"].replace(',', '.'))
+
+
+def check_sale_price():
+    if offer["regular_price"] > offer["sale_price"] > offer["regular_price"] - offer["regular_price"] / 3:
+        return True
+    return False
+
+
+def get_website_article_id(article):
+    offer["website_article_id"] = article.find('a')
+    offer["website_article_id"] = offer["website_article_id"]['href'].split("?")[0]
+
+
+def get_article_name(article):
+    offer["article_name"] = article.find('a', class_='product_link').text
+
+
+def check_availability(article):
+    available = article.find_all('dd', class_='ai_shipping_time')[1].text.strip()
+    if available == "auf Lager":
+        return True
+    return False
+
+
+def get_img_url(article):
+    offer["img_url"] = article.find('img')
+    offer["img_url"] = offer["img_url"].get('src').split("/thumbnail_images/")[1]
+    offer["img_url"] = "https://images.netgam.es/images/product_images/popup_images/" + offer["img_url"]
+
+
+def add_offer():
+    offer_class = Article(
+        0,
+        offer["store_id"],
+        offer["category_id"],
+        offer["website_article_id"],
+        offer["article_name"],
+        offer["regular_price"],
+        offer["sale_price"],
+        offer["img_url"],
+    )
+    offer_class.print_offer()
+    return offer_class
+
+
+def get_offers():
     offers = []
-    html = requests.get(url).text
+    html = requests.get(offer["url"]).text
     soup = BeautifulSoup(html, 'lxml')
     soup = soup.find_all('div', class_='article-list-item clearfix')
     for article in soup:
-        available = article.find_all('dd', class_='ai_shipping_time')[1].text.strip()
-        if available == "auf Lager":
-            sale_price = article.find('span', class_='gm_price').text
-            article_name = article.find('a', class_='product_link').text
-            keyword = check_keywords(article_name)
-            if sale_price and keyword:
-                sale_price = sale_price.split("€ ")[1]
-                sale_price = Decimal(sale_price.replace(',', '.'))
-                category_id, article_name, regular_price = keyword
-                if regular_price > sale_price > regular_price - regular_price / 3:
-                    website_article_id = article.find('a')
-                    website_article_id = website_article_id['href'].split("?")[0]
-                    img_url = article.find('img')
-                    img_url = img_url.get('src').split("/thumbnail_images/")[1]
-                    img_url = f"https://images.netgam.es/images/product_images/popup_images/{img_url}"
-                    article_id = 0
-                    offer = Article(
-                        article_id,
-                        store_id,
-                        category_id,
-                        website_article_id,
-                        article_name,
-                        regular_price,
-                        sale_price,
-                        img_url,
-                    )
-                    offers.append(offer)
-                    offer.print_offer()
+        if not check_availability:
+            continue
+        get_sale_price(article)
+        get_article_name(article)
+        keyword = check_keywords(offer["article_name"])
+        if offer["sale_price"] and keyword:
+            offer["category_id"], offer["article_name"], offer["regular_price"] = keyword
+            if check_sale_price():
+                get_website_article_id(article)
+                get_img_url(article)
+                offers.append(add_offer())
     return offers
 
 
 def main():
     print("\nNetgames:\n")
-    store_id, store, url = sql.get_store_id("Netgames")
-    offers = get_offers(store_id, url)
-    return store_id, offers
+    offer["store_id"], _, offer["url"] = sql.get_store_id("Netgames")
+    offers = get_offers()
+    return offer["store_id"], offers
+
+
+offer = {}
 
 
 if __name__ == "__main__":
