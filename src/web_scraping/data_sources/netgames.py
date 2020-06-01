@@ -24,11 +24,18 @@ def check_sale_price():
 
 def get_website_article_id(article):
     offer["website_article_id"] = article.find('a')
-    offer["website_article_id"] = offer["website_article_id"]['href'].split("?")[0]
+    offer["website_article_id"] = offer["website_article_id"]['href']
+    if offer["website_article_id"]:
+        offer["website_article_id"] = offer["website_article_id"].split("?")[0]
+        return True
+    return False
 
 
 def get_article_name(article):
-    offer["article_name"] = article.find('a', class_='product_link').text
+    offer["article_name"] = article.find(offer["article_name_find"][0], class_=offer["article_name_find"][1]).text
+    if offer["article_name"]:
+        return True
+    return False
 
 
 def check_availability(article):
@@ -40,8 +47,12 @@ def check_availability(article):
 
 def get_img_url(article):
     offer["img_url"] = article.find('img')
-    offer["img_url"] = offer["img_url"].get('src').split("/thumbnail_images/")[1]
-    offer["img_url"] = "https://images.netgam.es/images/product_images/popup_images/" + offer["img_url"]
+    offer["img_url"] = offer["img_url"].get('src')
+    if offer["img_url"]:
+        offer["img_url"] = offer["img_url"].split("/thumbnail_images/")[1]
+        offer["img_url"] = "https://images.netgam.es/images/product_images/popup_images/" + offer["img_url"]
+        return True
+    return False
 
 
 def add_offer():
@@ -71,15 +82,14 @@ def get_offers():
         keyword = check_keywords(offer["article_name"])
         if keyword:
             offer["category_id"], offer["article_name"], offer["regular_price"] = keyword
-            if check_sale_price():
-                get_website_article_id(article)
-                get_img_url(article)
+            if check_sale_price() and get_website_article_id(article) and get_img_url(article):
                 offers.append(add_offer())
     return offers
 
 
 def main():
     print("\nNetgames:\n")
+    offer["article_name_find"] = ("a", "product_link")
     offer["store_id"], _, offer["url"] = sql.get_store_id("Netgames")
     offers = get_offers()
     return offer["store_id"], offers
