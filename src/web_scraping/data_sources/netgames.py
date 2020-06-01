@@ -12,6 +12,8 @@ def get_sale_price(article):
     if offer["sale_price"]:
         offer["sale_price"] = offer["sale_price"].split("€ ")[1]
         offer["sale_price"] = Decimal(offer["sale_price"].replace(',', '.'))
+        return True
+    return False
 
 
 def check_sale_price():
@@ -63,12 +65,11 @@ def get_offers():
     soup = BeautifulSoup(html, 'lxml')
     soup = soup.find_all('div', class_='article-list-item clearfix')
     for article in soup:
-        if not check_availability:
+        if not check_availability or not get_sale_price(article):
             continue
-        get_sale_price(article)
         get_article_name(article)
         keyword = check_keywords(offer["article_name"])
-        if offer["sale_price"] and keyword:
+        if keyword:
             offer["category_id"], offer["article_name"], offer["regular_price"] = keyword
             if check_sale_price():
                 get_website_article_id(article)
@@ -85,7 +86,6 @@ def main():
 
 
 offer = {}
-
 
 if __name__ == "__main__":
     main()
