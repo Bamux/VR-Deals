@@ -8,7 +8,7 @@ from web_scraping.data_sources_helper import Article, check_keywords
 
 
 def get_sale_price(article):
-    offer["sale_price"] = article.find('span', class_='gm_price').text
+    offer["sale_price"] = article.find(offer["sale_price_find"][0], class_=offer["sale_price_find"][1]).text
     if offer["sale_price"]:
         offer["sale_price"] = offer["sale_price"].split("€ ")[1]
         offer["sale_price"] = Decimal(offer["sale_price"].replace(',', '.'))
@@ -39,7 +39,7 @@ def get_article_name(article):
 
 
 def check_availability(article):
-    available = article.find_all('dd', class_='ai_shipping_time')[1].text.strip()
+    available = article.find_all(offer["available_find"][0], class_=offer["available_find"][1])[1].text.strip()
     if available == "auf Lager":
         return True
     return False
@@ -74,7 +74,7 @@ def get_offers():
     offers = []
     html = requests.get(offer["url"]).text
     soup = BeautifulSoup(html, 'lxml')
-    soup = soup.find_all('div', class_='article-list-item clearfix')
+    soup = soup.find_all(offer["soup_find"][0], class_=offer["soup_find"][1])
     for article in soup:
         if not check_availability or not get_sale_price(article):
             continue
@@ -88,10 +88,15 @@ def get_offers():
 
 
 def main():
-    print("\nNetgames:\n")
+    offer["soup_find"] = ("div", "article-list-item clearfix")
     offer["article_name_find"] = ("a", "product_link")
+    offer["sale_price_find"] = ("span", "gm_price")
+    offer["available_find"] = ("dd", "ai_shipping_time")
     offer["store_id"], _, offer["url"] = sql.get_store_id("Netgames")
+
+    print("\nNetgames:\n")
     offers = get_offers()
+
     return offer["store_id"], offers
 
 
