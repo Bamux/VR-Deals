@@ -32,6 +32,7 @@ def upload_files_github(file_list, file_names):
 
 def main(path=""):
     if github_token and github_repository:
+        print("Static html files are created.")
         freezer.freeze()    # Creates static html files from the the database
         if not path:
             path = str(Path.cwd())

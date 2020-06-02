@@ -54,3 +54,10 @@ def hardware():
 @app.route("/statistics/")
 def statistics():
     return render_template('statistics.html', page_navigation="Statistiken")
+
+
+@app.route("/disqus/id-<int:item_id>/")
+def disqus(item_id):
+    article_name, offers = database.disqus(item_id)
+    return render_template('disqus.html', item_id=item_id, page_navigation="Disqus",
+                           article_name=article_name, offers=offers)

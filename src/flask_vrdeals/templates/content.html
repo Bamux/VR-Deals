@@ -16,13 +16,14 @@
   <div class="card mb-2 row">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <a href="{{ offer['url'] }}" target="_blank">
+        <a href="{{ offer['url_disqus'] }}" target="_blank">
           <img src="{{ offer['img_url'] }}" class="card-img" alt="{{ offer['article_name'] }}">
         </a>
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title"><a href="{{ offer['url'] }}" target="_blank" class="card-link">{{ offer['article_name']
+          <h5 class="card-title"><a href="{{ offer['url_disqus'] }}" target="_blank" class="card-link">{{
+            offer['article_name']
             }}</a></h5>
           <div class="card-text">
             <div class="row">
@@ -33,10 +34,11 @@
               </div>
               <div class="col-8 my-auto">
                 <h5>
-                  <a href="{{ offer['url'] }}" target="_blank" class="badge badge-success">{{ offer['sale_price']
-                    }}€</a>
-                  <span class="badge badge-dark strike">{{ offer['regular_price'] }}€</span>
-                  <a href="{{ offer['url'] }}" target="_blank" class="badge badge-secondary">{{ savings_percent }}%</a>
+                  <span class="badge badge-pill badge-success">{{ offer['sale_price']}}€</span>
+                  <span class="badge badge-pill badge-dark strike">{{ offer['regular_price'] }}€</span>
+                  <span class="badge badge-pill badge-secondary">{{ savings_percent }}%</span><br>
+                  <a href="{{ offer['url_disqus'] }}" target="_blank" class="badge badge-warning">Diskutieren</a>
+                  <a href="{{ offer['url'] }}" target="_blank" class="badge badge-success">Zum Angebot</a>
                 </h5>
               </div>
             </div>
@@ -46,9 +48,10 @@
     </div>
   </div>
   {% endfor %}
-  <div class="row justify-content-center">
-    {% import "_macros.html" as macros %}
-    {{ macros.pagination_widget(pages, request.endpoint) }}
-  </div>
+  {% import "_macros.html" as macros %}
+  {{ macros.pagination_widget(pages, request.endpoint) }}
+  {% if "disqus" in request.path %}
+  {{ macros.disqus_widget(request.endpoint, item_id) }}
+  {% endif %}
 </div>
 {% endblock content %}
