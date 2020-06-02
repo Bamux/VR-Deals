@@ -42,7 +42,7 @@ def headset(page):
 @app.route("/accessories/", defaults={'page': 1})
 @app.route("/accessories/page-<int:page>/")
 def accessories(page):
-    return create_website(page, "Accessories")
+    return create_website(page, "Zubehör")
 
 
 @app.route("/hardware/")
@@ -53,4 +53,4 @@ def hardware():
 
 @app.route("/statistics/")
 def statistics():
-    return render_template('statistics.html', page_navigation="Statistics")
+    return render_template('statistics.html', page_navigation="Statistiken")

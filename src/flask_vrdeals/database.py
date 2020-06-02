@@ -52,7 +52,7 @@ def offers_from_store(per_page, offset, query):
     INNER JOIN category_name ON category_name.id = articles.category_name_id
     INNER JOIN categories ON categories.id = category_name.category_id 
     {query}
-    Order by stores.id, category_id, date_time DESC
+    Order by stores.priority, category_id, date_time DESC
     LIMIT {per_page} OFFSET {offset}
     '''
     for offer in sql_query(sql):
@@ -89,7 +89,7 @@ def offers_pagination(page, store):
         query = f'''WHERE name LIKE "{store}%"'''
     elif store == "Headsets":
         query = '''WHERE category = "hardware"'''
-    elif store == "Accessories":
+    elif store == "Zubehör":
         query = '''WHERE category = "Accessories"'''
     else:
         query = f'''WHERE name="{store}"'''

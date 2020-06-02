@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% set active_page = page_navigation %}
+{% block content %}
+  <div class="container_statistics mx-auto">
+    <h5 class="headline">Statistiken</h5>
+    <p>Als Quelle dienen die maximale Anzahl an gleichzeitigen Spielern auf Steam, für die einzelnen Spiele die als VR only klassifiziert sind. Weil es sich nur um die Steam Plattform handelt sind  diese Zahlen jedoch nicht aussagekräftig für den gesamten VR Markt, geben aber eine grundlegende Übersicht wie er sich seit 2016 entwickelt.</p>
+    <img src="{{ url_for('static', filename='images/top10.png') }}" alt="Top 10 Steam VR Games">
+    <img src="{{ url_for('static', filename='images/avg_peak_over_time.png') }}" alt="VR Entwicklung seit 2016">
+    <img src="{{ url_for('static', filename='images/top10_max_peak.png') }}" alt="Maximale Anzhal an gleichzeitigen Benutzern von Steam VR">
+    <img src="{{ url_for('static', filename='images/monthly_vrusage.png') }}" alt="Entwicklung der VR Nutzung auf Steam VR in den letzten 6 Monaten">
+  </div>
+{% endblock content %}

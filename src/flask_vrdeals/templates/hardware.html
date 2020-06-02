@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% set active_page = page_navigation %}
+{% set store = [] %}
+{% block content %}
+<div class="container">
+  <h5 class="headline">VR Hardware Empfehlungen</h5>
+  {% for offer in offers %}
+  <div class="card mb-2 row">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <a href="{{ offer['url'] }}" target="_blank">
+          <img src="{{ url_for('static', filename='images/'+offer['img_url']) }}" class="card-img" alt="{{ offer['article_name'] }}">
+        </a>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{{ offer['url'] }}" target="_blank" class="card-link">{{ offer['article_name']
+            }}</a></h5>
+          <div class="card-text">
+            <p class="card-text">{{ offer['description'] }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="row justify-content-center">
+    {% import "_macros.html" as macros %}
+    {{ macros.pagination_widget(pages, request.endpoint) }}
+  </div>
+</div>
+{% endblock content %}
