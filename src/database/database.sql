@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.articles: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.articles: ~124 rows (ungefähr)
 DELETE FROM `articles`;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
 INSERT INTO `articles` (`id`, `store_id`, `category_name_id`, `website_article_id`, `regular_price`, `img_url`) VALUES
@@ -154,7 +154,8 @@ INSERT INTO `articles` (`id`, `store_id`, `category_name_id`, `website_article_i
 	(121, 35, 115, 'https://www.oculus.com/experiences/go/2185901951459621', 4.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38982470_2607884042809447_6094292193382498304_n.jpg?_nc_cat=104&_nc_sid=79b88e&_nc_ohc=xCaxs2bKqWwAX_bQM_J&_nc_ht=scontent.oculuscdn.com&oh=fcd7cf76262b6577da1301f4cc53c677&oe=5EFBC10F'),
 	(122, 35, 116, 'https://www.oculus.com/experiences/go/1612336165492390', 3.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/12504730_176118463044153_8287026023380287488_n.jpg?_nc_cat=110&_nc_sid=79b88e&_nc_ohc=kuH7BtuXe94AX8ha3Ql&_nc_ht=scontent.oculuscdn.com&oh=6cda48feee9d0d78eedb02a1cca4e4f7&oe=5EFB572E'),
 	(123, 35, 117, 'https://www.oculus.com/experiences/go/2146744692021364', 4.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974501_528678351313451_8983829933956530176_n.jpg?_nc_cat=102&_nc_sid=79b88e&_nc_ohc=BIYaxeh_whUAX-gRcqS&_nc_ht=scontent.oculuscdn.com&oh=3f880a43cac8c7620ea02aae3aa06ca6&oe=5EFD0069'),
-	(124, 35, 118, 'https://www.oculus.com/experiences/go/1459163684102799', 2.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/12482153_1284288108320020_8733698460340977664_n.jpg?_nc_cat=106&_nc_sid=79b88e&_nc_ohc=GBORb-CTq-0AX_-YgyO&_nc_ht=scontent.oculuscdn.com&oh=152c3221931398c5b20ec964e5ccfb31&oe=5EFB45A8');
+	(124, 35, 118, 'https://www.oculus.com/experiences/go/1459163684102799', 2.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/12482153_1284288108320020_8733698460340977664_n.jpg?_nc_cat=106&_nc_sid=79b88e&_nc_ohc=GBORb-CTq-0AX_-YgyO&_nc_ht=scontent.oculuscdn.com&oh=152c3221931398c5b20ec964e5ccfb31&oe=5EFB45A8'),
+	(125, 21, 119, 'https://www.mediamarkt.de/de/product/_sony-playstation-vr-mega-pack-2-playstation-vr-playstation-camera-5-spiele-voucher-2602037.html', 319.00, 'https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_69870104/fee_786_587_png');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.categories
@@ -181,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `category_name` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.category_name: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.category_name: ~118 rows (ungefähr)
 DELETE FROM `category_name`;
 /*!40000 ALTER TABLE `category_name` DISABLE KEYS */;
 INSERT INTO `category_name` (`id`, `category_id`, `article_name`) VALUES
@@ -302,7 +303,8 @@ INSERT INTO `category_name` (`id`, `category_id`, `article_name`) VALUES
 	(115, 3, 'Drift Club'),
 	(116, 3, 'SkyTrek'),
 	(117, 3, 'Fear Incarnate'),
-	(118, 3, 'Ping Pong');
+	(118, 3, 'Ping Pong'),
+	(119, 1, 'PlayStation VR Mega Pack');
 /*!40000 ALTER TABLE `category_name` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.current_offers
@@ -314,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `current_offers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.current_offers: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.current_offers: ~123 rows (ungefähr)
 DELETE FROM `current_offers`;
 /*!40000 ALTER TABLE `current_offers` DISABLE KEYS */;
 INSERT INTO `current_offers` (`id`, `article_id`, `sale_price`, `date_time`) VALUES
@@ -440,7 +442,8 @@ INSERT INTO `current_offers` (`id`, `article_id`, `sale_price`, `date_time`) VAL
 	(122, 122, 1.99, _binary 0x323032302D30362D30322030393A30303A3136),
 	(123, 123, 0.92, _binary 0x323032302D30362D30322030393A30303A3136),
 	(124, 124, 1.99, _binary 0x323032302D30362D30322030393A30303A3136),
-	(125, 2, 199.99, _binary 0x323032302D30362D30322031313A30353A3534);
+	(126, 2, 199.99, _binary 0x323032302D30362D30322031363A32333A3139),
+	(127, 125, 229.99, _binary 0x323032302D30362D30322031363A32333A3139);
 /*!40000 ALTER TABLE `current_offers` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.expired_offers
@@ -452,7 +455,7 @@ CREATE TABLE IF NOT EXISTS `expired_offers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~1 rows (ungefähr)
 DELETE FROM `expired_offers`;
 /*!40000 ALTER TABLE `expired_offers` DISABLE KEYS */;
 INSERT INTO `expired_offers` (`id`, `article_id`, `sale_price`, `date_time`) VALUES
@@ -514,7 +517,7 @@ CREATE TABLE IF NOT EXISTS `stores` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.stores: ~7 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.stores: ~8 rows (ungefähr)
 DELETE FROM `stores`;
 /*!40000 ALTER TABLE `stores` DISABLE KEYS */;
 INSERT INTO `stores` (`id`, `name`, `url`, `priority`) VALUES
