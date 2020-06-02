@@ -16,13 +16,13 @@
   <div class="card mb-2 row">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <a href="{{ offer['url_disqus'] }}" target="_blank">
+        <a href="{{ offer['url_disqus'] }}">
           <img src="{{ offer['img_url'] }}" class="card-img" alt="{{ offer['article_name'] }}">
         </a>
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title"><a href="{{ offer['url_disqus'] }}" target="_blank" class="card-link">{{
+          <h5 class="card-title"><a href="{{ offer['url_disqus'] }}" class="card-link">{{
             offer['article_name']
             }}</a></h5>
           <div class="card-text">
@@ -37,7 +37,7 @@
                   <span class="badge badge-pill badge-success">{{ offer['sale_price']}}€</span>
                   <span class="badge badge-pill badge-dark strike">{{ offer['regular_price'] }}€</span>
                   <span class="badge badge-pill badge-secondary">{{ savings_percent }}%</span><br>
-                  <a href="{{ offer['url_disqus'] }}" target="_blank" class="badge badge-warning">Diskussion</a>
+                  <a href="{{ offer['url_disqus'] }}" class="badge badge-warning">Diskussion</a>
                   <a href="{{ offer['url'] }}" target="_blank" class="badge badge-success">Zum Angebot</a>
                 </h5>
               </div>
