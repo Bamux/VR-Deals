@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% set active_page = page_navigation %}
+{% set store = [] %}
+{% block content %}
+<div class="container">
+  {% if not offers %}
+  <div class="row justify-content-center">
+    <h5 class="headline">Zurzeit sind keine Angebote für {{ article_name }} vorhanden.</h5>
+  </div>
+  {% endif %}
+  {% for offer in offers %}
+  {% set savings_percent = ((offer['sale_price']-offer['regular_price'])/offer['regular_price']*100)|round|int %}
+  {% if offer['store_name'] not in store %}
+  <h5 class="headline">{{ store.append(offer['store_name']) or offer['store_name'] }}</h5>
+  {% endif %}
+  <div class="card mb-2 row">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <a href="{{ offer['url'] }}" target="_blank">
+          <img src="{{ offer['img_url'] }}" class="card-img" alt="{{ offer['article_name'] }}">
+        </a>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{{ offer['url'] }}" target="_blank" class="card-link">{{
+            offer['article_name']
+            }}</a></h5>
+          <div class="card-text">
+            <div class="row">
+              <div class="col-4 row justify-content-center my-auto">
+                <img src="{{ url_for('static', filename='images/'+offer['store_name']|replace(' ', '_')+'.png') }}"
+                     width="auto"
+                     height="60">
+              </div>
+              <div class="col-8 my-auto">
+                <h5>
+                  <span class="badge badge-pill badge-success">{{ offer['sale_price']}}€</span>
+                  <span class="badge badge-pill badge-dark strike">{{ offer['regular_price'] }}€</span>
+                  <span class="badge badge-pill badge-secondary">{{ savings_percent }}%</span><br>
+                  <a href="{{ offer['url'] }}" target="_blank" class="badge badge-success">Zum Angebot</a>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% import "_macros.html" as macros %}
+  {{ macros.pagination_widget(pages, request.endpoint) }}
+  {% if "disqus" in request.path %}
+  {{ macros.disqus_widget(request.endpoint, item_id) }}
+  {% endif %}
+</div>
+{% endblock content %}
