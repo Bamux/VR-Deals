@@ -40,7 +40,7 @@ def get_offers(store_id):
                     website_article_id = f"https://www.saturn.de{website_article_id}"
                     img_url = article.find('img')
                     img_url = img_url["data-original"].split("fee")[0]
-                    img_url = f"https:{img_url}fee_325_225_png"
+                    img_url = f"https:{img_url}fee_786_587_png"
                     article_id = 0
                     offer = Article(
                         article_id,
