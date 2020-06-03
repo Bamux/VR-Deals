@@ -1,7 +1,6 @@
 import datetime
 
-from web_scraping import sql, upload_github_page
-from web_scraping import get_data_sources
+from web_scraping import sql, upload_github_page, data_sources
 
 
 def add_article(offer):
@@ -89,7 +88,7 @@ def database_interaction(database_update, store_id, offers):
 
 def main():
     database_update = False
-    sources = get_data_sources.get_offers()
+    sources = data_sources.get_offers()
     for store_id, offers in sources:
         database_update = database_interaction(database_update, store_id, offers)
     if database_update:
