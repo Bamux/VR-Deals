@@ -56,6 +56,7 @@ def offers_from_store(per_page, offset, query):
         cross_buy_available = False
         store_name, article_name, regular_price, sale_price, img_url, website_article_id, url, category_name_id = offer
         offer_dict = {
+            "store_name": store_name,
             "article_name": article_name[0:40],
             "regular_price": regular_price,
             "sale_price": sale_price,
@@ -71,7 +72,6 @@ def offers_from_store(per_page, offset, query):
                     cross_buy_available = True
                     break
         if not cross_buy_available:
-            offer_dict["store_name"] = store_name
             offers.append(offer_dict)
     offers = offers_cross_buy + offers
     return offers
