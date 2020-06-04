@@ -1,4 +1,5 @@
 """Gets the data from the oculus store via web scraping with the selenium library."""
+import time
 from decimal import Decimal
 
 from selenium import webdriver
@@ -23,8 +24,27 @@ def get_oculus_offers(store, category_id):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
     driver = webdriver.Chrome(ChromeDriverManager(log_level=0).install(), options=chrome_options)
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(10)
     driver.get(url)
+
+    scroll_pause_time = 0.5
+
+    # Get scroll height
+    last_height = driver.execute_script("return document.body.scrollHeight")
+
+    while True:
+        # Scroll down to bottom
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+        # Wait to load page
+        time.sleep(scroll_pause_time)
+
+        # Calculate new scroll height and compare with last scroll height
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
+            break
+        last_height = new_height
+
     sales = driver.find_element_by_class_name(element)
     urls = sales.find_elements_by_class_name('store-section-item-tile')
     game_titles = sales.find_elements_by_class_name('store-section-item__meta-name')
@@ -67,4 +87,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

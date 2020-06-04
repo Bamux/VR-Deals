@@ -135,3 +135,4 @@ def offers_pagination(page, store):
 conn = mysql.connect()
 cursor = conn.cursor()
 cross_buy = sql_query("SELECT name FROM crossbuy")
+conn_close()
