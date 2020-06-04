@@ -2,10 +2,6 @@ from flask import current_app
 from flask_vrdeals import mysql, Pager
 
 
-conn = mysql.connect()
-cursor = conn.cursor()
-
-
 def conn_close():
     cursor.close()
     conn.close()
@@ -44,6 +40,7 @@ def number_of_offers(query):
 def offers_from_store(per_page, offset, query):
     """returns all offers for the corresponding store"""
     offers = []
+    offers_cross_buy = []
     sql = f'''
     SELECT stores.name, article_name, regular_price, sale_price, img_url, website_article_id, url, category_name.id
     FROM current_offers
@@ -56,17 +53,27 @@ def offers_from_store(per_page, offset, query):
     LIMIT {per_page} OFFSET {offset}
     '''
     for offer in sql_query(sql):
+        cross_buy_available = False
         store_name, article_name, regular_price, sale_price, img_url, website_article_id, url, category_name_id = offer
-        offers.append({
-            "store_name": store_name,
+        offer_dict = {
             "article_name": article_name[0:40],
             "regular_price": regular_price,
             "sale_price": sale_price,
             "img_url": img_url,
             "url": website_article_id,
             "url_disqus": f"/disqus/id-{category_name_id}"
-
-        })
+        }
+        if store_name == "Oculus Quest" or store_name == "Oculus Rift":
+            for name in cross_buy:
+                if article_name == name[0]:
+                    offer_dict["store_name"] = "Oculus Quest + Rift (Cross-Buy)"
+                    offers_cross_buy.append(offer_dict)
+                    cross_buy_available = True
+                    break
+        if not cross_buy_available:
+            offer_dict["store_name"] = store_name
+            offers.append(offer_dict)
+    offers = offers_cross_buy + offers
     return offers
 
 
@@ -123,3 +130,8 @@ def offers_pagination(page, store):
     offers = offers_from_store(per_page, skip, query)
     conn_close()
     return offers, pages, data_to_show
+
+
+conn = mysql.connect()
+cursor = conn.cursor()
+cross_buy = sql_query("SELECT name FROM crossbuy")

@@ -25,16 +25,16 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `regular_price` decimal(10,2) NOT NULL,
   `img_url` text COLLATE utf8_german2_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.articles: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.articles: ~133 rows (ungefähr)
 DELETE FROM `articles`;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
 INSERT INTO `articles` (`id`, `store_id`, `category_name_id`, `website_article_id`, `regular_price`, `img_url`) VALUES
 	(1, 20, 1, 'https://www.amazon.de/PlayStation-Virtual-Reality-Voucher-Version/dp/B07K2PT733/', 289.00, 'https://m.media-amazon.com/images/I/71EyHQikKjL._AC_UL640_FMwebp_QL65_.jpg'),
 	(2, 21, 1, 'https://www.mediamarkt.de/de/product/_sony-playstation-vr-camera-vr-worlds-voucher-2495540.html', 289.00, 'https://assets.mmsrg.com/isr/166325/c1/-/pixelboxx-mss-79401463/fee_786_587_png'),
-	(3, 23, 119, 'https://www.saturn.de/de/product/_sony-playstation-vr-mega-pack-2-playstation-vr-playstation-camera-5-spiele-voucher-2602037.html', 319.00, 'https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_69870104/fee_325_225_png'),
-	(4, 23, 1, 'https://www.saturn.de/de/product/_sony-playstation-vr-camera-vr-worlds-voucher-2495540.html', 289.00, 'https://assets.mmsrg.com/isr/166325/c1/-/pixelboxx-mss-79401463/fee_325_225_png'),
+	(3, 23, 119, 'https://www.saturn.de/de/product/_sony-playstation-vr-mega-pack-2-playstation-vr-playstation-camera-5-spiele-voucher-2602037.html', 319.00, 'https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_69870104/fee_786_587_png'),
+	(4, 23, 1, 'https://www.saturn.de/de/product/_sony-playstation-vr-camera-vr-worlds-voucher-2495540.html', 289.00, 'https://assets.mmsrg.com/isr/166325/c1/-/pixelboxx-mss-79401463/fee_786_587_png'),
 	(5, 22, 3, 'https://netgames.de/Playstation-4/PS4-Konsolen---Zubeh--r/Controller---Speicher-1005/vr-aim-controller-sony-oem-ps4.html', 75.00, 'https://images.netgam.es/images/product_images/popup_images/47902_2.jpg'),
 	(6, 33, 122, 'https://www.humblebundle.com/store/containment-initiative', 9.99, 'https://hb.imgix.net/51653f0be0b8b7925b07093ca482555f7bb3f230.jpg?auto=compress,format&fit=crop&h=353&w=616&s=9b4e5cb2c2a50ad762dcb6e5f9950c92'),
 	(7, 33, 4, 'https://www.humblebundle.com/store/whale-rock-bundle', 66.66, 'https://hb.imgix.net/e318bed74e7c26b4c1ec832e06a4bb9d7e788bc4.jpg?auto=compress,format&fit=crop&h=353&w=616&s=064a55a89d8ba3c6e6f3492105562ea5'),
@@ -114,11 +114,11 @@ INSERT INTO `articles` (`id`, `store_id`, `category_name_id`, `website_article_i
 	(81, 34, 74, 'https://store.steampowered.com/app/1273060/', 8.19, 'https://steamcdn-a.akamaihd.net/steam/apps/1273060/header.jpg'),
 	(82, 32, 75, 'https://www.oculus.com/experiences/rift/1446648452044502', 29.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974612_579802085774928_3046765974905683968_n.jpg?_nc_cat=104&_nc_sid=79b88e&_nc_ohc=i3Un0QHgh0EAX--UkZy&_nc_ht=scontent.oculuscdn.com&oh=2f93e50e50add1aa8cb0d4b3c62a5aec&oe=5EFC337E'),
 	(83, 32, 76, 'https://www.oculus.com/experiences/rift/2739977019349635', 24.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974563_272492140121143_898625025110704128_n.jpg?_nc_cat=100&_nc_sid=79b88e&_nc_ohc=TEHN3dCb7e0AX-jYnR0&_nc_ht=scontent.oculuscdn.com&oh=2724ed7b83f8e03e61ab9f744a018334&oe=5EFB195B'),
-	(84, 32, 77, 'https://www.oculus.com/experiences/rift/1833318536683635', 19.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974725_2276911705958657_5463510734828732416_n.jpg?_nc_cat=101&_nc_sid=79b88e&_nc_ohc=zJbcRtlXEN0AX_kKIlj&_nc_ht=scontent.oculuscdn.com&oh=54f4e532de977bad55769a99c0ee9dd5&oe=5EFC5114'),
+	(84, 30, 77, 'https://www.oculus.com/experiences/rift/1833318536683635', 19.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974725_2276911705958657_5463510734828732416_n.jpg?_nc_cat=101&_nc_sid=79b88e&_nc_ohc=zJbcRtlXEN0AX_kKIlj&_nc_ht=scontent.oculuscdn.com&oh=54f4e532de977bad55769a99c0ee9dd5&oe=5EFC5114'),
 	(85, 32, 78, 'https://www.oculus.com/experiences/rift/1471853306166046', 24.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/12138836_213255789368882_3336720608628047872_n.jpg?_nc_cat=1&_nc_sid=79b88e&_nc_ohc=AbwrEf10xs0AX-3vZEE&_nc_ht=scontent.oculuscdn.com&oh=b6ca5f1e1d7bdff7f3ecf2fad0c808b6&oe=5EFE8014'),
-	(86, 32, 79, 'https://www.oculus.com/experiences/rift/1696308540462484', 19.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/75196223_2529090667361943_3266401711840821248_n.jpg?_nc_cat=1&_nc_sid=79b88e&_nc_ohc=9e1Rd7GZIHEAX-ZYPJ1&_nc_ht=scontent.oculuscdn.com&oh=61bdf8d26a65e932839633a63064ae79&oe=5EFEA0A8'),
+	(86, 30, 79, 'https://www.oculus.com/experiences/rift/1696308540462484', 19.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/75196223_2529090667361943_3266401711840821248_n.jpg?_nc_cat=1&_nc_sid=79b88e&_nc_ohc=9e1Rd7GZIHEAX-ZYPJ1&_nc_ht=scontent.oculuscdn.com&oh=61bdf8d26a65e932839633a63064ae79&oe=5EFEA0A8'),
 	(87, 32, 16, 'https://www.oculus.com/experiences/rift/2124641230881553', 9.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38982453_567103313725999_7439880798401986560_n.jpg?_nc_cat=107&_nc_sid=79b88e&_nc_ohc=8qJ7ZYX9rCYAX_yAliX&_nc_ht=scontent.oculuscdn.com&oh=7d591c6d346c65cf2bc47bcb99f335f6&oe=5EFB7864'),
-	(88, 32, 80, 'https://www.oculus.com/experiences/rift/1462259830529109', 29.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974738_551805209052690_1361289356186222592_n.jpg?_nc_cat=1&_nc_sid=79b88e&_nc_ohc=j9pDqyot-VkAX-1S6J3&_nc_ht=scontent.oculuscdn.com&oh=2a7aa533fe9121eeb4c09784096854bd&oe=5EFBC344'),
+	(88, 30, 80, 'https://www.oculus.com/experiences/rift/1462259830529109', 29.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974738_551805209052690_1361289356186222592_n.jpg?_nc_cat=1&_nc_sid=79b88e&_nc_ohc=j9pDqyot-VkAX-1S6J3&_nc_ht=scontent.oculuscdn.com&oh=2a7aa533fe9121eeb4c09784096854bd&oe=5EFBC344'),
 	(89, 32, 81, 'https://www.oculus.com/experiences/rift/1990542257627879', 6.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/12602063_2149554861998397_1061964684371951616_n.jpg?_nc_cat=111&_nc_sid=79b88e&_nc_ohc=dTlXN7z8kosAX_6ZyaD&_nc_ht=scontent.oculuscdn.com&oh=be0d27985a5bc0459b12cabab1c8010b&oe=5EFC624D'),
 	(90, 32, 82, 'https://www.oculus.com/experiences/rift/1809390489075678', 9.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/12482206_179896052703504_8855719069630857216_n.jpg?_nc_cat=106&_nc_sid=79b88e&_nc_ohc=Zyq1ZAMGbBMAX8AAPvW&_nc_ht=scontent.oculuscdn.com&oh=f2a701226c617557697bcd3c35132da5&oe=5EFD6731'),
 	(91, 32, 83, 'https://www.oculus.com/experiences/rift/349692435154738', 19.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/12139257_107375176403202_5590161567971803136_n.jpg?_nc_cat=106&_nc_sid=79b88e&_nc_ohc=oyNLY6Og414AX-Viyyo&_nc_ht=scontent.oculuscdn.com&oh=f3301d78000ad36a9b3160eaa908ca74&oe=5EFC2D3F'),
@@ -161,7 +161,14 @@ INSERT INTO `articles` (`id`, `store_id`, `category_name_id`, `website_article_i
 	(128, 35, 117, 'https://www.oculus.com/experiences/go/2146744692021364', 4.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/38974501_528678351313451_8983829933956530176_n.jpg?_nc_cat=102&_nc_sid=79b88e&_nc_ohc=Q1ax3Z1XdUwAX_i0MgC&_nc_ht=scontent.oculuscdn.com&oh=7bb68f574bd949ef1cf3fb48132e8144&oe=5EFD0069'),
 	(129, 35, 118, 'https://www.oculus.com/experiences/go/1459163684102799', 2.99, 'https://scontent.oculuscdn.com/v/t64.5771-25/q92/s720x720/12482153_1284288108320020_8733698460340977664_n.jpg?_nc_cat=106&_nc_sid=79b88e&_nc_ohc=Dtoliijyai4AX8M1OZn&_nc_ht=scontent.oculuscdn.com&oh=740fd415caa0c3f4fb23ddab1483d007&oe=5EFB45A8'),
 	(130, 21, 119, 'https://www.mediamarkt.de/de/product/_sony-playstation-vr-mega-pack-2-playstation-vr-playstation-camera-5-spiele-voucher-2602037.html', 319.00, 'https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_69870104/fee_786_587_png'),
-	(131, 34, 61, 'https://store.steampowered.com/app/apps/', 8.19, 'https://steamcdn-a.akamaihd.net/steam/apps/apps/header.jpg');
+	(131, 34, 61, 'https://store.steampowered.com/app/apps/', 8.19, 'https://steamcdn-a.akamaihd.net/steam/apps/apps/header.jpg'),
+	(132, 34, 125, 'https://store.steampowered.com/app/529590/', 8.19, 'https://steamcdn-a.akamaihd.net/steam/apps/529590/header.jpg'),
+	(133, 34, 126, 'https://store.steampowered.com/app/604830/', 3.29, 'https://steamcdn-a.akamaihd.net/steam/apps/604830/header.jpg'),
+	(134, 34, 127, 'https://store.steampowered.com/app/607440/', 1.59, 'https://steamcdn-a.akamaihd.net/steam/apps/607440/header.jpg'),
+	(135, 20, 1, 'https://www.amazon.de/dp/B07K2PT733/', 289.00, 'https://m.media-amazon.com/images/I/71EyHQikKjL._AC_UL640_FMwebp_QL65_.jpg'),
+	(136, 20, 128, 'https://www.amazon.de/KIWI-Anti-Leck-Gesichts-Schnittstellen-Linsenabdeckung-Anti-Leck-Nasenpolster/dp/B082X55S92/', 37.99, 'https://m.media-amazon.com/images/I/61FtPDb72nL._AC_UL640_FMwebp_QL65_.jpg'),
+	(137, 34, 129, 'https://store.steampowered.com/app/1001690/', 12.49, 'https://steamcdn-a.akamaihd.net/steam/apps/1001690/header.jpg'),
+	(138, 34, 130, 'https://store.steampowered.com/app/1305380/', 24.99, 'https://steamcdn-a.akamaihd.net/steam/apps/1305380/header.jpg');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.categories
@@ -186,9 +193,9 @@ CREATE TABLE IF NOT EXISTS `category_name` (
   `category_id` int(11) NOT NULL,
   `article_name` tinytext COLLATE utf8_german2_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.category_name: ~119 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.category_name: ~121 rows (ungefähr)
 DELETE FROM `category_name`;
 /*!40000 ALTER TABLE `category_name` DISABLE KEYS */;
 INSERT INTO `category_name` (`id`, `category_id`, `article_name`) VALUES
@@ -315,8 +322,101 @@ INSERT INTO `category_name` (`id`, `category_id`, `article_name`) VALUES
 	(121, 3, 'Fire Safety Lab VR'),
 	(122, 3, 'Containment Initiative'),
 	(123, 3, 'Project CARS 2'),
-	(124, 3, 'PlanetariumVR');
+	(124, 3, 'PlanetariumVR'),
+	(125, 3, 'Please, Don\'t Touch Anything 3D'),
+	(126, 3, 'All Alone: VR'),
+	(127, 3, 'Escape: VR'),
+	(128, 2, 'KIWI Oculus Quest Cover'),
+	(129, 3, 'Mars Flight VR'),
+	(130, 3, 'VR Immersive Fitness Gym (Cycling, Marathon, Football, Yoga etc)');
 /*!40000 ALTER TABLE `category_name` ENABLE KEYS */;
+
+-- Exportiere Struktur von Tabelle vr_deals.crossbuy
+CREATE TABLE IF NOT EXISTS `crossbuy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` tinytext COLLATE utf8_german2_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+
+-- Exportiere Daten aus Tabelle vr_deals.crossbuy: ~34 rows (ungefähr)
+DELETE FROM `crossbuy`;
+/*!40000 ALTER TABLE `crossbuy` DISABLE KEYS */;
+INSERT INTO `crossbuy` (`id`, `name`) VALUES
+	(1, 'Wands'),
+	(2, 'Pistol Whip'),
+	(3, '2MD: VR Football Unleashed'),
+	(4, 'Accounting+'),
+	(5, 'Acron'),
+	(6, 'AFFECTED: The Manor'),
+	(7, 'Angry Birds VR: Isle of Pigs'),
+	(8, 'Apex Construct'),
+	(9, 'Audio Trip'),
+	(10, 'AUDICA'),
+	(11, 'Ballista'),
+	(12, 'BOXVR'),
+	(13, 'The Climb'),
+	(14, 'Cloudlands 2'),
+	(15, 'Creed: Rise to Glory'),
+	(16, 'The Curious Tale of the Stolen Pets'),
+	(17, 'Dance Central'),
+	(18, 'Dead and Buried II'),
+	(19, 'Death Lap'),
+	(20, 'Doctor Who: The Edge of Time'),
+	(21, 'Drop Dead: Dual Strike Edition'),
+	(22, 'Electronauts'),
+	(23, 'Eleven Table Tennis'),
+	(24, 'End Space'),
+	(25, 'Espire 1: VR Operative'),
+	(26, 'The Exorcist: Legion VR'),
+	(27, 'Face your Fears 2'),
+	(28, 'Fail Factory!'),
+	(29, 'Fruit Ninja'),
+	(30, 'Fujii'),
+	(31, 'Gun Club VR'),
+	(32, 'Guns\'n\'Stories: Bulletproof VR'),
+	(33, 'Half + Half'),
+	(34, 'I Expect You to Die'),
+	(35, 'Ironlights'),
+	(36, 'Journey of the Gods'),
+	(37, 'Keep Talking and Nobody Explodes'),
+	(38, 'Knockout League'),
+	(39, 'Last Labyrinth'),
+	(40, 'Lies Beneath'),
+	(41, 'Mini Motor Racing X'),
+	(42, 'Ninja Legends'),
+	(43, 'OhShape'),
+	(44, 'Orbus VR Reborn'),
+	(45, 'Path of the Warrior'),
+	(46, 'Pinball FX2 VR'),
+	(47, 'Please, Don\'t Touch Anything'),
+	(48, 'Pixel Ripped 1995'),
+	(49, 'Raccoon Lagoon'),
+	(50, 'Racket Fury: Table Tennis VR'),
+	(51, 'Racket: NX'),
+	(52, 'Real VR Fishing'),
+	(53, 'République VR'),
+	(54, 'Richie\'s Plank Experience'),
+	(55, 'Robo Recall'),
+	(56, 'RUSH'),
+	(57, 'Shadow Point'),
+	(58, 'Space Pirate Trainer'),
+	(59, 'Spaceteam VR'),
+	(60, 'Sports Scramble'),
+	(61, 'Swords of Gargantua'),
+	(62, 'Synth Riders'),
+	(63, 'The Thrill of the Fight'),
+	(64, 'Thumper'),
+	(65, 'Ultrawings'),
+	(66, 'TribeXR DJ School'),
+	(67, 'Vader Immortal: Episode I'),
+	(68, 'Vader Immortal: Episode II'),
+	(69, 'Vader Immortal: Episode III'),
+	(70, 'Virtual Virtual Reality'),
+	(71, 'VR Karts: Sprint'),
+	(72, 'Waltz of the Wizard: Extended Edition'),
+	(73, 'The Wizards'),
+	(74, 'Cave Digger');
+/*!40000 ALTER TABLE `crossbuy` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.current_offers
 CREATE TABLE IF NOT EXISTS `current_offers` (
@@ -325,13 +425,12 @@ CREATE TABLE IF NOT EXISTS `current_offers` (
   `sale_price` decimal(10,2) NOT NULL,
   `date_time` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=421 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.current_offers: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.current_offers: ~132 rows (ungefähr)
 DELETE FROM `current_offers`;
 /*!40000 ALTER TABLE `current_offers` DISABLE KEYS */;
 INSERT INTO `current_offers` (`id`, `article_id`, `sale_price`, `date_time`) VALUES
-	(1, 1, 199.00, _binary 0x323032302D30362D30332031313A34333A3239),
 	(3, 3, 229.99, _binary 0x323032302D30362D30332031313A34333A3239),
 	(4, 4, 199.99, _binary 0x323032302D30362D30332031313A34333A3239),
 	(5, 5, 55.00, _binary 0x323032302D30362D30332031313A34333A3239),
@@ -388,79 +487,82 @@ INSERT INTO `current_offers` (`id`, `article_id`, `sale_price`, `date_time`) VAL
 	(127, 127, 1.99, _binary 0x323032302D30362D30332031313A34333A3239),
 	(128, 128, 0.92, _binary 0x323032302D30362D30332031313A34333A3239),
 	(129, 129, 1.99, _binary 0x323032302D30362D30332031313A34333A3239),
-	(130, 2, 199.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(131, 130, 229.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(132, 11, 9.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(133, 12, 15.63, _binary 0x323032302D30362D30332031343A30353A3133),
-	(134, 13, 8.39, _binary 0x323032302D30362D30332031343A30353A3133),
-	(135, 16, 6.79, _binary 0x323032302D30362D30332031343A30353A3133),
-	(136, 14, 10.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(137, 17, 8.39, _binary 0x323032302D30362D30332031343A30353A3133),
-	(138, 15, 2.84, _binary 0x323032302D30362D30332031343A30353A3133),
-	(139, 24, 9.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(140, 21, 7.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(141, 18, 11.69, _binary 0x323032302D30362D30332031343A30353A3133),
-	(142, 20, 13.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(143, 19, 6.24, _binary 0x323032302D30362D30332031343A30353A3133),
-	(144, 22, 6.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(145, 23, 6.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(146, 25, 3.74, _binary 0x323032302D30362D30332031343A30353A3133),
-	(147, 26, 4.24, _binary 0x323032302D30362D30332031343A30353A3133),
-	(148, 35, 2.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(149, 27, 1.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(150, 28, 6.24, _binary 0x323032302D30362D30332031343A30353A3133),
-	(151, 29, 2.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(152, 32, 1.63, _binary 0x323032302D30362D30332031343A30353A3133),
-	(153, 33, 2.04, _binary 0x323032302D30362D30332031343A30353A3133),
-	(154, 31, 6.79, _binary 0x323032302D30362D30332031343A30353A3133),
-	(155, 34, 1.29, _binary 0x323032302D30362D30332031343A30353A3133),
-	(156, 30, 3.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(157, 36, 1.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(158, 37, 0.39, _binary 0x323032302D30362D30332031343A30353A3133),
-	(159, 38, 1.97, _binary 0x323032302D30362D30332031343A30353A3133),
-	(160, 39, 1.27, _binary 0x323032302D30362D30332031343A30353A3133),
-	(161, 40, 5.24, _binary 0x323032302D30362D30332031343A30353A3133),
-	(162, 42, 2.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(163, 41, 16.09, _binary 0x323032302D30362D30332031343A30353A3133),
-	(164, 43, 5.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(165, 44, 8.89, _binary 0x323032302D30362D30332031343A30353A3133),
-	(166, 46, 2.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(167, 45, 2.39, _binary 0x323032302D30362D30332031343A30353A3133),
-	(168, 47, 3.41, _binary 0x323032302D30362D30332031343A30353A3133),
-	(169, 49, 9.54, _binary 0x323032302D30362D30332031343A30353A3133),
-	(170, 50, 1.03, _binary 0x323032302D30362D30332031343A30353A3133),
-	(171, 51, 89.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(172, 48, 2.39, _binary 0x323032302D30362D30332031343A30353A3133),
-	(173, 53, 5.73, _binary 0x323032302D30362D30332031343A30353A3133),
-	(174, 52, 8.39, _binary 0x323032302D30362D30332031343A30353A3133),
-	(175, 54, 11.19, _binary 0x323032302D30362D30332031343A30353A3133),
-	(176, 55, 11.75, _binary 0x323032302D30362D30332031343A30353A3133),
-	(177, 57, 9.96, _binary 0x323032302D30362D30332031343A30353A3133),
-	(178, 58, 3.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(179, 56, 1.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(180, 59, 3.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(181, 60, 2.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(182, 61, 0.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(183, 62, 1.44, _binary 0x323032302D30362D30332031343A30353A3133),
-	(184, 63, 4.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(185, 64, 1.59, _binary 0x323032302D30362D30332031343A30353A3133),
-	(186, 66, 2.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(187, 67, 0.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(188, 65, 15.11, _binary 0x323032302D30362D30332031343A30353A3133),
-	(189, 69, 0.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(190, 71, 5.79, _binary 0x323032302D30362D30332031343A30353A3133),
-	(191, 70, 4.99, _binary 0x323032302D30362D30332031343A30353A3133),
-	(192, 131, 4.91, _binary 0x323032302D30362D30332031343A30353A3133),
-	(193, 73, 16.79, _binary 0x323032302D30362D30332031343A30353A3133),
-	(194, 72, 6.44, _binary 0x323032302D30362D30332031343A30353A3133),
-	(195, 74, 2.79, _binary 0x323032302D30362D30332031343A30353A3133),
-	(196, 76, 7.79, _binary 0x323032302D30362D30332031343A30353A3133),
-	(197, 75, 4.49, _binary 0x323032302D30362D30332031343A30353A3133),
-	(198, 77, 0.59, _binary 0x323032302D30362D30332031343A30353A3133),
-	(199, 78, 2.79, _binary 0x323032302D30362D30332031343A30353A3133),
-	(200, 79, 3.59, _binary 0x323032302D30362D30332031343A30353A3133),
-	(201, 80, 0.71, _binary 0x323032302D30362D30332031343A30353A3133),
-	(202, 81, 6.96, _binary 0x323032302D30362D30332031343A30353A3133);
+	(203, 2, 199.99, _binary 0x323032302D30362D30332031363A32323A3530),
+	(346, 135, 199.00, _binary 0x323032302D30362D30342030393A34313A3231),
+	(347, 136, 35.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(348, 11, 9.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(349, 12, 15.63, _binary 0x323032302D30362D30342030393A34313A3231),
+	(350, 13, 8.39, _binary 0x323032302D30362D30342030393A34313A3231),
+	(351, 14, 10.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(352, 16, 6.79, _binary 0x323032302D30362D30342030393A34313A3231),
+	(353, 132, 3.68, _binary 0x323032302D30362D30342030393A34313A3231),
+	(354, 15, 2.84, _binary 0x323032302D30362D30342030393A34313A3231),
+	(355, 17, 8.39, _binary 0x323032302D30362D30342030393A34313A3231),
+	(356, 18, 11.69, _binary 0x323032302D30362D30342030393A34313A3231),
+	(357, 24, 9.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(358, 22, 6.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(359, 21, 7.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(360, 19, 6.24, _binary 0x323032302D30362D30342030393A34313A3231),
+	(361, 29, 2.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(362, 20, 13.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(363, 23, 6.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(364, 25, 3.74, _binary 0x323032302D30362D30342030393A34313A3231),
+	(365, 32, 1.63, _binary 0x323032302D30362D30342030393A34313A3231),
+	(366, 52, 8.39, _binary 0x323032302D30362D30342030393A34313A3231),
+	(367, 27, 1.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(368, 34, 1.29, _binary 0x323032302D30362D30342030393A34313A3231),
+	(369, 35, 2.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(370, 31, 6.79, _binary 0x323032302D30362D30342030393A34313A3231),
+	(371, 28, 6.24, _binary 0x323032302D30362D30342030393A34313A3231),
+	(372, 30, 3.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(373, 37, 0.39, _binary 0x323032302D30362D30342030393A34313A3231),
+	(374, 133, 0.39, _binary 0x323032302D30362D30342030393A34313A3231),
+	(375, 36, 1.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(376, 38, 1.97, _binary 0x323032302D30362D30342030393A34313A3231),
+	(377, 42, 2.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(378, 26, 4.24, _binary 0x323032302D30362D30342030393A34313A3231),
+	(379, 33, 2.04, _binary 0x323032302D30362D30342030393A34313A3231),
+	(380, 41, 16.09, _binary 0x323032302D30362D30342030393A34313A3231),
+	(381, 40, 5.24, _binary 0x323032302D30362D30342030393A34313A3231),
+	(382, 46, 2.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(383, 47, 3.41, _binary 0x323032302D30362D30342030393A34313A3231),
+	(384, 45, 2.39, _binary 0x323032302D30362D30342030393A34313A3231),
+	(385, 43, 5.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(386, 50, 1.03, _binary 0x323032302D30362D30342030393A34313A3231),
+	(387, 49, 9.54, _binary 0x323032302D30362D30342030393A34313A3231),
+	(388, 51, 89.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(389, 58, 3.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(390, 59, 3.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(391, 48, 2.39, _binary 0x323032302D30362D30342030393A34313A3231),
+	(392, 134, 0.39, _binary 0x323032302D30362D30342030393A34313A3231),
+	(393, 55, 11.75, _binary 0x323032302D30362D30342030393A34313A3231),
+	(394, 53, 5.73, _binary 0x323032302D30362D30342030393A34313A3231),
+	(395, 39, 1.27, _binary 0x323032302D30362D30342030393A34313A3231),
+	(396, 54, 11.19, _binary 0x323032302D30362D30342030393A34313A3231),
+	(397, 56, 1.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(398, 60, 2.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(399, 61, 0.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(400, 62, 1.44, _binary 0x323032302D30362D30342030393A34313A3231),
+	(401, 44, 8.89, _binary 0x323032302D30362D30342030393A34313A3231),
+	(402, 137, 8.74, _binary 0x323032302D30362D30342030393A34313A3231),
+	(403, 67, 0.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(404, 69, 0.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(405, 65, 15.11, _binary 0x323032302D30362D30342030393A34313A3231),
+	(406, 71, 5.79, _binary 0x323032302D30362D30342030393A34313A3231),
+	(407, 70, 4.99, _binary 0x323032302D30362D30342030393A34313A3231),
+	(408, 66, 2.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(409, 72, 6.44, _binary 0x323032302D30362D30342030393A34313A3231),
+	(410, 68, 4.91, _binary 0x323032302D30362D30342030393A34313A3231),
+	(411, 57, 9.96, _binary 0x323032302D30362D30342030393A34313A3231),
+	(412, 75, 4.49, _binary 0x323032302D30362D30342030393A34313A3231),
+	(413, 77, 0.59, _binary 0x323032302D30362D30342030393A34313A3231),
+	(414, 74, 2.79, _binary 0x323032302D30362D30342030393A34313A3231),
+	(415, 78, 2.79, _binary 0x323032302D30362D30342030393A34313A3231),
+	(416, 76, 7.79, _binary 0x323032302D30362D30342030393A34313A3231),
+	(417, 79, 3.59, _binary 0x323032302D30362D30342030393A34313A3231),
+	(418, 80, 0.71, _binary 0x323032302D30362D30342030393A34313A3231),
+	(419, 81, 6.96, _binary 0x323032302D30362D30342030393A34313A3231),
+	(420, 138, 22.49, _binary 0x323032302D30362D30342030393A34313A3231);
 /*!40000 ALTER TABLE `current_offers` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.expired_offers
@@ -470,13 +572,19 @@ CREATE TABLE IF NOT EXISTS `expired_offers` (
   `sale_price` decimal(10,2) NOT NULL,
   `date_time` mediumblob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.expired_offers: ~6 rows (ungefähr)
 DELETE FROM `expired_offers`;
 /*!40000 ALTER TABLE `expired_offers` DISABLE KEYS */;
 INSERT INTO `expired_offers` (`id`, `article_id`, `sale_price`, `date_time`) VALUES
-	(1, 68, 4.91, _binary 0x323032302D30362D30332031313A34333A3239);
+	(1, 68, 4.91, _binary 0x323032302D30362D30332031313A34333A3239),
+	(2, 130, 229.99, _binary 0x323032302D30362D30332031343A30353A3133),
+	(3, 131, 4.91, _binary 0x323032302D30362D30332031343A30353A3133),
+	(4, 63, 4.49, _binary 0x323032302D30362D30332031363A32323A3530),
+	(5, 64, 1.59, _binary 0x323032302D30362D30332031363A32323A3530),
+	(6, 73, 16.79, _binary 0x323032302D30362D30332031363A32323A3530),
+	(7, 1, 199.00, _binary 0x323032302D30362D30332031313A34333A3239);
 /*!40000 ALTER TABLE `expired_offers` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.hardware
@@ -497,7 +605,7 @@ INSERT INTO `hardware` (`id`, `url`, `img_url`, `article_name`, `description`) V
 	(2, 'https://geizhals.de/?cat=WL-1591033', 'sharkoon.jpg', 'Einsteiger PC bis 700€', 'AMD Ryzen 3 3300X, 16 GB Ram, 500 GB SSD, GTX 1660 SUPER, B450M Mainbord, be quiet! Pure Power 11 500W'),
 	(3, 'https://geizhals.de/?cat=WL-1354138', 'coolermaster.jpg', 'Mittelklasse PC bis 750€', 'AMD Ryzen 5 3600, 16 GB Ram, 500 GB SSD, GTX 1660 SUPER, B450M Mainbord, be quiet! Pure Power 11 500W'),
 	(4, 'https://geizhals.de/?cat=WL-1582914', 'coolermaster.jpg', 'Mittelklasse PC bis 850€', 'AMD Ryzen 5 3600, 16 GB Ram, 1000 GB SSD, RX 5700, B450M Mainbord, be quiet! Pure Power 11 500W'),
-	(6, 'https://geizhals.de/?cat=WL-1590990', 'coolermaster.jpg', 'Mittelklasse PC bis 950€', 'AMD Ryzen 5 3600, 16 GB Ram, 1000 GB SSD, RX 5700 XT, B450 Mainbord, be quiet! Straight Power 11 550W'),
+	(6, 'https://geizhals.de/?cat=WL-1590990', 'coolermaster.jpg', 'Oberklasse PC bis 1000€', 'AMD Ryzen 5 3600, 16 GB Ram, 1000 GB SSD, RX 5700 XT, B450 Mainbord, be quiet! Straight Power 11 550W'),
 	(7, 'https://geizhals.de/?cat=WL-1591067', 'phanteks.jpg', 'Oberklasse PC bis 1150€', 'AMD Ryzen 5 3600, 16 GB Ram, 1000 GB SSD, RTX 2070 Super, B450 Mainbord, be quiet! Straight Power 11 550W'),
 	(8, 'https://geizhals.de/?cat=WL-1591695', 'phanteks.jpg', 'Oberklasse PC bis 1500€', 'AMD Ryzen 5 3700x, 16 GB Ram, 1000 GB SSD, RTX 2080 Super, B450 Mainbord, be quiet! Straight Power 11 550W');
 /*!40000 ALTER TABLE `hardware` ENABLE KEYS */;
@@ -509,9 +617,9 @@ CREATE TABLE IF NOT EXISTS `keywords` (
   `keyword` tinytext COLLATE utf8_german2_ci NOT NULL,
   `regular_price` decimal(10,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10005 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10006 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.keywords: ~8 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.keywords: ~9 rows (ungefähr)
 DELETE FROM `keywords`;
 /*!40000 ALTER TABLE `keywords` DISABLE KEYS */;
 INSERT INTO `keywords` (`id`, `category_id`, `keyword`, `regular_price`) VALUES
@@ -522,7 +630,8 @@ INSERT INTO `keywords` (`id`, `category_id`, `keyword`, `regular_price`) VALUES
 	(5, 1, 'PlayStation VR + Camera + VR Worlds', 289.00),
 	(6, 2, 'VR Aim Controller', 75.00),
 	(7, 1, 'Vive Cosmos + Controller', 799.00),
-	(8, 2, 'PlayStation Move Motion-Controller', 89.99);
+	(8, 2, 'PlayStation Move Motion-Controller', 89.99),
+	(9, 2, 'KIWI Oculus Quest Cover', 37.99);
 /*!40000 ALTER TABLE `keywords` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle vr_deals.stores
@@ -530,23 +639,24 @@ CREATE TABLE IF NOT EXISTS `stores` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` tinytext COLLATE utf8_german2_ci NOT NULL,
   `url` text COLLATE utf8_german2_ci NOT NULL DEFAULT '',
-  `priority` text COLLATE utf8_german2_ci NOT NULL DEFAULT '',
+  `priority` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
--- Exportiere Daten aus Tabelle vr_deals.stores: ~8 rows (ungefähr)
+-- Exportiere Daten aus Tabelle vr_deals.stores: ~10 rows (ungefähr)
 DELETE FROM `stores`;
 /*!40000 ALTER TABLE `stores` DISABLE KEYS */;
 INSERT INTO `stores` (`id`, `name`, `url`, `priority`) VALUES
-	(20, 'Amazon', 'https://www.amazon.de/s?k=virtual+reality+brille', '1'),
-	(21, 'Mediamarkt', 'https://www.mediamarkt.de/de/category/_virtual-reality-605009.html', '2'),
-	(22, 'Netgames', 'https://netgames.de/ai_search.php?q=vr', '3'),
-	(23, 'Saturn', 'https://www.saturn.de/', '2'),
-	(31, 'Oculus Quest', 'https://www.oculus.com/experiences/quest/', '4'),
-	(32, 'Oculus Rift', 'https://www.oculus.com/experiences/rift/section/1578364258944223/', '5'),
-	(33, 'Humble Bundle', 'https://www.humblebundle.com/store', '6'),
-	(34, 'Steam', 'https://store.steampowered.com/', '7'),
-	(35, 'Oculus Go', 'https://www.oculus.com/experiences/go/section/1500175860035862/', '8');
+	(20, 'Amazon', 'https://www.amazon.de/s?k=virtual+reality+brille', 7),
+	(21, 'Mediamarkt', 'https://www.mediamarkt.de/de/category/_virtual-reality-605009.html', 8),
+	(22, 'Netgames', 'https://netgames.de/ai_search.php?q=vr', 10),
+	(23, 'Saturn', 'https://www.saturn.de/', 9),
+	(30, 'Oculus Quest + Rift (Cross-Buy)', '', 1),
+	(31, 'Oculus Quest', 'https://www.oculus.com/experiences/quest/', 2),
+	(32, 'Oculus Rift', 'https://www.oculus.com/experiences/rift/section/1578364258944223/', 3),
+	(33, 'Humble Bundle', 'https://www.humblebundle.com/store', 4),
+	(34, 'Steam', 'https://store.steampowered.com/', 5),
+	(35, 'Oculus Go', 'https://www.oculus.com/experiences/go/section/1500175860035862/', 6);
 /*!40000 ALTER TABLE `stores` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
