@@ -76,7 +76,7 @@ def database_interaction(database_update, store_id, offers):
     if expired_offers:
         print(expired_offers)
         sql.delete_expired_offers(expired_offers)
-    print(len(previous_offers), len(offers))
+    # print(len(previous_offers), len(offers))
     if expired_offers or len(previous_offers) != len(offers):
         offers_datetime = add_offers_datetime(offers)
         sql.delete_offers((store_id,))
