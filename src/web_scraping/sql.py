@@ -81,6 +81,14 @@ def check_category_name(article_name):
     return cursor.fetchone()
 
 
+def get_category_name():
+    sql = '''
+    SELECT id, article_name FROM category_name 
+    ORDER BY article_name'''
+    cursor.execute(sql)
+    return cursor.fetchall()
+
+
 def update_regular_price(regular_price, article_id):
     sql = "UPDATE articles SET regular_price = %s WHERE id = %s"
     cursor.execute(sql, (regular_price, article_id))

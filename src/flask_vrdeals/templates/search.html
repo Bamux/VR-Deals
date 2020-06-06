@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% set active_page = page_navigation %}
+{% set store = [] %}
+{% block content %}
+<div class="container">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <div class="search">
+    <form class="navbar-form" role="search" action="{{ url_for('search') }}">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Suche" name="search" id="search">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <h5 class="headline">Suchergebnisse:</h5>
+  <div id="myData"></div>
+  <script>
+        fetch('{{ url_for('static', filename='json/data.json') }}')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const search = urlParams.get('search');
+            data = data.filter(val => val.article_name.toLowerCase().includes(search.toLowerCase()))
+            for (var i = 0; i < data.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = "<li><a href='/disqus/id-" + data[i].id + "/' class='card-link'>" + data[i].article_name + "</a></li>";
+                mainContainer.appendChild(div);
+            }
+        }
+
+
+  </script>
+</div>
+{% endblock content %}

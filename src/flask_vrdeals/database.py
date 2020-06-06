@@ -37,6 +37,34 @@ def number_of_offers(query):
     return total
 
 
+def get_permanent_offers(query):
+    """returns all permanent offers for the corresponding store"""
+    permanent_offers = []
+    sql = f'''
+    SELECT stores.name, article_name, regular_price, sale_price, img_url, website_article_id, url, category_name.id
+    FROM permanent_offers
+    INNER JOIN articles ON articles.id = permanent_offers.article_id
+    INNER JOIN stores ON stores.id = articles.store_id 
+    INNER JOIN category_name ON category_name.id = articles.category_name_id
+    INNER JOIN categories ON categories.id = category_name.category_id 
+    {query}
+    Order by stores.priority, category_id, date_time DESC
+    '''
+    for offer in sql_query(sql):
+        store_name, article_name, regular_price, sale_price, img_url, website_article_id, url, category_name_id = offer
+        offer_dict = {
+            "store_name": store_name,
+            "article_name": article_name[0:40],
+            "regular_price": regular_price,
+            "sale_price": sale_price,
+            "img_url": img_url,
+            "url": website_article_id,
+            "url_disqus": f"/disqus/id-{category_name_id}"
+        }
+        permanent_offers.append(offer_dict)
+    return permanent_offers
+
+
 def offers_from_store(per_page, offset, query):
     """returns all offers for the corresponding store"""
     offers = []
@@ -94,7 +122,8 @@ def hardware_recommendations():
 def disqus(item_id):
     article_name = ""
     query = f'''WHERE category_name.id = {item_id}'''
-    offers = offers_from_store(20, 0, query)
+    offers = get_permanent_offers(query)
+    offers += offers_from_store(20, 0, query)
     if not offers:
         sql = f"SELECT article_name FROM category_name WHERE id ={item_id}"
         article_name = sql_query(sql)[0][0]
@@ -109,6 +138,7 @@ def disqus_ids():
 
 
 def offers_pagination(page, store):
+    permanent_offers = []
     if store == "Home":
         query = ""
     elif store == "Oculus":
@@ -127,7 +157,10 @@ def offers_pagination(page, store):
     limit = current_app.config['VISIBLE_PAGE_COUNT']
     per_page = current_app.config['PAGE_SIZE']
     data_to_show = data[skip: skip + limit]
+    if page == 1:
+        permanent_offers = get_permanent_offers(query)
     offers = offers_from_store(per_page, skip, query)
+    offers = permanent_offers + offers
     conn_close()
     return offers, pages, data_to_show
 

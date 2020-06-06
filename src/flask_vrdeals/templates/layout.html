@@ -13,7 +13,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 
-  <title>VR Deals - {{ page_navigation }}</title>
+  <title>VR Deals - {{ active_page  }}</title>
 </head>
 <body>
 
@@ -47,7 +47,7 @@
   <div class="mx-auto my-2 order-0 order-md-1 position-relative">
     <a class="mx-auto" href="{{ url_for('index') }}">
       <div class="navbar-collapse collapse w-100 dual-collapse2 order-2 order-md-2">
-        <img src="{{ url_for('static', filename='images/smiley.png') }}" class="rounded-circle" width="90"
+        <img src="{{ url_for('static', filename='images/vrdeals.png') }}" class="rounded-circle" width="90"
              height="auto">
       </div>
     </a>

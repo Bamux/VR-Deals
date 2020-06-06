@@ -33,12 +33,12 @@
                      height="60">
               </div>
               <div class="col-8 my-auto">
-                <h5>
+               <h6>
                   <span class="badge badge-success">{{ offer['sale_price']}}€</span>
                   <span class="badge badge-dark strike">{{ offer['regular_price'] }}€</span>
                   <span class="badge badge-secondary">{{ savings_percent }}%</span><br>
-                  <a href="{{ offer['url'] }}" target="_blank" class="badge badge-info">Zum Angebot</a>
-                </h5>
+                </h6>
+                <a href="{{ offer['url'] }}" target="_blank" class="btn btn-outline-success btn-sm" role="button" aria-pressed="true">Zum Angebot</a>
               </div>
             </div>
           </div>

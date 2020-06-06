@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from web_scraping import sql, upload_github_page, data_sources
 
@@ -84,6 +85,19 @@ def database_interaction(database_update, store_id, offers):
         database_update = True
     sql.conn.commit()
     return database_update
+
+
+def create_json():
+    data = []
+    articles = sql.get_category_name()
+    sql.conn_close()
+    for article_id, article_name in articles:
+        data.append({
+            'id': article_id,
+            'article_name': article_name
+        })
+    with open('flask_vrdeals/static/json/data.json', 'w') as outfile:
+        json.dump(data, outfile, indent=4)
 
 
 def main():

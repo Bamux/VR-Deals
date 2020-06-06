@@ -3,6 +3,20 @@
 {% set store = [] %}
 {% block content %}
 <div class="container">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <div class="search">
+    <form class="navbar-form" role="search" action="{{ url_for('search') }}">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Suche" name="search" id="search">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
   {% if not offers %}
   <div class="row justify-content-center">
     <h5 class="headline">Zurzeit sind keine Angebote vorhanden.</h5>
@@ -33,13 +47,15 @@
                      height="60">
               </div>
               <div class="col-8 my-auto">
-                <h5>
+                <h6>
                   <span class="badge badge-success">{{ offer['sale_price']}}€</span>
                   <span class="badge badge-dark strike">{{ offer['regular_price'] }}€</span>
                   <span class="badge badge-secondary">{{ savings_percent }}%</span><br>
-                  <a href="{{ offer['url_disqus'] }}" class="badge badge-warning">Diskussion</a>
-                  <a href="{{ offer['url'] }}" target="_blank" class="badge badge-info">Zum Angebot</a>
-                </h5>
+                </h6>
+                <a href="{{ offer['url'] }}" target="_blank" class="btn btn-outline-success btn-sm" role="button"
+                   aria-pressed="true">Zum Angebot</a>
+                <a href="{{ offer['url_disqus'] }}" class="btn btn-outline-success btn-sm" role="button"
+                   aria-pressed="true">Diskussion</a>
               </div>
             </div>
           </div>
