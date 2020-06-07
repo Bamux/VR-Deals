@@ -106,10 +106,7 @@ def main():
     for store_id, offers in sources:
         database_update = database_interaction(database_update, store_id, offers)
     if database_update:
+        create_json()
         print("Database has been updated.")
         upload_github_page.main()
     sql.conn_close()
-
-
-if __name__ == "__main__":
-    main()
