@@ -32,12 +32,19 @@ def price_evaluation(app, price):
     return sale_price, regular_price
 
 
-def get_steam_offers(store_id, category_id, counter=0):
+def error_handling(counter):
+    print("An error has occurred during data transmission, the program waits 15 seconds and tries again.")
+    time.sleep(15)
+    counter += 1
+    return counter
+
+
+def get_steam_offers(store_id, category_id):
     """Returns the offers from the steam store."""
     infinite_scrolling = 0
     offers = []
-    blacklist = [14973]  # apps that steam mistakenly displays as VR apps
-    json_data = {}
+    blacklist = [14973]  # apps that steam mistakenly displays as VR apps{}
+    counter = 0
     while True:
         url = f'https://store.steampowered.com/search/results/?query&star' \
               f't={infinite_scrolling}' \
@@ -46,11 +53,9 @@ def get_steam_offers(store_id, category_id, counter=0):
             json_data = json.loads(requests.get(url).text)
         except Exception as e:
             print(e)
-            if counter == 5:
+            if error_handling(counter) == 5:
                 break
-            time.sleep(2)
-            counter += 1
-            get_steam_offers(store_id, category_id, counter)
+            continue
         if json_data["results_html"] == "\r\n<!-- List Items -->\r\n<!-- End List Items -->\r\n":
             break
         soup = BeautifulSoup(json_data["results_html"], 'lxml')
@@ -82,6 +87,9 @@ def get_steam_offers(store_id, category_id, counter=0):
                     offer.print_offer()
                 except Exception as e:
                     print(e)
+                    if error_handling(counter) == 5:
+                        break
+                    continue
         infinite_scrolling += 50
     return offers
 
