@@ -70,22 +70,8 @@ def add_offer():
     return offer_class
 
 
-def get_offers():
-    offers = []
-    html = requests.get(offer["url"]).text
-    soup = BeautifulSoup(html, 'lxml')
-    soup = soup.find_all(offer["soup_find"][0], class_=offer["soup_find"][1])
-    for article in soup:
-        if not check_availability or not get_sale_price(article) or not get_article_name(article):
-            continue
-        if keyword := check_keywords(offer["article_name"]):
-            offer["category_id"], offer["article_name"], offer["regular_price"] = keyword
-            if check_sale_price() and get_website_article_id(article) and get_img_url(article):
-                offers.append(add_offer())
-    return offers
-
-
 def main():
+    offers = []
     offer.update(
         {
             "soup_find": ("div", "article-list-item clearfix"),
@@ -97,7 +83,17 @@ def main():
     offer["store_id"], _, offer["url"] = sql.get_store_id("Netgames")
 
     print("\nNetgames:\n")
-    offers = get_offers()
+
+    html = requests.get(offer["url"]).text
+    soup = BeautifulSoup(html, 'lxml')
+    soup = soup.find_all(offer["soup_find"][0], class_=offer["soup_find"][1])
+    for article in soup:
+        if not check_availability or not get_sale_price(article) or not get_article_name(article):
+            continue
+        if keyword := check_keywords(offer["article_name"]):
+            offer["category_id"], offer["article_name"], offer["regular_price"] = keyword
+            if check_sale_price() and get_website_article_id(article) and get_img_url(article):
+                offers.append(add_offer())
 
     return offer["store_id"], offers
 
