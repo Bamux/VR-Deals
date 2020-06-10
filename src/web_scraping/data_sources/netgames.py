@@ -8,10 +8,10 @@ from web_scraping.data_sources_helper import Article, check_keywords
 
 
 def get_sale_price(article):
-    offer["sale_price"] = article.find(offer["sale_price_find"][0], class_=offer["sale_price_find"][1]).text
-    if offer["sale_price"]:
-        offer["sale_price"] = offer["sale_price"].split("€ ")[1]
-        offer["sale_price"] = Decimal(offer["sale_price"].replace(',', '.'))
+    sale_price = article.find(offer["sale_price_find"][0], class_=offer["sale_price_find"][1]).text
+    if sale_price:
+        sale_price = sale_price.split("€ ")[1]
+        offer["sale_price"] = Decimal(sale_price.replace(',', '.'))
         return True
     return False
 
@@ -23,10 +23,10 @@ def check_sale_price():
 
 
 def get_website_article_id(article):
-    offer["website_article_id"] = article.find('a')
-    offer["website_article_id"] = offer["website_article_id"]['href']
-    if offer["website_article_id"]:
-        offer["website_article_id"] = offer["website_article_id"].split("?")[0]
+    website_article_id = article.find('a')
+    website_article_id = website_article_id['href']
+    if website_article_id:
+        offer["website_article_id"] = website_article_id.split("?")[0]
         return True
     return False
 
