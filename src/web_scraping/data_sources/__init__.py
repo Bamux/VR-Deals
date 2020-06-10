@@ -3,12 +3,12 @@ from web_scraping.data_sources import amazon, humble_bundle, netgames, mediamark
 
 def get_offers():
     offers_list = [
+        steam.main(),
         amazon.main(),
         mediamarkt.main(),
         saturn.main(),
         netgames.main(),
-        humble_bundle.main(),
-        steam.main()
+        humble_bundle.main()
     ]
     offers_list.extend(oculus.main())
     return offers_list
