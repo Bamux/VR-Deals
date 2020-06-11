@@ -24,7 +24,7 @@ def get_oculus_offers(store, category_id):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920x1080")
     driver = webdriver.Chrome(ChromeDriverManager(log_level=0).install(), options=chrome_options)
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(10)
     driver.get(url)
 
     scroll_pause_time = 0.5
