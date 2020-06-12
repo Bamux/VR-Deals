@@ -7,98 +7,81 @@ from web_scraping import sql
 from web_scraping.data_sources_helper import Article, check_keywords
 
 
-def get_sale_price(article):
-    sale_price = article.find(offer["sale_price_find"][0], class_=offer["sale_price_find"][1]).text
+def get_sale_price(article, find):
+    sale_price = article.find(find["sale_price_find"][0], class_=find["sale_price_find"][1]).text
     if sale_price:
         sale_price = sale_price.split("€ ")[1]
-        offer["sale_price"] = Decimal(sale_price.replace(',', '.'))
-        return True
-    return False
-
-
-def check_sale_price():
-    if offer["regular_price"] > offer["sale_price"] > offer["regular_price"] - offer["regular_price"] / 3:
-        return True
-    return False
+        sale_price = Decimal(sale_price.replace(',', '.'))
+    return sale_price
 
 
 def get_website_article_id(article):
     website_article_id = article.find('a')
     website_article_id = website_article_id['href']
     if website_article_id:
-        offer["website_article_id"] = website_article_id.split("?")[0]
-        return True
-    return False
+        website_article_id = website_article_id.split("?")[0]
+    return website_article_id
 
 
-def get_article_name(article):
-    offer["article_name"] = article.find(offer["article_name_find"][0], class_=offer["article_name_find"][1]).text
-    if offer["article_name"]:
-        return True
-    return False
-
-
-def check_availability(article):
-    available = article.find_all(offer["available_find"][0], class_=offer["available_find"][1])[1].text.strip()
+def check_availability(article, find):
+    available = article.find_all(find["available_find"][0], class_=find["available_find"][1])[1].text.strip()
     if available == "auf Lager":
         return True
     return False
 
 
 def get_img_url(article):
-    offer["img_url"] = article.find('img')
-    offer["img_url"] = offer["img_url"].get('src')
-    if offer["img_url"]:
-        offer["img_url"] = offer["img_url"].split("/thumbnail_images/")[1]
-        offer["img_url"] = "https://images.netgam.es/images/product_images/popup_images/" + offer["img_url"]
-        return True
-    return False
-
-
-def add_offer():
-    offer_class = Article(
-        0,
-        offer["store_id"],
-        offer["category_id"],
-        offer["website_article_id"],
-        offer["article_name"],
-        offer["regular_price"],
-        offer["sale_price"],
-        offer["img_url"],
-    )
-    offer_class.print_offer()
-    return offer_class
+    img_url = article.find('img')
+    img_url = img_url.get('src')
+    if img_url:
+        img_url = img_url.split("/thumbnail_images/")[1]
+        img_url = "https://images.netgam.es/images/product_images/popup_images/" + img_url
+    return img_url
 
 
 def main():
     offers = []
-    offer.update(
-        {
-            "soup_find": ("div", "article-list-item clearfix"),
-            "article_name_find": ("a", "product_link"),
-            "sale_price_find": ("span", "gm_price"),
-            "available_find": ("dd", "ai_shipping_time")
-        }
-    )
-    offer["store_id"], _, offer["url"] = sql.get_store_id("Netgames")
+    find = {
+        "soup_find": ("div", "article-list-item clearfix"),
+        "article_name_find": ("a", "product_link"),
+        "sale_price_find": ("span", "gm_price"),
+        "available_find": ("dd", "ai_shipping_time")
+    }
+    store_id, _, url = sql.get_store_id("Netgames")
 
     print("\nNetgames:\n")
 
-    html = requests.get(offer["url"]).text
+    html = requests.get(url).text
     soup = BeautifulSoup(html, 'lxml')
-    soup = soup.find_all(offer["soup_find"][0], class_=offer["soup_find"][1])
+    soup = soup.find_all(find["soup_find"][0], class_=find["soup_find"][1])
     for article in soup:
-        if not check_availability or not get_sale_price(article) or not get_article_name(article):
+        available = check_availability(article, find)
+        if not available:
             continue
-        if keyword := check_keywords(offer["article_name"]):
-            offer["category_id"], offer["article_name"], offer["regular_price"] = keyword
-            if check_sale_price() and get_website_article_id(article) and get_img_url(article):
-                offers.append(add_offer())
+        article_name = article.find(find["article_name_find"][0], class_=find["article_name_find"][1]).text
+        keyword = check_keywords(article_name)
+        if not keyword:
+            continue
+        sale_price = get_sale_price(article, find)
+        category_id, article_name, regular_price = keyword
+        if regular_price > sale_price > regular_price - regular_price / 3:
+            website_article_id = get_website_article_id(article)
+            img_url = get_img_url(article)
+            offer = Article(
+                0,
+                store_id,
+                category_id,
+                website_article_id,
+                article_name,
+                regular_price,
+                sale_price,
+                img_url,
+            )
+            offer.print_offer()
+            offers.append(offer)
 
-    return offer["store_id"], offers
+    return store_id, offers
 
-
-offer = {}
 
 if __name__ == "__main__":
     main()
