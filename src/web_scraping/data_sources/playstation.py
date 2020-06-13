@@ -61,7 +61,7 @@ def main():
         "img_url_find": ("div", "product-image__img product-image__img--main"),
         "article_url": "https://store.playstation.com"
     }
-    store_id, _, url = sql.get_store_id("Sony")
+    store_id, _, url = sql.get_store_id("PlayStation")
     category_id = sql.get_category_id("software")[0]
 
     print("\nSony:\n")
