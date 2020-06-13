@@ -27,6 +27,12 @@ def oculus(page):
     return create_website(page, "Oculus")
 
 
+@app.route("/playstation/", defaults={'page': 1})
+@app.route("/playstation/page-<int:page>/")
+def playstation(page):
+    return create_website(page, "PlayStation")
+
+
 @app.route("/steam/", defaults={'page': 1})
 @app.route("/steam/page-<int:page>/")
 def steam(page):

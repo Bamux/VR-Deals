@@ -59,11 +59,11 @@ def main():
         if not available:
             continue
         article_name = article.find(find["article_name_find"][0], class_=find["article_name_find"][1]).text
-        keyword = check_keywords(article_name)
-        if not keyword:
+        vr_article = check_keywords(article_name)
+        if not vr_article:
             continue
         sale_price = get_sale_price(article, find)
-        category_id, article_name, regular_price = keyword
+        category_id, article_name, regular_price = vr_article
         if regular_price > sale_price > regular_price - regular_price / 3:
             website_article_id = get_website_article_id(article)
             img_url = get_img_url(article)

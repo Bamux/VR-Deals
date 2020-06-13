@@ -12,7 +12,7 @@ def get_amazon_offers(store_id):
     article_name_list = []
     urls = [
         "https://www.amazon.de/s?k=virtual+reality+brille",
-        "https://www.amazon.de/s?k=oculus+vr+Zubeh%C3%B6r"
+        "https://www.amazon.de/s?k=kiwi+vr+zubehör"
     ]
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "

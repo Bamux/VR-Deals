@@ -13,7 +13,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 
-  <title>VR Deals - {{ active_page  }}</title>
+  <title>VR Deals - {{ active_page }}</title>
 </head>
 <body>
 
@@ -31,11 +31,10 @@
           Games
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item {{ 'active' if active_page == 'Humble Bundle' else '' }}"
-             href="{{ url_for('humble') }}">Humble Bundle</a>
+          <a class="dropdown-item {{ 'active' if active_page == 'Humble Bundle' else '' }}" href="{{ url_for('humble') }}">Humble Bundle</a>
           <a class="dropdown-item {{ 'active' if active_page == 'Oculus' else '' }}" href="{{ url_for('oculus') }}">Oculus</a>
-          <a class="dropdown-item {{ 'active' if active_page == 'Steam' else '' }}"
-             href="{{ url_for('steam') }}">Steam</a>
+          <a class="dropdown-item {{ 'active' if active_page == 'PlayStation' else '' }}" href="{{ url_for('playstation') }}">PlayStation</a>
+          <a class="dropdown-item {{ 'active' if active_page == 'Steam' else '' }}" href="{{ url_for('steam') }}">Steam</a>
         </div>
       </li>
       <div class="dropdown-divider"></div>
@@ -77,8 +76,8 @@
 
 
 <!-- Normal Content Zone -->
-  {% block content %}
-  {% endblock %}
+{% block content %}
+{% endblock %}
 
 
 <!-- Optional JavaScript -->

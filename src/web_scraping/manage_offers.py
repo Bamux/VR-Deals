@@ -1,5 +1,6 @@
 import datetime
 import json
+from pathlib import Path
 
 from web_scraping import sql, upload_github_page, data_sources
 
@@ -91,12 +92,17 @@ def create_json():
     data = []
     articles = sql.get_category_name()
     sql.conn_close()
+    if __name__ == '__main__':
+        path = Path.cwd().parent
+    else:
+        path = Path.cwd()
+    json_path = path.joinpath("flask_vrdeals", "static", "json", "data.json")
     for article_id, article_name in articles:
         data.append({
             'id': article_id,
             'article_name': article_name
         })
-    with open('flask_vrdeals/static/json/data.json', 'w') as outfile:
+    with json_path.open(mode='w') as outfile:
         json.dump(data, outfile, indent=4)
 
 
@@ -110,3 +116,7 @@ def main():
         print("Database has been updated.")
         upload_github_page.main()
     sql.conn_close()
+
+
+if __name__ == '__main__':
+    main()
