@@ -1,9 +1,9 @@
-from web_scraping.data_sources import amazon, humble_bundle, netgames, mediamarkt, oculus, saturn, sony, steam
+from web_scraping.data_sources import amazon, humble_bundle, netgames, mediamarkt, oculus, saturn, playstation, steam
 
 
 def get_offers():
     offers_list = [
-        sony.main(),
+        playstation.main(),
         steam.main(),
         amazon.main(),
         mediamarkt.main(),
