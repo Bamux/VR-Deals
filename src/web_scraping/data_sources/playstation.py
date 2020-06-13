@@ -64,7 +64,7 @@ def main():
     store_id, _, url = sql.get_store_id("PlayStation")
     category_id = sql.get_category_id("software")[0]
 
-    print("\nSony:\n")
+    print("\nPlayStation:\n")
 
     html = requests.get(url).text
     soup = BeautifulSoup(html, 'lxml')
