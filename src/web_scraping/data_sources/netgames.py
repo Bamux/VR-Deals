@@ -43,7 +43,7 @@ def get_img_url(article):
 
 def main():
     offers = []
-    find = {
+    store = {
         "soup_find": ("div", "article-list-item clearfix"),
         "article_name_find": ("a", "product_link"),
         "sale_price_find": ("span", "gm_price"),
@@ -55,16 +55,16 @@ def main():
 
     html = requests.get(url).text
     soup = BeautifulSoup(html, 'lxml')
-    soup = soup.find_all(find["soup_find"][0], class_=find["soup_find"][1])
+    soup = soup.find_all(store["soup_find"][0], class_=store["soup_find"][1])
     for article in soup:
-        available = check_availability(article, find)
+        available = check_availability(article, store)
         if not available:
             continue
-        article_name = article.find(find["article_name_find"][0], class_=find["article_name_find"][1]).text
+        article_name = article.find(store["article_name_find"][0], class_=store["article_name_find"][1]).text
         vr_article = check_keywords(article_name)
         if not vr_article:
             continue
-        sale_price = get_sale_price(article, find)
+        sale_price = get_sale_price(article, store)
         category_id, article_name, regular_price = vr_article
         if regular_price > sale_price > regular_price - regular_price / 3:
             website_article_id = get_website_article_id(article)
