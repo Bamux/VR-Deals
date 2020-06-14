@@ -26,6 +26,12 @@ def url_with_pagination(url, page):
     return url
 
 
+def get_article_name(article, find):
+    article_name = article.find(find["article_name_find"][0], class_=find["article_name_find"][1])
+    article_name = article_name.text.strip()
+    return article_name
+
+
 def get_decimal_price(price):
     price = price.split("€")[1]
     price = Decimal(price.replace(',', '.'))
@@ -65,6 +71,9 @@ def get_img_url(article, find):
 def main():
     offers = []
     find = {
+        "store": "PLayStation",
+        "store_url": "https://store.playstation.com/de-de/grid/STORE-MSF75508-PLAYSTATIONVRHUB/",
+        "category": "software",
         "articles_find": ("div", "__desktop-presentation__grid-cell__base__0ba9f ember-view"),
         "max_page_find": ("div", "paginator-control__container"),
         "article_name_find": ("div", "grid-cell__title"),
@@ -73,10 +82,11 @@ def main():
         "img_url_find": ("div", "product-image__img product-image__img--main"),
         "article_url": "https://store.playstation.com"
     }
-    store_id, _, url = sql.get_store_id("PlayStation")
+    store_id = sql.get_store_id(find["store"])[0]
     category_id = sql.get_category_id("software")[0]
 
-    print("\nPlayStation:\n")
+    print(f'\n{find["store"]}:\n')
+    url = find["store_url"]
     html = get_html(url)
     num_pages = get_num_pages(html, find)
     for page in range(num_pages):
@@ -86,21 +96,12 @@ def main():
             regular_price = get_regular_price(article, find)
             if not regular_price:
                 continue
-            article_name = article.find(find["article_name_find"][0], class_=find["article_name_find"][1])
-            article_name = article_name.text.strip()
+            article_name = get_article_name(article, find)
             sale_price = get_sale_price(article, find)
             website_article_id = get_website_article_id(article, find)
             img_url = get_img_url(article, find)
-            offer = Article(
-                0,
-                store_id,
-                category_id,
-                website_article_id,
-                article_name,
-                regular_price,
-                sale_price,
-                img_url,
-            )
+            offer = Article(0, store_id, category_id, website_article_id, article_name,
+                            regular_price, sale_price, img_url)
             offer.print_offer()
             offers.append(offer)
     return store_id, offers
