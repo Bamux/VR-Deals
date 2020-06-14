@@ -13,17 +13,17 @@ def get_html(url):
     return html
 
 
-def pagination(url, page):
-    if page != 0:
-        url = f"{url}{page + 1}"
-    return url
-
-
 def get_num_pages(soup, find):
     max_page = soup.find(find["max_page_find"][0], class_=find["max_page_find"][1])
     max_page = max_page.find_all('a')[-1]['href']
     max_page = int(max_page.split("/")[-1])
     return max_page
+
+
+def url_with_pagination(url, page):
+    if page != 0:
+        url = f"{url}{page + 1}"
+    return url
 
 
 def get_decimal_price(price):
@@ -80,7 +80,7 @@ def main():
     html = get_html(url)
     num_pages = get_num_pages(html, find)
     for page in range(num_pages):
-        html = get_html(pagination(url, page))
+        html = get_html(url_with_pagination(url, page))
         articles = html.find_all(find["articles_find"][0], class_=find["articles_find"][1])
         for article in articles:
             regular_price = get_regular_price(article, find)
