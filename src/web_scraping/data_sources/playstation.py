@@ -20,12 +20,6 @@ def get_num_pages(soup, store):
     return max_page
 
 
-def url_with_pagination(url, page):
-    if page != 0:
-        url = f"{url}{page + 1}"
-    return url
-
-
 def get_article_name(article, store):
     article_name = article.find(store["article_name_find"][0], class_=store["article_name_find"][1])
     article_name = article_name.text.strip()
@@ -90,7 +84,9 @@ def main():
     html = get_html(url)
     num_pages = get_num_pages(html, store)
     for page in range(num_pages):
-        html = get_html(url_with_pagination(url, page))
+        if page > 0:
+            page_url = f"{url}{page + 1}"
+            html = get_html(page_url)
         articles = html.find_all(store["articles_find"][0], class_=store["articles_find"][1])
         for article in articles:
             regular_price = get_regular_price(article, store)

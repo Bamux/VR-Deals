@@ -24,9 +24,11 @@ def get_website_article_id(article):
 
 
 def check_availability(article, find):
-    available = article.find_all(find["available_find"][0], class_=find["available_find"][1])[1].text.strip()
-    if available == "auf Lager":
-        return True
+    available = article.find_all(find["available_find"][0], class_=find["available_find"][1])
+    if available:
+        available = available[1].text.strip()
+        if available == "auf Lager":
+            return True
     return False
 
 
