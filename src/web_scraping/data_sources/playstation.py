@@ -7,6 +7,18 @@ from web_scraping import sql
 from web_scraping.data_sources_helper import Article
 
 
+def get_html(url):
+    html = requests.get(url).text
+    html = BeautifulSoup(html, 'lxml')
+    return html
+
+
+def pagination(url, page):
+    if page != 0:
+        url = f"{url}{page + 1}"
+    return url
+
+
 def get_num_pages(soup, find):
     max_page = soup.find(find["max_page_find"][0], class_=find["max_page_find"][1])
     max_page = max_page.find_all('a')[-1]['href']
@@ -53,7 +65,7 @@ def get_img_url(article, find):
 def main():
     offers = []
     find = {
-        "soup_find": ("div", "__desktop-presentation__grid-cell__base__0ba9f ember-view"),
+        "articles_find": ("div", "__desktop-presentation__grid-cell__base__0ba9f ember-view"),
         "max_page_find": ("div", "paginator-control__container"),
         "article_name_find": ("div", "grid-cell__title"),
         "regular_price_find": ("span", "price-display__strikethrough"),
@@ -65,17 +77,12 @@ def main():
     category_id = sql.get_category_id("software")[0]
 
     print("\nPlayStation:\n")
-
-    html = requests.get(url).text
-    soup = BeautifulSoup(html, 'lxml')
-    num_pages = get_num_pages(soup, find)
+    html = get_html(url)
+    num_pages = get_num_pages(html, find)
     for page in range(num_pages):
-        if page != 0:
-            new_url = f"{url}{page + 1}"
-            html = requests.get(new_url).text
-            soup = BeautifulSoup(html, 'lxml')
-        soup = soup.find_all(find["soup_find"][0], class_=find["soup_find"][1])
-        for article in soup:
+        html = get_html(pagination(url, page))
+        articles = html.find_all(find["articles_find"][0], class_=find["articles_find"][1])
+        for article in articles:
             regular_price = get_regular_price(article, find)
             if not regular_price:
                 continue
