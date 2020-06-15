@@ -108,7 +108,7 @@ def create_json():
 
 def main():
     database_update = False
-    sources = data_sources.get_offers()
+    sources = data_sources.get_all_offers()
     for store_id, offers in sources:
         database_update = database_interaction(database_update, store_id, offers)
     if database_update:
