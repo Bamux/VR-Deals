@@ -8,7 +8,16 @@ from web_scraping.data_sources_helper import Article
 
 
 def get_html(url):
-    html = requests.get(url).text
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.3",
+        "Accept-Language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                  "image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Connection": "keep-alive",
+        "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.3"
+    }
+    html = requests.get(url, headers=headers).text
     html = BeautifulSoup(html, 'lxml')
     return html
 
@@ -68,24 +77,25 @@ def main(store):
     category_id = sql.get_category_id(store["category"])[0]
 
     print(f'\n{store["name"]}:\n')
-    url = store["url"]
-    html = get_html(url)
-    num_pages = get_num_pages(html, store)
-    for page in range(num_pages):
-        if page > 0:
-            page_url = f"{url}{page + 1}"
-            html = get_html(page_url)
-        articles = html.find_all(store["articles_find"][0], class_=store["articles_find"][1])
-        for article in articles:
-            regular_price = get_regular_price(article, store)
-            if not regular_price:
-                continue
-            article_name = get_article_name(article, store)
-            sale_price = get_sale_price(article, store)
-            website_article_id = get_website_article_id(article, store)
-            img_url = get_img_url(article, store)
-            offer = Article(0, store_id, category_id, website_article_id, article_name,
-                            regular_price, sale_price, img_url)
-            offer.print_offer()
-            offers.append(offer)
+    urls = store["urls"]
+    for url in urls:
+        html = get_html(url)
+        num_pages = get_num_pages(html, store)
+        for page in range(num_pages):
+            if page > 0:
+                page_url = f"{url}{page + 1}"
+                html = get_html(page_url)
+            articles = html.find_all(store["articles_find"][0], class_=store["articles_find"][1])
+            for article in articles:
+                regular_price = get_regular_price(article, store)
+                if not regular_price:
+                    continue
+                article_name = get_article_name(article, store)
+                sale_price = get_sale_price(article, store)
+                website_article_id = get_website_article_id(article, store)
+                img_url = get_img_url(article, store)
+                offer = Article(0, store_id, category_id, website_article_id, article_name,
+                                regular_price, sale_price, img_url)
+                offer.print_offer()
+                offers.append(offer)
     return store_id, offers

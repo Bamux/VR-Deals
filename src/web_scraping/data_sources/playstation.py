@@ -4,7 +4,7 @@ from web_scraping.data_sources import get_offers
 def main():
     store = {
         "name": "PLayStation",
-        "url": "https://store.playstation.com/de-de/grid/STORE-MSF75508-PLAYSTATIONVRHUB/",
+        "urls": ("https://store.playstation.com/de-de/grid/STORE-MSF75508-PLAYSTATIONVRHUB/",),
         "category": "software",
         "articles_find": ("div", "__desktop-presentation__grid-cell__base__0ba9f ember-view"),
         "max_page_find": ("div", "paginator-control__container"),

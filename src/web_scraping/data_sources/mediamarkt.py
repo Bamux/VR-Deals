@@ -20,7 +20,10 @@ def get_offers(store_id):
         soup = soup.find_all('div', class_='ProductFlexBox__StyledListItem-sc-1uv4iye-0 dxdiRp')
         for article in soup:
             sale_price = article.find_all('div', class_='ToolTipstyled__StyledTooltipWrapper-y9fa2q-0 cvdMtg')
-            article_name = article.find('p', class_='Typostyled__StyledInfoTypo-sc-5k7scz-0 fAKyV').text
+            article_name = article.find('p', class_='Typostyled__StyledInfoTypo-sc-5k7scz-0 fAKyV')
+            if not article_name:
+                continue
+            article_name = article_name.text
             keyword = check_keywords(article_name)
             if sale_price and keyword:
                 if len(sale_price) > 1:
