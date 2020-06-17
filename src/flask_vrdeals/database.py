@@ -117,7 +117,7 @@ def disqus_ids():
 
 
 def offers_pagination(page, store):
-    if store == "Home":
+    if store == "Alle Stores":
         query = ""
     elif store == "Oculus":
         query = f'''WHERE name LIKE "{store}%"'''

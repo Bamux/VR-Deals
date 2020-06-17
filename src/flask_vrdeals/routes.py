@@ -12,7 +12,7 @@ def create_website(page, page_navigation):
 @app.route("/", defaults={'page': 1})
 @app.route("/page-<int:page>/")
 def index(page):
-    return create_website(page, "Home")
+    return create_website(page, "Alle Stores")
 
 
 @app.route("/humble/", defaults={'page': 1})
@@ -67,8 +67,8 @@ def disqus(item_id):
     article_name, offers = database.disqus(item_id)
     return render_template('disqus.html', item_id=item_id, page_navigation="Disqus",
                            article_name=article_name, offers=offers)
-
-
+#
+#
 @app.route("/search/")
 def search():
     return render_template('search.html', page_navigation="Search")
