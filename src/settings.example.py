@@ -8,6 +8,9 @@ database = "vr_deals"
 
 
 # Optional Settings
+# Affiliate Links
+amazon = ""
+
 # if you want to upload the generated html files to github pages enter your access token and repository here
 github_token = ""
 github_repository = ""
