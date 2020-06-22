@@ -117,6 +117,10 @@ def disqus_ids():
 
 
 def offers_pagination(page, store):
+    allowed_search_terms = ("Headsets", "Humble Bundle", "Oculus", "Oculus Go",
+                            "Oculus Quest", "Oculus Rift", "PlayStation", "Steam", "Zubehör")
+    if store not in allowed_search_terms:
+        store = "Alle Stores"
     if store == "Alle Stores":
         query = ""
     elif store == "Oculus":
