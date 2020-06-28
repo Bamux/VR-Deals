@@ -70,7 +70,7 @@ def offers_from_store(per_page, offset, query):
             "sale_price": sale_price,
             "img_url": img_url,
             "url": website_article_id,
-            "url_disqus": f"/disqus/id-{category_name_id}"
+            "url_disqus": category_name_id
         }
         if store_name == "Oculus Quest" or store_name == "Oculus Rift":
             for name in cross_buy:

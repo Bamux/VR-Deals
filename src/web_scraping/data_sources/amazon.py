@@ -49,7 +49,7 @@ def get_amazon_offers(store_id):
                     category_id, article_name, regular_price = keyword
                     sale_price = Decimal(sale_price.text.replace(',', '.'))
                     if regular_price > sale_price > regular_price - regular_price / 3 and \
-                            article_name not in article_name_list:
+                            regular_price - sale_price > 1 and article_name not in article_name_list:
                         website_article_id = article.find('a', class_='a-link-normal a-text-normal')
                         website_article_id = website_article_id['href'].split("ref=")[0]
                         # print(website_article_id)

@@ -10,6 +10,7 @@ class Pager:
         self.page_size = current_app.config['PAGE_SIZE']
         self.pages = list()
         self.last_page = int(math.ceil(self.count / self.page_size))
+        # self.last_page = int(self.count / self.page_size)
 
     def get_pages(self):
         if self.last_page > 1:

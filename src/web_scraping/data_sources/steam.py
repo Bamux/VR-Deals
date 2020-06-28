@@ -11,10 +11,13 @@ import time
 
 
 def decimal_price(price):
-    price = price.strip().split("€")[0]
-    price = price.replace(',', '.')
-    price = price.replace('--', '00')
-    price = Decimal(price)
+    if price == "Free":
+        price = Decimal(0.00)
+    else:
+        price = price.strip().split("€")[0]
+        price = price.replace(',', '.')
+        price = price.replace('--', '00')
+        price = Decimal(price)
     return price
 
 

@@ -31,13 +31,13 @@
   <div class="card mb-2 row">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <a href="{{ offer['url_disqus'] }}">
+        <a href="{{ url_for('disqus', item_id=offer['url_disqus']) }}">
           <img src="{{ offer['img_url'] }}" class="card-img" alt="{{ offer['article_name'] }}">
         </a>
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title"><a href="{{ offer['url_disqus'] }}" class="card-link">{{
+          <h5 class="card-title"><a href="{{ url_for('disqus', item_id=offer['url_disqus']) }}" class="card-link">{{
             offer['article_name']
             }}</a></h5>
           <div class="card-text">
@@ -55,7 +55,7 @@
                 </h6>
                 <a href="{{ offer['url'] }}" target="_blank" class="btn btn-outline-success btn-sm" role="button"
                    aria-pressed="true">Zum Angebot</a>
-                <a href="{{ offer['url_disqus'] }}" class="btn btn-outline-success btn-sm" role="button"
+                <a href="{{ url_for('disqus', item_id=offer['url_disqus']) }}" class="btn btn-outline-success btn-sm" role="button"
                    aria-pressed="true">Diskussion</a>
               </div>
             </div>
