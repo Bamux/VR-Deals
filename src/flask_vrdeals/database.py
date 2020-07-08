@@ -36,20 +36,21 @@ def number_of_offers(query):
     total = sql_query(sql)[0][0]
     return total
 
+    # SELECT stores.name, article_name, regular_price, sale_price, img_url, website_article_id,
+    # category_name.id, priority, category_id, date_time FROM permanent_offers
+    # INNER JOIN articles ON articles.id = permanent_offers.article_id
+    # INNER JOIN stores ON stores.id = articles.store_id
+    # INNER JOIN category_name ON category_name.id = articles.category_name_id
+    # INNER JOIN categories ON categories.id = category_name.category_id
+    # {query}
+    # UNION
+
 
 def offers_from_store(per_page, offset, query):
     """returns all offers for the corresponding store"""
     offers = []
     offers_cross_buy = []
     sql = f'''
-    SELECT stores.name, article_name, regular_price, sale_price, img_url, website_article_id, 
-    category_name.id, priority, category_id, date_time FROM permanent_offers
-    INNER JOIN articles ON articles.id = permanent_offers.article_id
-    INNER JOIN stores ON stores.id = articles.store_id 
-    INNER JOIN category_name ON category_name.id = articles.category_name_id
-    INNER JOIN categories ON categories.id = category_name.category_id 
-    {query}
-    UNION
     SELECT stores.name, article_name, regular_price, sale_price, img_url, website_article_id, 
     category_name.id, priority, category_id, date_time FROM current_offers
     INNER JOIN articles ON articles.id = current_offers.article_id

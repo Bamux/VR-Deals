@@ -6,7 +6,7 @@ def get_all_offers():
         steam.main(),
         amazon.main(),
         mediamarkt.main(),
-        saturn.main(),
+        # saturn.main(),
         netgames.main(),
         humble_bundle.main(),
         playstation.main(),

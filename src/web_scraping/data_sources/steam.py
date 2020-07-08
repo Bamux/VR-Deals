@@ -56,6 +56,8 @@ def get_steam_offers(store_id, category_id):
             json_data = json.loads(requests.get(url).text)
         except Exception as e:
             print(e)
+            print(url)
+            print(counter)
             if error_handling(counter) == 5:
                 break
             continue
